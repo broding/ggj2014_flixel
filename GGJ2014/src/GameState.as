@@ -7,9 +7,11 @@ package
 	 */
 	public class GameState extends FlxState
 	{
+		public static var tileSize:int = 64;
+		
 		[Embed(source = '../assets/TELEPORTER MAN Tiles.png')]private var tiles_img:Class;
 		[Embed(source = '../assets/CSV_Level_1.txt', mimeType = 'application/octet-stream')]private var lvl_1:Class;
-		private var tilemap:FlxTilemap;
+		private var tilemap:TileMap;
 		
 		private var _player:Player;
 		
@@ -19,9 +21,10 @@ package
 		}
 		override public function create():void 
 		{
-			tilemap = new FlxTilemap();
-			add(tilemap);
-			tilemap.loadMap(new lvl_1, tiles_img, 10, 10);
+			tilemap = new TileMap([lvl_1]);
+			add(tilemap.currentLayer);
+			/*add(tilemap);
+			tilemap.loadMap(new lvl_1, tiles_img, 10, 10);*/
 			
 			_player = new Player(200, 200);
 			add(_player);

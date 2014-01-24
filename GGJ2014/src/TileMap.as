@@ -6,27 +6,30 @@ package
 	 * @author Nerdy Boyz
 	 */
 	 
-	public class TileMap 
+	public class TileMap extends FlxObject
 	{
+		[Embed(source = '../assets/TELEPORTER MAN Tiles.png')]private var tiles_img:Class;
 		private var layers:Array = new Array();
-		private var colorCount:int;
-		private var currentLayer:TileMap;
+		
+		public var currentLayer:FlxTilemap;
 		
 		public function TileMap(tilemaps:Array) 
 		{
 			if (tilemaps.length <= 0) {
-				trace("empty tilemap array!");
+				trace("empty layer array!");
 				return;
 			}
+			
 			for (var i:int = 0; i < tilemaps.length; i++) {
-				layers.push(new TileMap());
-				//layers[i].loadMap()
+				layers.push(new FlxTilemap());
+				FlxG.state.add(layers[i]);
+				layers[i].loadMap(new tilemaps[i], tiles_img, GameState.tileSize, GameState.tileSize);
 			}
-			currentLayer = tilemaps[0];
+			currentLayer = layers[i];
 		}
 		
-		public function SwitchToLayer(layer:int) {
+		/*public function SwitchToLayer(layer:int) {
 			currentLayer = layers[layer];
-		}
+		}*/
 	}
 }
