@@ -16,9 +16,8 @@ package
 		}
 		public function LoadLevel():void {
 			tilemap = new TileMap(tilemaps);
-			FlxG.state.add(tilemap);
 		}
-		public function KillLevel():void {
+		public function UnloadLevel():void {
 			tilemap.kill();
 		}
 	}

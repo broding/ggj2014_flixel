@@ -31,5 +31,12 @@ package
 		/*public function SwitchToLayer(layer:int) {
 			currentLayer = layers[layer];
 		}*/
+		override public function kill():void 
+		{
+			for (var i:int = 0; i < tilemaps.length; i++) {
+				layers[i].kill();
+			}
+			super.kill();
+		}
 	}
 }
