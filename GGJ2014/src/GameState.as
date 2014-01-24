@@ -22,7 +22,7 @@ package
 		override public function create():void 
 		{
 			tilemap = new Level();
-			tilemap.LoadLevelData([lvl_1]);
+			//tilemap.LoadLevelData();
 			
 			_player = new Player(200, 200);
 			add(_player);

@@ -1,6 +1,7 @@
 package  
 {
 	import org.flixel.*;
+	import LevelData;
 	/**
 	 * ...
 	 * @author Nerdy Boyz
@@ -17,15 +18,15 @@ package
 		{
 		}
 		
-		public function LoadLevelData(tilemaps:Array):void {
-			if (tilemaps.length <= 0) {
+		public function LoadLevelData(lvlData:LevelData):void {
+			if (lvlData.layers.length <= 0) {
 				trace("empty layer array!");
 				return;
 			}
 			
-			for (var i:int = 0; i < tilemaps.length; i++) {
+			for (var i:int = 0; i < lvlData.layers.length; i++) {
 				layers.push(new FlxTilemap());
-				layers[i].loadMap(new tilemaps[i], tiles_img, GameState.tileSize, GameState.tileSize);
+				layers[i].loadMap(lvlData.layers[i], tiles_img, GameState.tileSize, GameState.tileSize);
 			}
 			currentLayer = layers[0];
 			FlxG.state.add(currentLayer);
@@ -45,9 +46,9 @@ package
 		
 		override public function kill():void 
 		{
-			/*for (var i:int = 0; i < tilemaps.length; i++) {
+			for (var i:int = 0; i < layers.length; i++) {
 				layers[i].kill();
-			}*/
+			}
 			super.kill();
 		}
 	}
