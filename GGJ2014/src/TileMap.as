@@ -22,10 +22,10 @@ package
 			
 			for (var i:int = 0; i < tilemaps.length; i++) {
 				layers.push(new FlxTilemap());
-				FlxG.state.add(layers[i]);
 				layers[i].loadMap(new tilemaps[i], tiles_img, GameState.tileSize, GameState.tileSize);
 			}
-			currentLayer = layers[i];
+			currentLayer = layers[0];
+			FlxG.state.add(currentLayer);
 		}
 		
 		/*public function SwitchToLayer(layer:int) {
