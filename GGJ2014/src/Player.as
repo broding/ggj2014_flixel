@@ -25,7 +25,9 @@ package
 		{
 			super(X, Y);
 			_lastIdlePosition = new Point(X, Y);
-			this.loadGraphic(ImgPlayer, false, false, 128, 64);
+			this.loadGraphic(ImgPlayer, false, false, 64, 64);
+			addAnimation("normal", [1]);
+			play("normal");
 		}
 		
 		override public function update():void
