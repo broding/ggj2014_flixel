@@ -13,8 +13,11 @@ package
 		
 		public var currentLayer:FlxTilemap;
 		
-		public function TileMap(tilemaps:Array) 
+		public function TileMap() 
 		{
+		}
+		
+		public function LoadLevelData(tilemaps:Array) {
 			if (tilemaps.length <= 0) {
 				trace("empty layer array!");
 				return;
@@ -28,8 +31,15 @@ package
 			FlxG.state.add(currentLayer);
 		}
 		
-		/*public function SwitchToLayer(layer:int) {
+		public function UnloadLevel() {
+			
+		}
+		
+		public function SwitchToLayer(layer:int) {
+			if (layer < 0 && layer >= layers.length) {
+				return("this layer does not exist");
+			}
 			currentLayer = layers[layer];
-		}*/
+		}
 	}
 }
