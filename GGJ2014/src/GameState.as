@@ -7,10 +7,20 @@ package
 	 */
 	public class GameState extends FlxState
 	{
-		
+		[Embed(source = '../assets/TELEPORTER MAN Tiles.png')]private var tiles_img:Class;
+		[Embed(source = '../assets/CSV_Level_1.txt', mimeType = 'application/octet-stream')]private var lvl_1:Class;
+		private var tilemap:FlxTilemap;
 		public function GameState() 
 		{
+			
 			super();
+		}
+		override public function create():void 
+		{
+			tilemap = new FlxTilemap();
+			add(tilemap);
+			tilemap.loadMap(new lvl_1, tiles_img, 10, 10);
+			super.create();
 		}
 		
 	}
