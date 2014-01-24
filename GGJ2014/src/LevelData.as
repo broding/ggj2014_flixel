@@ -6,10 +6,10 @@ package
 		private var _layers:Vector.<String>;
 		private var _name:String;
 		
-		public function LevelData(id:uint, layers:Vector.<String>, name:String)
+		public function LevelData(id:uint, name:String)
 		{
 			_id = id;
-			_layers = layers;
+			_layers = new Vector.<String>();
 			_name = name;
 		}
 
