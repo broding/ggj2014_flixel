@@ -21,8 +21,6 @@ package
 		}
 		override public function create():void 
 		{
-			LevelDataManager.LoadLevelDataList();
-			LevelDataManager.TraceLevelData();
 			tilemap = new Level();
 			//tilemap.LoadLevelData();
 			
