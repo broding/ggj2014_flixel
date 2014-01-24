@@ -10,8 +10,8 @@ package
 	public class Level extends FlxObject
 	{
 		[Embed(source = '../assets/TELEPORTER MAN Tiles.png')]private var tiles_img:Class;
-		[Embed(source = "../assets/lvl1/1.txt", mimeType = 'application/octet-stream')] private var ding1:Class;
-		[Embed(source = "../assets/lvl1/2.txt", mimeType = 'application/octet-stream')] private var ding2:Class;
+		[Embed(source = "../assets/levels/1/1.txt", mimeType = 'application/octet-stream')] private var ding1:Class;
+		[Embed(source = "../assets/levels/1/2.txt", mimeType = 'application/octet-stream')] private var ding2:Class;
 		
 		public var currentLayer:int = 0;
 		
@@ -51,9 +51,9 @@ package
 				var t2:int = layers[1].getTileByIndex(i2);
 				if (t2 == 4) {
 					layers[1].setTileByIndex(i2, 0);
-					var switch1:Switch = new Switch(128, 0);
-					FlxG.state.add(switch1);
-					group1.add(switch1);
+					var switch2:Switch = new Switch(128, 0);
+					FlxG.state.add(switch2);
+					group1.add(switch2);
 				}
 			}
 			
