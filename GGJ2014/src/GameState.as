@@ -26,7 +26,7 @@ package
 			tilemap = new Level();
 			//tilemap.LoadLevelData();
 			
-			_player = new Player(200, 200);
+			_player = new Player(64, 64);
 			add(_player);
 			super.create();
 		}
