@@ -22,9 +22,6 @@ package
 		override public function create():void 
 		{
 			tilemap = new TileMap([lvl_1]);
-			add(tilemap.currentLayer);
-			/*add(tilemap);
-			tilemap.loadMap(new lvl_1, tiles_img, 10, 10);*/
 			
 			_player = new Player(200, 200);
 			add(_player);
