@@ -21,7 +21,12 @@ package
 		}
 		override public function create():void 
 		{
+<<<<<<< HEAD
 			FlxG.visualDebug = true;
+=======
+			LevelDataManager.LoadLevelDataList();
+			LevelDataManager.TraceLevelData();
+>>>>>>> 5ed35bf80907d5be0eaf0a1e6e1b706b874b960e
 			tilemap = new Level();
 			tilemap.LoadLevelData(null);
 			
@@ -33,6 +38,7 @@ package
 		
 		override public function update():void 
 		{
+			trace("player: " + _player.x + ", " + _player.y);
 			FlxG.collide(_player, tilemap.layers[tilemap.currentLayer]);
 			
 			FlxG.overlap(_player, tilemap.group1, OverlapPlayerSwitch);
@@ -43,6 +49,7 @@ package
 			if (!b.touched) {
 				b.touched = true;
 				tilemap.SwitchToLayer(1);
+				trace("haai");
 			}
 		}
 	}
