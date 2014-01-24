@@ -21,6 +21,8 @@ package
 		}
 		override public function create():void 
 		{
+			LevelDataManager.LoadLevelDataList();
+			
 			tilemap = new TileMap();
 			tilemap.LoadLevelData([lvl_1]);
 			

@@ -17,7 +17,7 @@ package
 		{
 		}
 		
-		public function LoadLevelData(tilemaps:Array) {
+		public function LoadLevelData(tilemaps:Array):void {
 			if (tilemaps.length <= 0) {
 				trace("empty layer array!");
 				return;
@@ -31,13 +31,13 @@ package
 			FlxG.state.add(currentLayer);
 		}
 		
-		public function UnloadLevel() {
+		public function UnloadLevel():void {
 			
 		}
 		
-		public function SwitchToLayer(layer:int) {
+		public function SwitchToLayer(layer:int):void {
 			if (layer < 0 && layer >= layers.length) {
-				return("this layer does not exist");
+				//return("this layer does not exist");
 			}
 			currentLayer = layers[layer];
 		}
