@@ -16,7 +16,10 @@ package
 		private const _tileSize:int = GameState.tileSize;
 		private var _movementDirection:int = 0;// 0-idle 1-Left 2-Right 3-Up 4-Down
 		private var _moving:Boolean = false;
+		private var _moveingDelayPassed:Boolean = true;
 		private var _lastIdlePosition:Point;
+		private var _timeDelay:Number = 0.012;
+		private var _timedelay:Number = 0;
 		
 		public function Player(X:int, Y:int):void 
 		{
@@ -27,28 +30,32 @@ package
 		
 		override public function update():void
 		{
-			if (!_moving)
+			if (!_moving && _moveingDelayPassed)
 			{
 				if (FlxG.keys.LEFT)
 				{
 					_movementDirection = 1;
 					_lastIdlePosition = new Point(this.x, this.y);
 					_moving = true;
+					_moveingDelayPassed = false;
 				}else if (FlxG.keys.RIGHT)
 				{
 					_movementDirection = 2;
 					_lastIdlePosition = new Point(this.x, this.y);
 					_moving = true;
+					_moveingDelayPassed = false;
 				}else if (FlxG.keys.UP)
 				{
 					_movementDirection = 3;
 					_lastIdlePosition = new Point(this.x, this.y);
 					_moving = true;
+					_moveingDelayPassed = false;
 				}else if (FlxG.keys.DOWN)
 				{
 					_movementDirection = 4;
 					_lastIdlePosition = new Point(this.x, this.y);
 					_moving = true;
+					_moveingDelayPassed = false;
 				}
 			}else
 			{
@@ -56,6 +63,7 @@ package
 				{
 					case 0: //idle
 						_moving = false;
+						_timedelay += FlxG.elapsed;
 						break;
 					case 1: //left
 						this.x -= this._maxSpeed * FlxG.elapsed;
@@ -90,6 +98,7 @@ package
 						}
 						break;
 				}
+				if (_timedelay >= _timeDelay) _moveingDelayPassed = true;
 			}
 			
 			super.update();
