@@ -21,14 +21,11 @@ package
 		}
 		override public function create():void 
 		{
+			FlxG.visualDebug = true;
 			tilemap = new Level();
 			tilemap.LoadLevelData(null);
 			
-<<<<<<< HEAD
-			_player = new Player(00, 00);
-=======
 			_player = new Player(64, 64);
->>>>>>> d98a19af4f1e9956b2186140c88298c59e583ea2
 			add(_player);
 			
 			super.create();
@@ -36,6 +33,7 @@ package
 		
 		override public function update():void 
 		{
+			trace("player: " + _player.x + ", " + _player.y);
 			FlxG.collide(_player, tilemap.layers[tilemap.currentLayer]);
 			
 			FlxG.overlap(_player, tilemap.group1, OverlapPlayerSwitch);
