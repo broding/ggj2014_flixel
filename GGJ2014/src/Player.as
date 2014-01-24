@@ -28,9 +28,7 @@ package
 			}else if (FlxG.keys.RIGHT)
 			{
 				this.x += this._maxSpeed.x;
-			}
-			
-			if (FlxG.keys.UP)
+			}else if (FlxG.keys.UP)
 			{
 				this.y -= this._maxSpeed.y;
 			}else if (FlxG.keys.DOWN)
