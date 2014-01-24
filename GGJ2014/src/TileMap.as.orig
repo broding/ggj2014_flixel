@@ -40,14 +40,16 @@ package
 				return("this layer does not exist");
 			}
 			currentLayer = layers[layer];
-		}
-		
+<<<<<<< HEAD
+=======
+		}*/
 		override public function kill():void 
 		{
 			for (var i:int = 0; i < tilemaps.length; i++) {
 				layers[i].kill();
 			}
 			super.kill();
+>>>>>>> af40c2ef9f356964e29a5e7cf7b173a35adf0258
 		}
 	}
 }

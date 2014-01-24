@@ -9,15 +9,16 @@ package
 	public class Level extends FlxObject
 	{
 		private var tilemap:TileMap;
+		private var tilemaps:Array;
 		public function Level() 
 		{
-			
+			tilemaps = new Array();
 		}
 		public function LoadLevel():void {
-			
+			tilemap = new TileMap(tilemaps);
 		}
-		public function KillLevel():void {
-			
+		public function UnloadLevel():void {
+			tilemap.kill();
 		}
 	}
 
