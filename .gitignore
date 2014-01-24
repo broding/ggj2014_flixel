@@ -1,3 +1,14 @@
 GGJ2014/obj/GGJ2014Config.old
 GGJ2014/obj/GGJ2014Config.xml
 GGJ2014/bin/GGJ2014.swf
+# Build and Release Folders
+bin/
+bin-debug/
+bin-release/
+
+# Other files and folders
+.settings/
+
+# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
+# should NOT be excluded as they contain compiler settings and other important
+# information for Eclipse / Flash Builder.
