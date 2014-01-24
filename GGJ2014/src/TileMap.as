@@ -44,9 +44,9 @@ package
 		
 		override public function kill():void 
 		{
-			for (var i:int = 0; i < tilemaps.length; i++) {
+			/*for (var i:int = 0; i < tilemaps.length; i++) {
 				layers[i].kill();
-			}
+			}*/
 			super.kill();
 		}
 	}
