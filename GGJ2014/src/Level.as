@@ -199,8 +199,8 @@ package
 			_rasterBackground.shine();
 		}
 		private function SyncSwitches():void {
-			for (var t:int = 0; t < switches.members.length; t++ ) {
-				for (var s:int = 0; s < switches.members.length; s++ ) {
+			for (var t:int = 0; t < switches.length; t++ ) {
+				for (var s:int = 0; s < switches.length; s++ ) {
 					if (switches.members[s].currentLayer == switches.members[t].targetLayer) {		
 						//trace("[LEVEL] same loc: "+(Math.floor(switches.members[s].x) == Math.floor(switches.members[t].x) && Math.floor(switches.members[s].y) == Math.floor(switches.members[t].y)));
 						//trace("[LEVEL] same s[ "+Math.floor(switches.members[s].x)+", "+Math.floor(switches.members[s].y)+"]t["+ Math.floor(switches.members[t].x)+","+Math.floor(switches.members[t].y)+"]");
@@ -214,7 +214,7 @@ package
 			}
 		}
 		private function SwitchesVisability():void {
-			for (var t:int = 0; t < switches.members.length; t++ ) {
+			for (var t:int = 0; t < switches.length; t++ ) {
 				if (switches.members[t].currentLayer == this.currentLayer) {
 					switches.members[t].visible = true;
 				}else {
