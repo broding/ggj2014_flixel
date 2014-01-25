@@ -18,19 +18,18 @@ package
 		}
 		
 		public static function AddStepsForLevel():void {
-			var result:uint = stepsTaken;
-			for (var i:int = 0; i < stepsPerLevel.length; i++) {
-				result -= stepsPerLevel[i];
-			}
-			stepsPerLevel.push(result);
+			stepsPerLevel.push(stepsTaken);
+			stepsTaken = 0;
 		}
 		
 		public static function AddTimeForLevel():void {
-			var result:uint = time;
-			for (var i:int = 0; i < timePerLevel.length; i++) {
-				result -= timePerLevel[i];
-			}
-			timePerLevel.push(result);
+			timePerLevel.push(time);
+			time = 0;
+		}
+		
+		public static function ResetLevelScore():void {
+			stepsTaken = 0;
+			time = 0;
 		}
 	}
 
