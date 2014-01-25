@@ -24,6 +24,7 @@ package
 		public var layers:Array = new Array();
 		public var switches:FlxGroup = new FlxGroup();
 		public var endPortal:FlxSprite;
+		public var worldBounds:Array = new Array();
 		
 		private var _rasterBackground:RasterBackground;
 		private var _whiteBorder:WhiteBorder;
@@ -46,7 +47,6 @@ package
 			
 			bg = new FlxSprite();
 			bg.loadGraphic(bgImage);
-			
 			FlxG.state.add(bg);
 			
 			for (var i:int = 0; i < lvlData.layers.length; i++) {
@@ -116,6 +116,9 @@ package
 			FlxG.camera.scroll.x = width / 2 - FlxG.width / 2;
 			FlxG.camera.scroll.y = height / 2 - FlxG.height / 2;
 			
+			FlxG.camera.scroll.x = width / 2 - FlxG.width / 2;
+			FlxG.camera.scroll.y = height / 2 - FlxG.height / 2;
+			
 			_rasterBackground.widthInTiles = layers[currentLayer].widthInTiles;
 			_rasterBackground.heightInTiles = layers[currentLayer].heightInTiles;
 			
@@ -128,6 +131,25 @@ package
 			FlxG.state.add(switches);
 			
 			FlxG.state.add(layers[currentLayer]);
+			
+			
+			var worldTop:FlxSprite = new FlxSprite(-1, -1);
+			worldTop.makeGraphic(width + 2, 1);
+			worldTop.immovable = true;
+			worldBounds.push(worldTop);
+			var worldBot:FlxSprite = new FlxSprite(-1, height + 1);
+			worldBot.makeGraphic(width + 2, 1);
+			worldBot.immovable = true;
+			worldBounds.push(worldBot);
+			var worldLeft:FlxSprite = new FlxSprite(-1, -1);
+			worldLeft.makeGraphic(1, height + 2);
+			worldLeft.immovable = true;
+			worldBounds.push(worldLeft);
+			var worldRight:FlxSprite = new FlxSprite(width + 1, -1);
+			worldRight.makeGraphic(1, height + 2);
+			worldRight.immovable = true;
+			worldBounds.push(worldRight);
+			
 			
 			bg.x = width / 2 - FlxG.width / 2;
 			bg.y = height / 2 - FlxG.height / 2;
