@@ -32,8 +32,8 @@ package
 		
 		public function Level() 
 		{
-			_whiteBorder = new WhiteBorder(width, height);
-			_zoomBorder = new ZoomBorder(width, height);
+			_whiteBorder = new WhiteBorder(width, height, 0, 0);
+			_zoomBorder = new ZoomBorder(width, height, 0, 0);
 			_rasterBackground = new RasterBackground();
 		}
 		
@@ -114,8 +114,8 @@ package
 			_rasterBackground.widthInTiles = layers[currentLayer].widthInTiles;
 			_rasterBackground.heightInTiles = layers[currentLayer].heightInTiles;
 			
-			_whiteBorder = new WhiteBorder(width, height);
-			_zoomBorder = new ZoomBorder(width, height);
+			_whiteBorder = new WhiteBorder(width, height, 0, 0);
+			_zoomBorder = new ZoomBorder(width, height, 0, 0);
 			
 			bg.color = this.getLayerBackground(currentLayer);
 			

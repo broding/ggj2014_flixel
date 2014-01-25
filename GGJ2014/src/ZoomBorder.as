@@ -12,9 +12,9 @@ package
 		public var zoom:Number = 1;
 		public var _fadeout:Boolean = false;
 		public var _fadein:Boolean = false;
-		public function ZoomBorder(width:int,height:int) 
+		public function ZoomBorder(width:int,height:int, x:int, y:int) 
 		{
-			super(width, height);
+			super(width, height, x, y);
 			
 		}
 		override public function draw():void 

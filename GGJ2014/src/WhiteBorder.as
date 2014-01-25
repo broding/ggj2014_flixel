@@ -13,8 +13,10 @@ package
 		protected const GLOW_MARGIN:int = 20;
 		protected var matrix:Matrix;
 		protected var myShape:Shape;
-		public function WhiteBorder(width:int, height:int)
+		public function WhiteBorder(width:int, height:int, x:int, y:int)
 		{
+			super(x, y);
+			
 			this.makeGraphic(width + 1 + GLOW_MARGIN * 2, height + 1 + GLOW_MARGIN * 2, 0x00fffff);
 			
 			this.width = width;
@@ -34,7 +36,7 @@ package
 		override public function draw():void
 		{	
 			matrix.identity();
-			matrix.translate(-FlxG.camera.scroll.x - GLOW_MARGIN, -FlxG.camera.scroll.y - GLOW_MARGIN);
+			matrix.translate(-FlxG.camera.scroll.x - GLOW_MARGIN + this.x, -FlxG.camera.scroll.y - GLOW_MARGIN + this.y);
 			
 			FlxG.camera.buffer.draw(framePixels, matrix);
 		}
