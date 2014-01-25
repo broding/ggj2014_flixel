@@ -22,12 +22,14 @@ package
 		
 		private var _rasterBackground:RasterBackground;
 		private var _whiteBorder:WhiteBorder;
+		private var _zoomBorder:WhiteBorder;
 		
 		private var bg:FlxSprite;
 		
 		public function Level() 
 		{
 			_whiteBorder = new WhiteBorder(width, height);
+			_zoomBorder = new ZoomBorder(width, height);
 			_rasterBackground = new RasterBackground();
 		}
 		
@@ -103,6 +105,7 @@ package
 			_rasterBackground.heightInTiles = layers[currentLayer].heightInTiles;
 			
 			_whiteBorder = new WhiteBorder(width, height);
+			_zoomBorder = new ZoomBorder(width, height);
 			
 			FlxG.state.add(_rasterBackground);
 			FlxG.state.add(switches);
@@ -113,6 +116,7 @@ package
 			bg.x = width / 2 - FlxG.width / 2;
 			bg.y = height / 2 - FlxG.height / 2;
 			FlxG.state.add(_whiteBorder);
+			//FlxG.state.add(_zoomBorder);
 		}
 		
 		private function getLayerColor(index:uint):Class
