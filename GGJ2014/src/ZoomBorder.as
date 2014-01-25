@@ -27,19 +27,27 @@ package
 			FlxG.camera.buffer.draw(framePixels, matrix);
 			if (_fadein) {
 				if(zoom > 1){
-					zoom -= 0.1;
+					zoom -= 1;
 				}else {
 					_fadein = false;
 				}
 			}
 			if (_fadeout) {
-				if(zoom<=2.5){
-					zoom += 0.1;
+				if(zoom<=5){
+					zoom += 1;
 				}else {
 					_fadeout = false;
 				}
 			}
 			
+		}
+		public function setFadeOut():void {
+			zoom = 1;
+			_fadeout = true;
+		}
+		public function setFadeIn():void {
+			zoom = 5;
+			_fadein = true;
 		}
 		
 	}

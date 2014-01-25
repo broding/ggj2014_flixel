@@ -23,7 +23,7 @@ package
 		
 		private var _rasterBackground:RasterBackground;
 		private var _whiteBorder:WhiteBorder;
-		private var _zoomBorder:WhiteBorder;
+		private var _zoomBorder:ZoomBorder;
 		
 		private var bg:FlxSprite;
 		
@@ -189,6 +189,11 @@ package
 			}
 			
 			SyncSwitches();
+			if (currentLayer > layer) {
+			//	_zoomBorder.setFadeOut();
+			}else {
+			//	_zoomBorder.setFadeIn();
+			}
 			FlxG.state.remove(layers[currentLayer]);
 			currentLayer = layer;
 			FlxG.state.add(layers[currentLayer]);
