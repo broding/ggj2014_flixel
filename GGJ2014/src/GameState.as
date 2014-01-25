@@ -71,6 +71,11 @@ package
 					exists = true;
 				}
 			}
+			for (var m:int = 0; m < level.switches.length; m++) {
+				if (level.switches.members[m].x == _player.x && level.switches.members[m].y == _player.y) {
+					exists = true;
+				}
+			}
 			if (!exists && _wallbreakers.length < maxWallBreakers) {
 				var wallbreaker:WallBreaker = new WallBreaker(_player.x, _player.y, tileindex, level.currentLayer);	
 				_wallbreakers.add(wallbreaker);
