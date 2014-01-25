@@ -28,6 +28,11 @@ package
 			addAnimation("ding", [5], 0, false);
 			play("ding");
 		}
+		public function SwitchTarget():void {
+			var tmplayer:int = currentLayer;
+			currentLayer = targetLayer;
+			targetLayer = tmplayer;
+		}
 	}
 
 }

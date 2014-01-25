@@ -62,23 +62,19 @@ package
 			player.HandleCreation();
 		}
 		private function OverlapPlayerSwitch(player:Player, object:Switch):void {
-			trace("switch CL" + object.currentLayer + "TL" + object.targetLayer + " touched:" + object.touched);
-			trace(player.x +", "+player.y)
-			trace((player.x % 64 == 0 && player.y % 64 == 0));
-			if (!object.touched && player.x % 64 == 0 && player.y % 64 == 0) {
-				level.SwitchToLayer(object.targetLayer);
-				if(!object.touched){
-					if (object.targetLayer==object.layer_2) {
-						object.currentLayer = object.layer_2;
-						object.targetLayer = object.layer_1;
-					}else if (object.targetLayer==object.layer_1) {
-						object.currentLayer = object.layer_1;
-						object.targetLayer = object.layer_2;
-					}
+			//trace("switch LL:"+level.currentLayer+"CL" + object.currentLayer + "TL" + object.targetLayer + " touched:" + object.touched);
+			//trace(player.x +", "+player.y)
+			//trace(Math.floor( player.x % 64) == 0 && Math.floor( player.y % 64) == 0);
+			if(level.currentLayer == object.currentLayer){
+				if (!object.touched && Math.floor( player.x) == object.x && Math.floor( player.y ) == Math.floor(object.y)) {
+					//trace("SWITCH LAYER")
+					level.SwitchToLayer(object.targetLayer);
+					//object.SwitchTarget();
+					object.touched = true;
+				}else if (!(Math.floor( player.x) == object.x && Math.floor( player.y ) == Math.floor(object.y))) {
+					//trace("TOUCH FALSE")
+					object.touched = false;
 				}
-				object.touched = true;
-			}else if(!(player.x % 64 == 0 && player.y % 64 == 0)){
-				object.touched = false;
 			}
 		}
 		private function OverlapPlayerPortal(player:Player, object:EndPortal):void {
