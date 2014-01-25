@@ -11,7 +11,7 @@ package
 		public function LoadState() 
 		{
 			LevelDataManager.LoadLevelDataList(function():void {
-				FlxG.switchState(new GameState());
+				FlxG.switchState(new LevelState());
 				});
 			super();
 		}

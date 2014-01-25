@@ -12,17 +12,20 @@ package
 		[Embed(source = '../assets/TELEPORTER MAN Tiles.png')]private var tiles_img:Class;
 		[Embed(source = '../assets/CSV_Level_1.txt', mimeType = 'application/octet-stream')]private var lvl_1:Class;
 		private var tilemap:Level;
+		private var _currentLevel:uint;
 		
 		private var _player:Player;
 		
-		public function GameState() 
+		public function GameState(selectedLevel:uint) 
 		{
 			super();
+			
+			_currentLevel = selectedLevel;
 		}
 		override public function create():void 
 		{
 			tilemap = new Level();
-			tilemap.LoadLevelData(LevelDataManager.getLevelData(1));
+			tilemap.LoadLevelData(LevelDataManager.getLevelData(_currentLevel));
 			
 			_player = new Player(64, 64);
 			add(_player);
