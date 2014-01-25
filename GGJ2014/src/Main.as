@@ -13,7 +13,7 @@ package
 		
 		public function Main():void 
 		{
-			super(800, 600, GameState);			
+			super(800, 600, LoadState);			
 		}
 		
 	}

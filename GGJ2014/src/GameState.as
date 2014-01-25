@@ -22,8 +22,6 @@ package
 		override public function create():void 
 		{
 			FlxG.visualDebug = true;
-			LevelDataManager.LoadLevelDataList();
-			LevelDataManager.TraceLevelData();
 			tilemap = new Level();
 			tilemap.LoadLevelData(null);
 			
