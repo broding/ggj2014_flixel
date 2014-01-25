@@ -140,6 +140,8 @@ package
 			FlxG.state.remove(layers[currentLayer]);
 			currentLayer = layer;
 			FlxG.state.add(layers[currentLayer]);
+			
+			_rasterBackground.shine();
 		}
 		
 		override public function kill():void 
