@@ -13,7 +13,7 @@ package
 		public var breakTileType:Array = new Array();
 		public var tileIndex:int = 0;
 		
-		public function WallBreaker(xPos:int, yPos:int, tileindex:int = 0) 
+		public function WallBreaker(xPos:int, yPos:int, tileindex:int = 0, layer:int = 0) 
 		{
 			super(xPos, yPos);
 			tileIndex = tileindex;
