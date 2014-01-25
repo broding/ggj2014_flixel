@@ -27,7 +27,7 @@ package
 		}
 		public static function LoadLevelDataList(callback:Function):void {
 			_callback = callback;
-			_levelList = ["1,1", "2,1","2,2","3,1","3,2","3,3" ];
+			_levelList = ["1,1", "2,1","2,2","3,1","3,2","3,3" , "4,1" , "4,2" ,"4,3" ];
 			for ( var i:int = 0; i < levelList.length ; i++ ) {
 				AppendMap(levelList[i].split(",")[0], levelList[i].split(",")[1]);	
 			}
@@ -64,7 +64,7 @@ package
 					return levelDataList[i];
 				}
 			}
-			throw new Error("[LDM] level does not exist");
+ 			throw new Error("[LDM] level does not exist");
 		}
 		private static function errorHandler(event:LoaderEvent):void {
 			trace("[LDM] errorHandler");
