@@ -246,18 +246,18 @@ package
 		}
 		
 		private function SyncSwitches():void {
-			trace("[LEVEL] SYNCSWITCH+=========================");
 			for (var t:int = 0; t < switches.length; t++ ) {
-			trace("[LEVEL] _-___-__-___-_");
 				for (var s:int = 0; s < switches.length; s++ ) {
-			trace("[LEVEL] -"+s+"-"+switches.members[s].currentLayer+"|"+switches.members[s].targetLayer+"----"+t+"-"+switches.members[t].currentLayer+"|"+switches.members[t].targetLayer+"----");
+			//trace("[LEVEL] -"+s+"-"+switches.members[s].currentLayer+"|"+switches.members[s].targetLayer+"----"+t+"-"+switches.members[t].currentLayer+"|"+switches.members[t].targetLayer+"----");
 					if (switches.members[s].currentLayer == switches.members[t].targetLayer) {		
-						trace("[LEVEL] same loc: "+(Math.floor(switches.members[s].x) == Math.floor(switches.members[t].x) && Math.floor(switches.members[s].y) == Math.floor(switches.members[t].y)));
+						//trace("[LEVEL] same loc: "+(Math.floor(switches.members[s].x) == Math.floor(switches.members[t].x) && Math.floor(switches.members[s].y) == Math.floor(switches.members[t].y)));
 						//trace("[LEVEL] same s[ "+Math.floor(switches.members[s].x)+", "+Math.floor(switches.members[s].y)+"]t["+ Math.floor(switches.members[t].x)+","+Math.floor(switches.members[t].y)+"]");
 						if (Math.floor(switches.members[s].x) == Math.floor(switches.members[t].x) && Math.floor(switches.members[s].y) == Math.floor(switches.members[t].y) ) {
-							trace("[LEVEL] SYNC s/t["+switches.members[s].touched+","+switches.members[t].touched+"]");
-							switches.members[s].touched = switches.members[t].touched;
-							trace("[LEVEL] :"+switches.members[t].touched+"||"+switches.members[s].touched);
+							//trace("[LEVEL] SYNC s/t["+switches.members[s].touched+","+switches.members[t].touched+"]");
+							if(currentLayer == switches.members[t].currentLayer){
+								switches.members[s].touched = switches.members[t].touched;
+							}
+							//trace("[LEVEL] :"+switches.members[t].touched+"||"+switches.members[s].touched);
 						}
 					}
 				}
