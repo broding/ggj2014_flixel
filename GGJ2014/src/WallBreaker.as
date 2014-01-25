@@ -12,11 +12,13 @@ package
 		public var breakTileIndex:Array = new Array();
 		public var breakTileType:Array = new Array();
 		public var tileIndex:int = 0;
+		public var layerId:int = 0;
 		
-		public function WallBreaker(xPos:int, yPos:int, tileindex:int = 0) 
+		public function WallBreaker(xPos:int, yPos:int, tileindex:int = 0, layerid:int = 0) 
 		{
 			super(xPos, yPos);
 			tileIndex = tileindex;
+			layerId = layerid;
 			this.loadGraphic(ImgPlayer, false, false, 64, 64);
 		}
 		

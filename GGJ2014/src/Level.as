@@ -64,16 +64,22 @@ package
 							FlxG.state.add(endPortal);
 						}
 					}
-					if (t == 4 || t== 5) {
+					if (t == 4 || t== 5 || t == 6 || t == 7) {
 						layers[i].setTileByIndex(j, 0);
+						
 						var nextlayer:int = 1;
-						if (t == 5) {
+						
+						if (t == 5)
 							nextlayer = -1;
-						}
+						else if(t == 6) 
+							nextlayer = 2
+						else if(t == 7) 
+							nextlayer = -2;
+						
 						var switch1:Switch = new Switch(xPos, yPos, (i), (i) + nextlayer);
 						switches.add(switch1);
 						
-						for (var s:int = 0; s < switches.members.length; s++ ) {
+						for (var s:int = 0; s < switches.length; s++ ) {
 							if (switches.members[s].currentLayer == i + nextlayer) {
 								if (Math.floor(switches.members[s].x) == Math.floor(xPos) && Math.floor(switches.members[s].y) == Math.floor(yPos) ) {
 									switch1.touching = switches.members[s].touching;

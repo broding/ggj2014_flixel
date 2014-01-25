@@ -8,6 +8,7 @@ package
 	public class EndPortal extends FlxSprite
 	{
 		[Embed(source = "../assets/TELEPORTER MAN Tiles.png")] private var ImgPlayer:Class;
+		[Embed(source = "../assets/finish.png")] private var _image:Class;
 		public var touched:Boolean = false;
 		public var targetLayer:int = 0;
 		
@@ -17,7 +18,7 @@ package
 			this.width = this.height = GameState.tileSize;
 			targetLayer = targetlayer;
 			
-			this.loadGraphic(ImgPlayer, false, false, 64, 64);
+			this.loadGraphic(_image, false, false, 64, 64);
 			addAnimation("ding", [6], 0, false);
 			play("ding");
 		}

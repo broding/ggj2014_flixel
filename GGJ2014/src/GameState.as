@@ -11,6 +11,7 @@ package
 		
 		[Embed(source = '../assets/TELEPORTER MAN Tiles.png')]private var tiles_img:Class;
 		[Embed(source = '../assets/CSV_Level_1.txt', mimeType = 'application/octet-stream')]private var lvl_1:Class;
+		[Embed(source = "../assets/Music/whateversoothsyoubest.mp3")] private var _backgroundMusic:Class;
 		private var level:Level;
 		private var _currentLevel:uint;
 		
@@ -22,6 +23,7 @@ package
 			super();
 			
 			_currentLevel = selectedLevel;
+			FlxG.playMusic(_backgroundMusic, 1);
 		}
 		override public function create():void 
 		{	
@@ -55,30 +57,36 @@ package
 		
 		private function ToggleWallbreaker(tileindex:int):void {
 			var exists:Boolean = false;
+			var breakersToDelete:Array = new Array();
 			//todo: kan alleen oppakken als in layer waarin geplaatst
 			for (var i:int = 0; i < _wallbreakers.length; i++) {
-				if (_wallbreakers.members[i].tileIndex == tileindex) {
+				if (_wallbreakers.members[i].tileIndex == tileindex && _wallbreakers.members[i].layerId == level.currentLayer) {
+					breakersToDelete.push(_wallbreakers.members[i]);
 					//TODO: remove wallbreaker and fix walls
 					for (var j:int = 0; j < _wallbreakers.members[i].breakLayers.length; j++) {
 						level.layers[_wallbreakers.members[i].breakLayers[j]].setTileByIndex(_wallbreakers.members[i].breakTileIndex[j], _wallbreakers.members[i].breakTileType[j]);
 					}
-					//_wallbreakers.remove(_wallbreakers.members[i]);
 					_wallbreakers.members[i].kill();
+					exists = true;
+				} else if (_wallbreakers.members[i].tileIndex == tileindex) {
 					exists = true;
 				}
 			}
 			if (!exists) {
-				var wallbreaker:WallBreaker = new WallBreaker(_player.x, _player.y, tileindex);	
+				var wallbreaker:WallBreaker = new WallBreaker(_player.x, _player.y, tileindex, level.currentLayer);	
 				_wallbreakers.add(wallbreaker);
 				
-				for (var i:int = 0; i < level.layers.length; i++)
+				for (var k:int = 0; k < level.layers.length; k++)
 				{
-					if (level.layers[i].getTileByIndex(tileindex) != 0) {
+					if (level.layers[k].getTileByIndex(tileindex) != 0) {
 						//trace("layer " + i + " at " + tileindex + " of type " + level.layers[i].getTileByIndex(tileindex));
-						wallbreaker.AddBreakPoint(i, tileindex, level.layers[i].getTileByIndex(tileindex));
-						level.layers[i].setTileByIndex(tileindex, 0);
+						wallbreaker.AddBreakPoint(k, tileindex, level.layers[k].getTileByIndex(tileindex));
+						level.layers[k].setTileByIndex(tileindex, 0);
 					}
 				}
+			}
+			for (var l:int = 0; l < breakersToDelete.length; l++) {
+				_wallbreakers.remove(breakersToDelete[l], true);
 			}
 		}
 		
@@ -94,7 +102,7 @@ package
 		}
 		
 		private function CollidePlayerLevel(player:Player, level:FlxTilemap):void {
-			player.HandleCreation();
+			player.HandleCollision();
 		}
 		private function OverlapPlayerSwitch(player:Player, object:Switch):void {
 			//trace("switch LL:"+level.currentLayer+"CL" + object.currentLayer + "TL" + object.targetLayer + " touched:" + object.touched);
@@ -106,6 +114,13 @@ package
 					object.touched = true;
 					level.SwitchToLayer(object.targetLayer);
 					object.SwitchTarget();
+					for (var i:int = 0; i < _wallbreakers.length; i++) {
+						if (_wallbreakers.members[i].layerId == level.currentLayer) {
+							_wallbreakers.members[i].alpha = 1;
+						} else {
+							_wallbreakers.members[i].alpha = 0.5;
+						}
+					}
 				}else if (!(Math.floor( player.x) == object.x && Math.floor( player.y ) == Math.floor(object.y))) {
 					//trace("TOUCH FALSE")
 					object.touched = false;
