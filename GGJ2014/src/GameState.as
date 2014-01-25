@@ -35,7 +35,7 @@ package
 		
 		override public function update():void 
 		{
-			FlxG.collide(_player, level.layers[level.currentLayer]);
+			FlxG.collide(_player, level.layers[level.currentLayer], CollidePlayerLevel);
 			
 			FlxG.overlap(_player, level.switches, OverlapPlayerSwitch);
 			FlxG.overlap(_player, level.endPortal, OverlapPlayerPortal);
@@ -50,6 +50,9 @@ package
 			add(_player);
 		}
 		
+		private function CollidePlayerLevel(player:Player, level:FlxTilemap):void {
+			player.HandleCreation();
+		}
 		private function OverlapPlayerSwitch(player:Player, object:Switch):void {
 			if (!object.touched && player.x % 64 == 0 && player.y % 64 == 0) {
 				object.touched = true;
