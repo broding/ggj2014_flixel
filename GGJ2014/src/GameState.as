@@ -54,6 +54,15 @@ package
 			if (!object.touched && player.x % 64 == 0 && player.y % 64 == 0) {
 				object.touched = true;
 				level.SwitchToLayer(object.targetLayer);
+				if (object.targetLayer==object.layer_2) {
+					object.currentLayer = object.layer_2;
+					object.targetLayer = object.layer_1;
+				}else if (object.targetLayer==object.layer_1) {
+					object.currentLayer = object.layer_1;
+					object.targetLayer = object.layer_2;
+				}
+			}else if(object.touched){
+				object.touched != object.touched;
 			}
 		}
 		private function OverlapPlayerPortal(player:Player, object:EndPortal):void {
