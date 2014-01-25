@@ -22,38 +22,25 @@ package
 		}
 		
 		public function LoadLevelData(lvlData:LevelData):void {
-			/*if (lvlData.layers.length <= 0) {
+			if (lvlData.layers.length <= 0) {
 				trace("empty layer array!");
 				return;
-			}*/
-				layers.push(new FlxTilemap());
-				layers[0].loadMap(new ding1, tiles_img, GameState.tileSize, GameState.tileSize);
-				layers.push(new FlxTilemap());
-				layers[1].loadMap(new ding2, tiles_img, GameState.tileSize, GameState.tileSize);
+			}
 			
-			/*for (var i:int = 0; i < lvlData.layers.length; i++) {
+			for (var i:int = 0; i < lvlData.layers.length; i++) {
 				layers.push(new FlxTilemap());
 				layers[i].loadMap(lvlData.layers[i], tiles_img, GameState.tileSize, GameState.tileSize);
-			}*/
-			
-			for (var i:int = 0; i < layers[0].totalTiles; i++)
-			{
-				var t:int = layers[0].getTileByIndex(i);
-				if (t == 4) {
-					layers[0].setTileByIndex(i, 0);
-					var switch1:Switch = new Switch(128, 0);
-					FlxG.state.add(switch1);
-					group1.add(switch1);
-				}
-			}
-			for (var i2:int = 0; i2 < layers[1].totalTiles; i2++)
-			{
-				var t2:int = layers[1].getTileByIndex(i2);
-				if (t2 == 4) {
-					layers[1].setTileByIndex(i2, 0);
-					var switch2:Switch = new Switch(128, 0);
-					FlxG.state.add(switch2);
-					group1.add(switch2);
+				
+				
+				for (var j:int = 0; j < layers[i].totalTiles; j++)
+				{
+					var t:int = layers[i].getTileByIndex(j);
+					if (t == 4) {
+						layers[i].setTileByIndex(j, 0);
+						var switch1:Switch = new Switch(128, 0);
+						FlxG.state.add(switch1);
+						group1.add(switch1);
+					}
 				}
 			}
 			

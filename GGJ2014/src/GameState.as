@@ -21,9 +21,8 @@ package
 		}
 		override public function create():void 
 		{
-			FlxG.visualDebug = true;
 			tilemap = new Level();
-			tilemap.LoadLevelData(null);
+			tilemap.LoadLevelData(LevelDataManager.getLevelData(1));
 			
 			_player = new Player(64, 64);
 			add(_player);
@@ -40,7 +39,7 @@ package
 		}
 		
 		private function OverlapPlayerSwitch(a:Player, b:Switch):void {
-			if (!b.touched && a.velocity.x == 0 && a.velocity.y == 0) {
+			if (!b.touched && a.x % 64 == 0 && a.y % 64 == 0) {
 				b.touched = true;
 				tilemap.SwitchToLayer(1);
 			}
