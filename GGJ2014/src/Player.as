@@ -12,7 +12,7 @@ package
 	 */
 	public class Player extends FlxSprite
 	{
-		[Embed(source="../assets/eyeball player.png")] private var ImgPlayer:Class;
+		[Embed(source="../assets/player.png")] private var ImgPlayer:Class;
 		
 		private const _maxSpeed:int = 256;
 		private const _tileSize:int = GameState.tileSize;
@@ -23,8 +23,8 @@ package
 		private var _timeDelay:Number = 0.012;
 		private var _timedelay:Number = 0;
 		private var shadowGroup:FlxGroup;
-		private var amountOfShadows:int = 20;
-		private var shadowDelay:Number = 0.050;
+		private var amountOfShadows:int = 50;
+		private var shadowDelay:Number = 0.02;
 		private var shadowTimer:Number = 0;
 		
 		public function Player(X:int, Y:int):void 

@@ -38,6 +38,11 @@ package
 					break;
 			}
 		}
+		
+		override public function update():void
+		{
+			this.angle += 5;
+		}
 	}
 
 }

@@ -9,6 +9,8 @@ package
 	 
 	public class Level extends FlxObject
 	{	
+		[Embed(source = '../assets/bg.png')]private var bgImage:Class;
+		
 		[Embed(source = '../assets/blue.png')]private var blue:Class;
 		[Embed(source = '../assets/red.png')]private var red:Class;
 		[Embed(source = '../assets/green.png')]private var green:Class;
@@ -41,7 +43,7 @@ package
 			}
 			
 			bg = new FlxSprite();
-			bg.makeGraphic(800, 600, 0xff000055);
+			bg.loadGraphic(bgImage);
 			FlxG.state.add(bg);
 			
 			for (var i:int = 0; i < lvlData.layers.length; i++) {
@@ -102,6 +104,8 @@ package
 						(layers[i] as FlxTilemap).setTileByIndex(k, getAutoTileValue(i, k));
 				}
 			}
+			
+			FlxG.flash();
 		
 			width = layers[currentLayer].width;
 			height = layers[currentLayer].height;
@@ -111,6 +115,8 @@ package
 			
 			_whiteBorder = new WhiteBorder(width, height);
 			_zoomBorder = new ZoomBorder(width, height);
+			
+			bg.color = this.getLayerBackground(currentLayer);
 			
 			FlxG.state.add(_rasterBackground);
 			FlxG.state.add(switches);
@@ -153,17 +159,17 @@ package
 			switch(index)
 			{
 				case 0:
-					return 0xff000055
+					return 0x0000ff;
 					break;
 				case 1:
-					return 0xff550000;
+					return 0xff0000;
 					break;
 				case 2:
-					return 0xff005500;
+					return 0x00ff00;
 					break;
 			}
 			
-			return 0xff000055;
+			return 0x0000ff;
 		}
 		
 		private function getAutoTileValue(layerIndex:uint, tileIndex:uint):uint
@@ -199,7 +205,7 @@ package
 			FlxG.state.add(layers[currentLayer]);
 			SwitchesVisability();
 			
-			bg.makeGraphic(900, 700, this.getLayerBackground(currentLayer));
+			bg.color = this.getLayerBackground(currentLayer);
 			_rasterBackground.shine();
 		}
 		private function SyncSwitches():void {
