@@ -80,13 +80,13 @@ package
 		private function OverlapPlayerSwitch(player:Player, object:Switch):void {
 			//trace("switch LL:"+level.currentLayer+"CL" + object.currentLayer + "TL" + object.targetLayer + " touched:" + object.touched);
 			//trace(player.x +", "+player.y)
-			//trace(Math.floor( player.x % 64) == 0 && Math.floor( player.y % 64) == 0);
+			//trace(Math.floor( player.x) == object.x && Math.floor( player.y ) == Math.floor(object.y));
 			if(level.currentLayer == object.currentLayer){
 				if (!object.touched && Math.floor( player.x) == object.x && Math.floor( player.y ) == Math.floor(object.y)) {
 					//trace("SWITCH LAYER")
-					level.SwitchToLayer(object.targetLayer);
-					//object.SwitchTarget();
 					object.touched = true;
+					level.SwitchToLayer(object.targetLayer);
+					object.SwitchTarget();
 				}else if (!(Math.floor( player.x) == object.x && Math.floor( player.y ) == Math.floor(object.y))) {
 					//trace("TOUCH FALSE")
 					object.touched = false;

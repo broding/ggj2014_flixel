@@ -64,7 +64,6 @@ package
 					}
 					if (t == 4 || t== 5) {
 						layers[i].setTileByIndex(j, 0);
-						trace("[LEVEL] i:" + i);
 						var nextlayer:int = 1;
 						if (t == 5) {
 							nextlayer = -1;
@@ -73,9 +72,9 @@ package
 						switches.add(switch1);
 						
 						for (var s:int = 0; s < switches.members.length; s++ ) {
-							if (switches.members[0].currentLayer == i + nextlayer) {
-								if (Math.floor(switches.members[0].x) == Math.floor(xPos) && Math.floor(switches.members[0].y) == Math.floor(yPos) ) {
-									switch1.touching = switches.members[0].touching;
+							if (switches.members[s].currentLayer == i + nextlayer) {
+								if (Math.floor(switches.members[s].x) == Math.floor(xPos) && Math.floor(switches.members[s].y) == Math.floor(yPos) ) {
+									switch1.touching = switches.members[s].touching;
 								}
 							}
 						}
@@ -151,13 +150,28 @@ package
 				trace("this layer does not exist");
 				return;
 			}
+			
+			SyncSwitches();
 			FlxG.state.remove(layers[currentLayer]);
 			currentLayer = layer;
 			FlxG.state.add(layers[currentLayer]);
-			
 			_rasterBackground.shine();
 		}
-		
+		private function SyncSwitches():void {
+			for (var t:int = 0; t < switches.members.length; t++ ) {
+				for (var s:int = 0; s < switches.members.length; s++ ) {
+					if (switches.members[s].currentLayer == switches.members[t].targetLayer) {		
+						trace("[LEVEL] same loc: "+(Math.floor(switches.members[s].x) == Math.floor(switches.members[t].x) && Math.floor(switches.members[s].y) == Math.floor(switches.members[t].y)));
+						trace("[LEVEL] same s[ "+Math.floor(switches.members[s].x)+", "+Math.floor(switches.members[s].y)+"]t["+ Math.floor(switches.members[t].x)+","+Math.floor(switches.members[t].y)+"]");
+						if (Math.floor(switches.members[s].x) == Math.floor(switches.members[t].x) && Math.floor(switches.members[s].y) == Math.floor(switches.members[t].y) ) {
+							trace("[LEVEL] SYNC s/t["+switches.members[s].touched+","+switches.members[t].touched+"]");
+							switches.members[s].touched = switches.members[t].touched;
+							trace("[LEVEL]:"+switches.members[t].touched+"||"+switches.members[s].touched);
+						}
+					}
+				}
+			}
+		}
 		override public function kill():void 
 		{
 			switches.clear();
