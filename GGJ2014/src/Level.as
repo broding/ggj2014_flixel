@@ -53,7 +53,7 @@ package
 					}
 					if (t == 4) {
 						layers[i].setTileByIndex(j, 0);
-						var switch1:Switch = new Switch(xPos, yPos,lvlData.id,lvlData.id + 1);
+						var switch1:Switch = new Switch(xPos, yPos,(lvlData.id-1),(lvlData.id-1)+1);
 						switches.add(switch1);
 					}
 					

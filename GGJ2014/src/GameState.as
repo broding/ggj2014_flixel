@@ -58,18 +58,23 @@ package
 			player.HandleCreation();
 		}
 		private function OverlapPlayerSwitch(player:Player, object:Switch):void {
+			trace("switch CL" + object.currentLayer + "TL" + object.targetLayer + " touched:" + object.touched);
+			trace(player.x +", "+player.y)
+			trace((player.x % 64 == 0 && player.y % 64 == 0));
 			if (!object.touched && player.x % 64 == 0 && player.y % 64 == 0) {
-				object.touched = true;
 				level.SwitchToLayer(object.targetLayer);
-				if (object.targetLayer==object.layer_2) {
-					object.currentLayer = object.layer_2;
-					object.targetLayer = object.layer_1;
-				}else if (object.targetLayer==object.layer_1) {
-					object.currentLayer = object.layer_1;
-					object.targetLayer = object.layer_2;
+				if(!object.touched){
+					if (object.targetLayer==object.layer_2) {
+						object.currentLayer = object.layer_2;
+						object.targetLayer = object.layer_1;
+					}else if (object.targetLayer==object.layer_1) {
+						object.currentLayer = object.layer_1;
+						object.targetLayer = object.layer_2;
+					}
 				}
-			}else if(object.touched){
-				object.touched != object.touched;
+				object.touched = true;
+			}else if(!(player.x % 64 == 0 && player.y % 64 == 0)){
+				object.touched = false;
 			}
 		}
 		private function OverlapPlayerPortal(player:Player, object:EndPortal):void {
