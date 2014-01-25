@@ -20,6 +20,7 @@ package
 		public var switches:FlxGroup = new FlxGroup();
 		public var endPortal:FlxSprite;
 		
+		private var _rasterBackground:RasterBackground;
 		private var _whiteBorder:WhiteBorder;
 		
 		private var bg:FlxSprite;
@@ -27,6 +28,7 @@ package
 		public function Level() 
 		{
 			_whiteBorder = new WhiteBorder();
+			_rasterBackground = new RasterBackground();
 		}
 		
 		public function LoadLevelData(lvlData:LevelData):void {
@@ -60,11 +62,25 @@ package
 							FlxG.state.add(endPortal);
 						}
 					}
-					if (t == 4) {
+					if (t == 4 || t== 5) {
 						layers[i].setTileByIndex(j, 0);
-						var switch1:Switch = new Switch(xPos, yPos, 1);
+						trace("[LEVEL] i:" + i);
+						var nextlayer:int = 1;
+						if (t == 5) {
+							nextlayer = -1;
+						}
+						var switch1:Switch = new Switch(xPos, yPos, (i), (i) + nextlayer);
 						switches.add(switch1);
+						
+						for (var s:int = 0; s < switches.members.length; s++ ) {
+							if (switches.members[0].currentLayer == i + nextlayer) {
+								if (Math.floor(switches.members[0].x) == Math.floor(xPos) && Math.floor(switches.members[0].y) == Math.floor(yPos) ) {
+									switch1.touching = switches.members[0].touching;
+								}
+							}
+						}
 					}
+					
 					
 				}
 				
@@ -77,6 +93,10 @@ package
 				
 			}
 			
+			_rasterBackground.widthInTiles = layers[currentLayer].widthInTiles;
+			_rasterBackground.heightInTiles = layers[currentLayer].heightInTiles;
+			
+			FlxG.state.add(_rasterBackground);
 			FlxG.state.add(switches);
 			
 			FlxG.state.add(layers[currentLayer]);
@@ -134,6 +154,8 @@ package
 			FlxG.state.remove(layers[currentLayer]);
 			currentLayer = layer;
 			FlxG.state.add(layers[currentLayer]);
+			
+			_rasterBackground.shine();
 		}
 		
 		override public function kill():void 
