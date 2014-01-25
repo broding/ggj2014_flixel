@@ -20,10 +20,10 @@ package
 		public var moving:Boolean = false;
 		private var _movingDelayPassed:Boolean = true;
 		private var _lastIdlePosition:Point;
-		private var _timeDelay:Number = 0.012;
+		private var _timeDelay:Number = 0;
 		private var _timedelay:Number = 0;
 		private var shadowGroup:FlxGroup;
-		private var amountOfShadows:int = 50;
+		private var amountOfShadows:int = 15;
 		private var shadowDelay:Number = 0.02;
 		private var shadowTimer:Number = 0;
 		
