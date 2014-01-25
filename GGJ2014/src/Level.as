@@ -20,6 +20,7 @@ package
 		public var switches:FlxGroup = new FlxGroup();
 		public var endPortal:FlxSprite;
 		
+		private var _rasterBackground:RasterBackground;
 		private var _whiteBorder:WhiteBorder;
 		
 		private var bg:FlxSprite;
@@ -27,6 +28,7 @@ package
 		public function Level() 
 		{
 			_whiteBorder = new WhiteBorder();
+			_rasterBackground = new RasterBackground();
 		}
 		
 		public function LoadLevelData(lvlData:LevelData):void {
@@ -77,6 +79,10 @@ package
 				
 			}
 			
+			_rasterBackground.widthInTiles = layers[currentLayer].widthInTiles;
+			_rasterBackground.heightInTiles = layers[currentLayer].heightInTiles;
+			
+			FlxG.state.add(_rasterBackground);
 			FlxG.state.add(switches);
 			
 			FlxG.state.add(layers[currentLayer]);
