@@ -10,7 +10,10 @@ package
 		//[Embed(source = "assets/fonts/AldotheApache.ttf", fontName = "AldotheApache", embedAsCFF="false", mimeType="application/x-font")]
 		//private var FontClass2:Class;
 		
-		[Embed(source = "../assets/minitilemap.png")] private var _tileMapPreview:Class;
+		[Embed(source="../assets/miniblue.png")] private var blue:Class;
+		[Embed(source="../assets/minired.png")] private var red:Class;
+		[Embed(source="../assets/minigreen.png")] private var green:Class;
+		
 		
 		private var _levelMap:FlxSprite;
 		private var _levelName:FlxText;
@@ -79,25 +82,16 @@ package
 		
 		private function setTileMapPreview():void
 		{
-			if (_mapPreviews.length > 0)
-			{
-				_mapPreviews.kill();
-				_mapPreviews.destroy();
-			}
+			_mapPreviews.clear();
+			_whiteBorders.clear();
 			
-			if (_whiteBorders.length > 0)
-			{
-				_whiteBorders.kill();
-				_whiteBorders.destroy();
-			}
-				
 			_mapPreviews = new FlxGroup();
 			_whiteBorders =  new FlxGroup();
 			
 			for (var i:int = 0; i < LevelDataManager.getLevelData(_currentLevel).layers.length; i++)
 			{
 				_mapPreviews.add(new FlxTilemap());
-				_mapPreviews.members[i].loadMap(LevelDataManager.getLevelData(_currentLevel).layers[i], _tileMapPreview, 16, 16);
+				_mapPreviews.members[i].loadMap(LevelDataManager.getLevelData(_currentLevel).layers[i],this.getLayerColor(i), 16, 16);
 				_mapPreviews.members[i].x = (FlxG.width / 3) - (_mapPreviews.members[i].widthInTiles / 2) * 16 + (i * (_mapPreviews.members[i].width + 20));
 				_mapPreviews.members[i].y = (FlxG.height / 2) - (_mapPreviews.members[i].heightInTiles / 2) * 16;
 				
@@ -108,6 +102,24 @@ package
 			
 			add(_mapPreviews);
 			add(_whiteBorders);
+		}
+		
+		private function getLayerColor(index:uint):Class
+		{
+			switch(index)
+			{
+				case 0:
+					return blue;
+					break;
+				case 1:
+					return red;
+					break;
+				case 2:
+					return green;
+					break;
+			}
+			
+			return blue;
 		}
 		
 		private function previousLevel():void

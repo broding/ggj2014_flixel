@@ -27,7 +27,7 @@ package
 		override public function update():void 
 		{
 			if (FlxG.keys.justPressed("SPACE")) {
-				FlxG.resetGame();
+				FlxG.switchState(new LevelState());
 			}
 			
 			super.update();
