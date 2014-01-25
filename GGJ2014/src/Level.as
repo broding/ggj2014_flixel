@@ -1,6 +1,7 @@
 package  
 {
 	
+	import flash.system.System;
 	import org.flixel.*;
 	/**
 	 * ...
@@ -154,7 +155,7 @@ package
 			return blue;
 		}
 		
-		private function getLayerBackground(index:uint):uint
+		public function getLayerBackground(index:uint):uint
 		{
 			switch(index)
 			{
@@ -191,6 +192,7 @@ package
 		public function SwitchToLayer(layer:int):void {
 			if (layer < 0 && layer >= layers.length) {
 				trace("this layer does not exist");
+				System.exit(0);
 				return;
 			}
 			
