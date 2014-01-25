@@ -4,13 +4,11 @@ package
 
 	public class LevelState extends FlxState
 	{
-		/*
 		[Embed(source = "assets/fonts/fibo.ttf", fontName = "FibographyPersonalUse", embedAsCFF="false", mimeType="application/x-font")]
 		private var FontClass:Class;
 		
 		[Embed(source = "assets/fonts/AldotheApache.ttf", fontName = "AldotheApache", embedAsCFF="false", mimeType="application/x-font")]
 		private var FontClass2:Class;
-		*/
 		
 		private var _levelMap:FlxSprite;
 		private var _levelName:FlxText;
