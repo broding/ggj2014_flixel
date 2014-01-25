@@ -59,7 +59,7 @@ package
 					return _levelDataList[i];
 				}
 			}
-			var tempdata:LevelData = new LevelData(id, "kees the pancake");
+			var tempdata:LevelData = new LevelData(id, "Level:"+id);
 			_levelDataList.push(tempdata);
 			return tempdata;
 		}

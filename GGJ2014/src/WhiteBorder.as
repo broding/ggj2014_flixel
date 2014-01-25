@@ -12,6 +12,7 @@ package
 	{
 		protected const GLOW_MARGIN:int = 20;
 		protected var matrix:Matrix;
+		protected var myShape:Shape;
 		public function WhiteBorder(width:int, height:int)
 		{
 			this.makeGraphic(width + 1 + GLOW_MARGIN * 2, height + 1 + GLOW_MARGIN * 2, 0x00fffff);
@@ -19,14 +20,14 @@ package
 			this.width = width;
 			this.height = height;
 			
-			var myShape:Shape = new Shape();
+			myShape = new Shape();
 			myShape.graphics.lineStyle(1, 0xffffff);
 			myShape.graphics.drawRect(GLOW_MARGIN, GLOW_MARGIN, width, height);
 			
 			
 			this.framePixels.draw(myShape);
 			
-			framePixels.applyFilter(framePixels, framePixels.rect, new Point(0,0), new GlowFilter(0xffffff, 1, 10, 10,3, 2));
+			framePixels.applyFilter(framePixels, framePixels.rect, new Point(0, 0), new GlowFilter(0xffffff, 1, 10, 10, 3, 2));
 			matrix = new Matrix();
 		}
 		
