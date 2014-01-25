@@ -23,13 +23,12 @@ package
 			_currentLevel = selectedLevel;
 		}
 		override public function create():void 
-		{
+		{	
 			level = new Level();
 			level.LoadLevelData(LevelDataManager.getLevelData(_currentLevel));
 			
 			_player = new Player(level.spawn.x, level.spawn.y);
 			add(_player);
-			
 			
 			FlxG.camera.scroll.x = level.width / 2 - FlxG.width / 2;
 			FlxG.camera.scroll.y = level.height / 2 - FlxG.height / 2;
@@ -43,6 +42,11 @@ package
 			
 			FlxG.overlap(_player, level.switches, OverlapPlayerSwitch);
 			FlxG.overlap(_player, level.endPortal, OverlapPlayerPortal);
+			
+			if (FlxG.keys.A && !_player.moving) {
+				var index:int = Math.floor(_player.x / 64) + (Math.floor(_player.y / 64) * level.layers[level.currentLayer].widthInTiles);
+				level.layers[level.currentLayer].setTileByIndex(index, 1);
+			}
 			super.update();
 		}
 		

@@ -15,7 +15,7 @@ package
 		private const _maxSpeed:int = 256;
 		private const _tileSize:int = GameState.tileSize;
 		private var _movementDirection:int = 0;// 0-idle 1-Left 2-Right 3-Up 4-Down
-		private var _moving:Boolean = false;
+		public var moving:Boolean = false;
 		private var _movingDelayPassed:Boolean = true;
 		private var _lastIdlePosition:Point;
 		private var _timeDelay:Number = 0.012;
@@ -30,31 +30,31 @@ package
 		
 		override public function update():void
 		{
-			if (!_moving && _movingDelayPassed)
+			if (!moving && _movingDelayPassed)
 			{
 				if (FlxG.keys.LEFT)
 				{
 					_movementDirection = 1;
 					_lastIdlePosition = new Point(this.x, this.y);
-					_moving = true;
+					moving = true;
 					_movingDelayPassed = false;
 				}else if (FlxG.keys.RIGHT)
 				{
 					_movementDirection = 2;
 					_lastIdlePosition = new Point(this.x, this.y);
-					_moving = true;
+					moving = true;
 					_movingDelayPassed = false;
 				}else if (FlxG.keys.UP)
 				{
 					_movementDirection = 3;
 					_lastIdlePosition = new Point(this.x, this.y);
-					_moving = true;
+					moving = true;
 					_movingDelayPassed = false;
 				}else if (FlxG.keys.DOWN)
 				{
 					_movementDirection = 4;
 					_lastIdlePosition = new Point(this.x, this.y);
-					_moving = true;
+					moving = true;
 					_movingDelayPassed = false;
 				}
 			}else
@@ -62,7 +62,7 @@ package
 				switch(_movementDirection)
 				{
 					case 0: //idle
-						_moving = false;
+						moving = false;
 						_timedelay += FlxG.elapsed;
 						break;
 					case 1: //left
@@ -108,7 +108,7 @@ package
 			x = _lastIdlePosition.x;
 			y = _lastIdlePosition.y;
 			_movementDirection = 0;
-			_moving = false;
+			moving = false;
 			_movingDelayPassed = true;
 		}
 	}
