@@ -59,6 +59,10 @@ package
 				var tileindex:int = Math.floor(_player.x / 64) + (Math.floor(_player.y / 64) * level.layers[level.currentLayer].widthInTiles);
 				ToggleWallbreaker(tileindex);
 			}
+			if (FlxG.keys.justReleased("R")) {
+				ResetLevelItems();
+				NextLevel();
+			}
 			
 			Score.time += FlxG.elapsed;
 			
@@ -121,6 +125,13 @@ package
 			}
 		}
 		
+		private function ResetLevelItems():void {
+			Score.ResetLevelScore();
+			_wallbreakers.clear();
+			level.kill();
+			player.kill();
+		}
+		
 		private function CollidePlayerLevel(player:Player, level:FlxTilemap):void {
 			player.HandleCollision();
 			if (!FlxG.keys.RIGHT && !FlxG.keys.LEFT && !FlxG.keys.UP && !FlxG.keys.DOWN)
@@ -158,10 +169,7 @@ package
 				Score.AddStepsForLevel();
 				Score.AddTimeForLevel();
 				
-				_wallbreakers.clear();
-			
-				level.kill();
-				player.kill();
+				ResetLevelItems();
 				_currentLevel++;
 				NextLevel();
 			}
