@@ -42,7 +42,7 @@ package
 			super.update();
 		}
 		
-		private function NextLevel() {
+		private function NextLevel():void {
 			tilemap = new Level();
 			tilemap.LoadLevelData(LevelDataManager.getLevelData(_currentLevel));
 			
