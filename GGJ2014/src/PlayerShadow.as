@@ -11,7 +11,7 @@ package
 	 */
 	public class PlayerShadow extends FlxSprite
 	{
-		private var _timeVisible:Number = 0.75; //time visible in seconds
+		private var _timeVisible:Number = 0.55; //time visible in seconds
 		private var _timePassed:Number = 0;
 		private var _parent:Player;
 		private var myShape:Shape;
@@ -45,7 +45,7 @@ package
 			matrix.translate( -FlxG.camera.scroll.x + this.x, -FlxG.camera.scroll.y + this.y);
 			
 			myShape.graphics.clear();
-			myShape.graphics.beginFill(0xFFFFFF, lerp(1, 0, -(_timePassed / _timeVisible)));
+			myShape.graphics.beginFill(0xFFFFFF, lerp(0.5, 0, -(_timePassed / _timeVisible)));
 			myShape.graphics.drawCircle(0 , 0, _radius);
 			FlxG.camera.buffer.draw(myShape, matrix);
 		}

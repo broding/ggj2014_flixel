@@ -24,7 +24,7 @@ package
 		private var _timedelay:Number = 0;
 		private var shadowGroup:FlxGroup;
 		private var amountOfShadows:int = 20;
-		private var shadowDelay:Number = 0.075;
+		private var shadowDelay:Number = 0.050;
 		private var shadowTimer:Number = 0;
 		
 		public function Player(X:int, Y:int):void 
