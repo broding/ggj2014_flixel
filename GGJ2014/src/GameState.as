@@ -14,6 +14,7 @@ package
 		[Embed(source = "../assets/Music/whateversoothsyoubest.mp3")] private var _backgroundMusic:Class;
 		private var level:Level;
 		private var _currentLevel:uint;
+		private var maxWallBreakers:uint = 1;
 		
 		private var _player:Player;
 		private var _wallbreakers:FlxGroup = new FlxGroup();
@@ -72,7 +73,7 @@ package
 					exists = true;
 				}
 			}
-			if (!exists) {
+			if (!exists && _wallbreakers.length < maxWallBreakers) {
 				var wallbreaker:WallBreaker = new WallBreaker(_player.x, _player.y, tileindex, level.currentLayer);	
 				_wallbreakers.add(wallbreaker);
 				
