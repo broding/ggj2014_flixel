@@ -120,7 +120,7 @@ package
 			bg.x = width / 2 - FlxG.width / 2;
 			bg.y = height / 2 - FlxG.height / 2;
 			FlxG.state.add(_whiteBorder);
-			//FlxG.state.add(_zoomBorder);
+			FlxG.state.add(_zoomBorder);
 		}
 		
 		private function getLayerColor(index:uint):Class
