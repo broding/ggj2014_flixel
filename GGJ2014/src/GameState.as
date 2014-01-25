@@ -62,7 +62,8 @@ package
 					for (var j:int = 0; j < _wallbreakers.members[i].breakLayers.length; j++) {
 						level.layers[_wallbreakers.members[i].breakLayers[j]].setTileByIndex(_wallbreakers.members[i].breakTileIndex[j], _wallbreakers.members[i].breakTileType[j]);
 					}
-					_wallbreakers.remove(_wallbreakers.members[i]);
+					//_wallbreakers.remove(_wallbreakers.members[i]);
+					_wallbreakers.members[i].kill();
 					exists = true;
 				}
 			}
