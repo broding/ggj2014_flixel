@@ -11,6 +11,7 @@ package
 	{	
 		[Embed(source = '../assets/blue.png')]private var blue:Class;
 		[Embed(source = '../assets/red.png')]private var red:Class;
+		[Embed(source = '../assets/green.png')]private var green:Class;
 		[Embed(source = '../assets/TELEPORTER MAN Tiles.png')]private var tiles_img:Class;
 		
 		public var currentLayer:int = 0;
@@ -100,6 +101,9 @@ package
 					break;
 				case 1:
 					return red;
+					break;
+				case 2:
+					return green;
 					break;
 			}
 			
