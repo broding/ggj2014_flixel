@@ -14,7 +14,6 @@ package
 		[Embed(source = '../assets/blue.png')]private var blue:Class;
 		[Embed(source = '../assets/red.png')]private var red:Class;
 		[Embed(source = '../assets/green.png')]private var green:Class;
-		[Embed(source = '../assets/TELEPORTER MAN Tiles.png')]private var tiles_img:Class;
 		
 		[Embed(source = '../assets/controls.png')]private var controls:Class;
 		
