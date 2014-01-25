@@ -16,6 +16,7 @@ package
 		[Embed(source = '../assets/green.png')]private var green:Class;
 		
 		[Embed(source = '../assets/controls.png')]private var controls:Class;
+		[Embed(source = '../assets/spacebar.png')]private var spacebar:Class;
 		
 		public var currentLayer:int = 0;
 		public var spawn:FlxPoint = new FlxPoint(0, 0);
@@ -134,6 +135,12 @@ package
 				var controlHelp:FlxSprite = new FlxSprite(1 * 64, 1 * 64, controls);
 				FlxG.state.add(controlHelp);
 			}
+			
+			if(lvlData.id == 4)
+			{
+				var spacebarHelp:FlxSprite = new FlxSprite(3 * 64, 1 * 64, spacebar);
+				FlxG.state.add(spacebarHelp);
+			}
 		}
 		
 		private function getLayerColor(index:uint):Class
@@ -201,13 +208,22 @@ package
 			//	_zoomBorder.setFadeIn();
 			}
 			FlxG.state.remove(layers[currentLayer]);
+			var oldLayer:int = currentLayer;
 			currentLayer = layer;
 			FlxG.state.add(layers[currentLayer]);
 			SwitchesVisability();
 			
 			bg.color = this.getLayerBackground(currentLayer);
 			_rasterBackground.shine();
+			
+			// show crazy tilinggggg
+			var oldTileHighlighting:VectorTilemap = new VectorTilemap(layers[oldLayer], this.getLayerBackground(oldLayer));
+			FlxG.state.add(oldTileHighlighting);
+			
+			var newTileHighlighting:VectorTilemap = new VectorTilemap(layers[currentLayer]);
+			FlxG.state.add(newTileHighlighting);
 		}
+		
 		private function SyncSwitches():void {
 			for (var t:int = 0; t < switches.length; t++ ) {
 				for (var s:int = 0; s < switches.length; s++ ) {
