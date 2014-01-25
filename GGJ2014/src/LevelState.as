@@ -7,7 +7,7 @@ package
 		//[Embed(source = "assets/fonts/fibo.ttf", fontName = "FibographyPersonalUse", embedAsCFF="false", mimeType="application/x-font")]
 		//private var FontClass:Class;
 		
-		[Embed(source = "../assets/fonts/AldotheApache.ttf", fontName = "AldotheApache", embedAsCFF="true", mimeType="application/x-font-truetype")]
+		[Embed(source = "../assets/fonts/AldotheApache.ttf", fontName = "AldotheApache", embedAsCFF="false", mimeType="application/x-font")]
 		private var FontClass2:Class;
 		
 		[Embed(source="../assets/miniblue.png")] private var blue:Class;
