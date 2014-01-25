@@ -75,7 +75,8 @@ package
 				}
 			}
 			if (!exists && _wallbreakers.length < maxWallBreakers) {
-				var wallbreaker:WallBreaker = new WallBreaker(_player.x, _player.y, tileindex, level.currentLayer);	
+				var wallbreaker:WallBreaker = new WallBreaker(_player.x, _player.y, tileindex, level.currentLayer);
+				wallbreaker.color = level.getLayerBackground(level.currentLayer);
 				_wallbreakers.add(wallbreaker);
 				
 				for (var k:int = 0; k < level.layers.length; k++)
@@ -92,14 +93,21 @@ package
 		}
 		
 		private function NextLevel():void {
-			level = new Level();
-			level.LoadLevelData(LevelDataManager.getLevelData(_currentLevel));
-			
-			_wallbreakers = new FlxGroup();
-			add(_wallbreakers);
-			
-			_player = new Player(level.spawn.x, level.spawn.y);
-			add(_player);
+			try{
+				level = new Level();
+				level.LoadLevelData(LevelDataManager.getLevelData(_currentLevel));
+				_wallbreakers = new FlxGroup();
+				add(_wallbreakers);
+				
+				_player = new Player(level.spawn.x, level.spawn.y);
+				add(_player);
+			}catch (e:Error) {
+				trace(e.message);
+				if (e.message == "[LDM] level does not exist") {
+					trace("NEXT LEVEL");
+					FlxG.switchState(new EndState());
+				}
+			}
 		}
 		
 		private function CollidePlayerLevel(player:Player, level:FlxTilemap):void {

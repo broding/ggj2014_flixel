@@ -11,12 +11,17 @@ package
 	public class LevelDataManager 
 	{
 		private static var queue:LoaderMax = new LoaderMax( { name:"LevelLoader", onProgress: progressHandler, onComplete:completeHandler, onError:errorHandler } );;
-		private static var levelDataList:Array = new Array();
+		private static var _levelDataList:Array = new Array();
 		private static var _levelList:Array = new Array();
 
 		public static function get levelList():Array
 		{
 			return _levelList;
+		}
+		
+		public static function get levelDataListLength():int
+		{
+			return _levelDataList.length;
 		}
 
 		private static var _callback:Function;
@@ -49,19 +54,19 @@ package
 			_callback.call();
 		}
 		private static function GetLevelData(id:int):LevelData {
-			for ( var i:int = 0; i < levelDataList.length ; i++ ) {
-				if (levelDataList[i].id == id) {
-					return levelDataList[i];
+			for ( var i:int = 0; i < _levelDataList.length ; i++ ) {
+				if (_levelDataList[i].id == id) {
+					return _levelDataList[i];
 				}
 			}
 			var tempdata:LevelData = new LevelData(id, "Level:"+id);
-			levelDataList.push(tempdata);
+			_levelDataList.push(tempdata);
 			return tempdata;
 		}
 		public static function getLevelData(id:int):LevelData {
-			for ( var i:int = 0; i < levelDataList.length ; i++ ) {
-				if (levelDataList[i].id == id) {
-					return levelDataList[i];
+			for ( var i:int = 0; i < _levelDataList.length ; i++ ) {
+				if (_levelDataList[i].id == id) {
+					return _levelDataList[i];
 				}
 			}
  			throw new Error("[LDM] level does not exist");
@@ -72,10 +77,10 @@ package
 		}
 		
 		public static function TraceLevelData():void {
-			for ( var i:int = 0; i < levelDataList.length ; i++ ) {
-			for ( var h:int = 0; h < levelDataList[i].layers.length ; h++ ) {
+			for ( var i:int = 0; i < _levelDataList.length ; i++ ) {
+			for ( var h:int = 0; h < _levelDataList[i].layers.length ; h++ ) {
 				trace("TRACE LEVELDATA");
-				trace(levelDataList[i].layers[h]);
+				trace(_levelDataList[i].layers[h]);
 			}
 			}
 		}
