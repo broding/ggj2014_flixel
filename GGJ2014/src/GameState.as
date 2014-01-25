@@ -21,10 +21,11 @@ package
 		}
 		override public function create():void 
 		{
+			FlxG.visualDebug = true;
 			tilemap = new Level();
 			tilemap.LoadLevelData(LevelDataManager.getLevelData(1));
 			
-			_player = new Player(64, 64);
+			_player = new Player(tilemap.spawn.x, tilemap.spawn.y);
 			add(_player);
 			
 			super.create();
@@ -34,14 +35,21 @@ package
 		{
 			FlxG.collide(_player, tilemap.layers[tilemap.currentLayer]);
 			
-			FlxG.overlap(_player, tilemap.group1, OverlapPlayerSwitch);
+			FlxG.overlap(_player, tilemap.switches, OverlapPlayerSwitch);
+			FlxG.overlap(_player, tilemap.endPortal, OverlapPlayerPortal);
 			super.update();
 		}
 		
-		private function OverlapPlayerSwitch(a:Player, b:Switch):void {
-			if (!b.touched && a.x % 64 == 0 && a.y % 64 == 0) {
-				b.touched = true;
-				tilemap.SwitchToLayer(1);
+		private function OverlapPlayerSwitch(player:Player, object:Switch):void {
+			if (!object.touched && player.x % 64 == 0 && player.y % 64 == 0) {
+				object.touched = true;
+				tilemap.SwitchToLayer(object.targetLayer);
+			}
+		}
+		private function OverlapPlayerPortal(player:Player, object:EndPortal):void {
+			if (player.x % 64 == 0 && player.y % 64 == 0) {
+				trace("D000NN33333");
+				tilemap.kill();
 			}
 		}
 	}

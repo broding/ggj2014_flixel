@@ -14,9 +14,10 @@ package
 		[Embed(source = "../assets/levels/1/2.txt", mimeType = 'application/octet-stream')] private var ding2:Class;
 		
 		public var currentLayer:int = 0;
-		
+		public var spawn:FlxPoint = new FlxPoint(0, 0);
 		public var layers:Array = new Array();
-		public var group1:FlxGroup = new FlxGroup();
+		public var switches:FlxGroup = new FlxGroup();
+		public var endPortal:FlxSprite = new FlxSprite();
 		public function Level() 
 		{
 		}
@@ -31,24 +32,31 @@ package
 				layers.push(new FlxTilemap());
 				layers[i].loadMap(lvlData.layers[i], tiles_img, GameState.tileSize, GameState.tileSize);
 				
-				
 				for (var j:int = 0; j < layers[i].totalTiles; j++)
 				{
+					var xPos:int = j % layers[i].widthInTiles * GameState.tileSize;
+					var yPos:int = (int)(j / layers[i].widthInTiles) * GameState.tileSize;
+					
 					var t:int = layers[i].getTileByIndex(j);
+					if (t == 2) {
+						layers[i].setTileByIndex(j, 0);
+						spawn = new FlxPoint(xPos, yPos);
+					}
+					if (t == 3) {
+						layers[i].setTileByIndex(j, 0);
+						endPortal = new EndPortal(xPos, yPos, 1);
+						FlxG.state.add(endPortal);
+					}
 					if (t == 4) {
 						layers[i].setTileByIndex(j, 0);
-						var switch1:Switch = new Switch(128, 0);
-						FlxG.state.add(switch1);
-						group1.add(switch1);
+						var switch1:Switch = new Switch(xPos, yPos, 1);
+						switches.add(switch1);
 					}
 				}
 			}
+			FlxG.state.add(switches);
 			
 			FlxG.state.add(layers[currentLayer]);
-		}
-		
-		public function UnloadLevel():void {
-			
 		}
 		
 		public function SwitchToLayer(layer:int):void {
@@ -63,6 +71,8 @@ package
 		
 		override public function kill():void 
 		{
+			switches.clear();
+			endPortal.kill();
 			for (var i:int = 0; i < layers.length; i++) {
 				layers[i].kill();
 			}
