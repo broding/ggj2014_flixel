@@ -11,6 +11,7 @@ package
 	{	
 		[Embed(source = '../assets/blue.png')]private var blue:Class;
 		[Embed(source = '../assets/red.png')]private var red:Class;
+		[Embed(source = '../assets/green.png')]private var green:Class;
 		[Embed(source = '../assets/TELEPORTER MAN Tiles.png')]private var tiles_img:Class;
 		
 		public var currentLayer:int = 0;
@@ -19,10 +20,13 @@ package
 		public var switches:FlxGroup = new FlxGroup();
 		public var endPortal:FlxSprite;
 		
+		private var _whiteBorder:WhiteBorder;
+		
 		private var bg:FlxSprite;
 		
 		public function Level() 
 		{
+			_whiteBorder = new WhiteBorder();
 		}
 		
 		public function LoadLevelData(lvlData:LevelData):void {
@@ -82,6 +86,10 @@ package
 			
 			bg.x = width / 2 - FlxG.width / 2;
 			bg.y = height / 2 - FlxG.height / 2;
+			
+			_whiteBorder.width = width;
+			_whiteBorder.height = height;
+			FlxG.state.add(_whiteBorder);
 		}
 		
 		private function getLayerColor(index:uint):Class
@@ -93,6 +101,9 @@ package
 					break;
 				case 1:
 					return red;
+					break;
+				case 2:
+					return green;
 					break;
 			}
 			
