@@ -16,8 +16,8 @@ package
 		private var _levelName:FlxText;
 		
 		private var _currentLevel:uint;
-		private var _mapPreview:FlxTilemap;
-		private var _whiteBorder:WhiteBorder;
+		private var _mapPreviews:FlxGroup;
+		private var _whiteBorders:FlxGroup;
 		private var _zoomBorder:ZoomBorder;
 		
 		public function LevelState()
@@ -31,11 +31,14 @@ package
 			
 			
 			_levelName = new FlxText(0, 0, 300, LevelDataManager.getLevelData(_currentLevel).name);
+			//_levelName.setFormat("AldotheApache", 40);
 			_levelName.size = 40;
 			_levelName.alignment = "center";
 			_levelName.x = FlxG.width / 2 - _levelName.width / 2;
 			_levelName.y = 450;
 			
+			_mapPreviews = new FlxGroup();
+			_whiteBorders =  new FlxGroup();
 			setTileMapPreview();
 			
 			add(_levelName);
@@ -76,25 +79,35 @@ package
 		
 		private function setTileMapPreview():void
 		{
-			if(_mapPreview != null)
-				remove(_mapPreview);
-			_mapPreview = new FlxTilemap();
+			if (_mapPreviews.length > 0)
+			{
+				_mapPreviews.kill();
+				_mapPreviews.destroy();
+			}
 			
-			_mapPreview.x = (FlxG.width / 2) - (_mapPreview.widthInTiles / 2) * 16;
-			_mapPreview.y = (FlxG.height / 2) - (_mapPreview.heightInTiles / 2) * 16;
-			_mapPreview.loadMap(LevelDataManager.getLevelData(_currentLevel).layers[0], _tileMapPreview, 16, 16);
+			if (_whiteBorders.length > 0)
+			{
+				_whiteBorders.kill();
+				_whiteBorders.destroy();
+			}
+				
+			_mapPreviews = new FlxGroup();
+			_whiteBorders =  new FlxGroup();
+			
+			for (var i:int = 0; i < LevelDataManager.getLevelData(_currentLevel).layers.length; i++)
+			{
+				_mapPreviews.add(new FlxTilemap());
+				_mapPreviews.members[i].loadMap(LevelDataManager.getLevelData(_currentLevel).layers[i], _tileMapPreview, 16, 16);
+				_mapPreviews.members[i].x = (FlxG.width / 3) - (_mapPreviews.members[i].widthInTiles / 2) * 16 + (i * (_mapPreviews.members[i].width + 20));
+				_mapPreviews.members[i].y = (FlxG.height / 2) - (_mapPreviews.members[i].heightInTiles / 2) * 16;
+				
+				_whiteBorders.add(new WhiteBorder(_mapPreviews.members[i].width, _mapPreviews.members[i].height, _mapPreviews.members[i].x, _mapPreviews.members[i].y));
+			}
+			
 			_levelName.text = LevelDataManager.getLevelData(_currentLevel).name;
 			
-			_whiteBorder = new WhiteBorder(_mapPreview.width, _mapPreview.height);
-			_zoomBorder = new ZoomBorder(_mapPreview.width, _mapPreview.height);
-			
-			_whiteBorder.x = (FlxG.width / 2) - (_mapPreview.widthInTiles / 2) * 16;
-			_whiteBorder.y = (FlxG.height / 2) - (_mapPreview.heightInTiles / 2) * 16;
-			
-			
-			add(_mapPreview);
-			//add(_whiteBorder);
-			//add(_zoomBorder);
+			add(_mapPreviews);
+			add(_whiteBorders);
 		}
 		
 		private function previousLevel():void

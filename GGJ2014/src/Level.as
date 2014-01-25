@@ -17,12 +17,14 @@ package
 		[Embed(source = '../assets/green.png')]private var green:Class;
 		
 		[Embed(source = '../assets/controls.png')]private var controls:Class;
+		[Embed(source = '../assets/spacebar.png')]private var spacebar:Class;
 		
 		public var currentLayer:int = 0;
 		public var spawn:FlxPoint = new FlxPoint(0, 0);
 		public var layers:Array = new Array();
 		public var switches:FlxGroup = new FlxGroup();
 		public var endPortal:FlxSprite;
+		public var worldBounds:Array = new Array();
 		
 		private var _rasterBackground:RasterBackground;
 		private var _whiteBorder:WhiteBorder;
@@ -32,8 +34,8 @@ package
 		
 		public function Level() 
 		{
-			_whiteBorder = new WhiteBorder(width, height);
-			_zoomBorder = new ZoomBorder(width, height);
+			_whiteBorder = new WhiteBorder(width, height, 0, 0);
+			_zoomBorder = new ZoomBorder(width, height, 0, 0);
 			_rasterBackground = new RasterBackground();
 		}
 		
@@ -111,11 +113,14 @@ package
 			width = layers[currentLayer].width;
 			height = layers[currentLayer].height;
 			
+			FlxG.camera.scroll.x = width / 2 - FlxG.width / 2;
+			FlxG.camera.scroll.y = height / 2 - FlxG.height / 2;
+			
 			_rasterBackground.widthInTiles = layers[currentLayer].widthInTiles;
 			_rasterBackground.heightInTiles = layers[currentLayer].heightInTiles;
 			
-			_whiteBorder = new WhiteBorder(width, height);
-			_zoomBorder = new ZoomBorder(width, height);
+			_whiteBorder = new WhiteBorder(width, height, 0, 0);
+			_zoomBorder = new ZoomBorder(width, height, 0, 0);
 			
 			bg.color = this.getLayerBackground(currentLayer);
 			
@@ -123,6 +128,24 @@ package
 			FlxG.state.add(switches);
 			
 			FlxG.state.add(layers[currentLayer]);
+			
+			
+			var worldTop:FlxSprite = new FlxSprite(-1, -1);
+			worldTop.makeGraphic(width + 2, 1);
+			worldTop.immovable = true;
+			worldBounds.push(worldTop);
+			var worldBot:FlxSprite = new FlxSprite(-1, height + 1);
+			worldBot.makeGraphic(width + 2, 1);
+			worldBot.immovable = true;
+			worldBounds.push(worldBot);
+			var worldLeft:FlxSprite = new FlxSprite(-1, -1);
+			worldLeft.makeGraphic(1, height + 2);
+			worldLeft.immovable = true;
+			worldBounds.push(worldLeft);
+			var worldRight:FlxSprite = new FlxSprite(width + 1, -1);
+			worldRight.makeGraphic(1, height + 2);
+			worldRight.immovable = true;
+			worldBounds.push(worldRight);
 			
 			
 			bg.x = width / 2 - FlxG.width / 2;
@@ -134,6 +157,12 @@ package
 			{
 				var controlHelp:FlxSprite = new FlxSprite(1 * 64, 1 * 64, controls);
 				FlxG.state.add(controlHelp);
+			}
+			
+			if(lvlData.id == 4)
+			{
+				var spacebarHelp:FlxSprite = new FlxSprite(3 * 64, 1 * 64, spacebar);
+				FlxG.state.add(spacebarHelp);
 			}
 		}
 		
@@ -203,23 +232,35 @@ package
 			//	_zoomBorder.setFadeIn();
 			}
 			FlxG.state.remove(layers[currentLayer]);
+			var oldLayer:int = currentLayer;
 			currentLayer = layer;
 			FlxG.state.add(layers[currentLayer]);
 			SwitchesVisability();
 			
 			bg.color = this.getLayerBackground(currentLayer);
 			_rasterBackground.shine();
+			
+			// show crazy tilinggggg
+			var oldTileHighlighting:VectorTilemap = new VectorTilemap(layers[oldLayer], this.getLayerBackground(oldLayer));
+			FlxG.state.add(oldTileHighlighting);
+			
+			var newTileHighlighting:VectorTilemap = new VectorTilemap(layers[currentLayer]);
+			FlxG.state.add(newTileHighlighting);
 		}
+		
 		private function SyncSwitches():void {
 			for (var t:int = 0; t < switches.length; t++ ) {
 				for (var s:int = 0; s < switches.length; s++ ) {
+			//trace("[LEVEL] -"+s+"-"+switches.members[s].currentLayer+"|"+switches.members[s].targetLayer+"----"+t+"-"+switches.members[t].currentLayer+"|"+switches.members[t].targetLayer+"----");
 					if (switches.members[s].currentLayer == switches.members[t].targetLayer) {		
 						//trace("[LEVEL] same loc: "+(Math.floor(switches.members[s].x) == Math.floor(switches.members[t].x) && Math.floor(switches.members[s].y) == Math.floor(switches.members[t].y)));
 						//trace("[LEVEL] same s[ "+Math.floor(switches.members[s].x)+", "+Math.floor(switches.members[s].y)+"]t["+ Math.floor(switches.members[t].x)+","+Math.floor(switches.members[t].y)+"]");
 						if (Math.floor(switches.members[s].x) == Math.floor(switches.members[t].x) && Math.floor(switches.members[s].y) == Math.floor(switches.members[t].y) ) {
 							//trace("[LEVEL] SYNC s/t["+switches.members[s].touched+","+switches.members[t].touched+"]");
-							switches.members[s].touched = switches.members[t].touched;
-							//trace("[LEVEL]:"+switches.members[t].touched+"||"+switches.members[s].touched);
+							if(currentLayer == switches.members[t].currentLayer){
+								switches.members[s].touched = switches.members[t].touched;
+							}
+							//trace("[LEVEL] :"+switches.members[t].touched+"||"+switches.members[s].touched);
 						}
 					}
 				}
@@ -236,10 +277,13 @@ package
 		}
 		override public function kill():void 
 		{
+			for (var i:int = 0; i < worldBounds.length; i++) {
+				worldBounds[i].kill();
+			}
 			switches.clear();
 			endPortal.kill();
-			for (var i:int = 0; i < layers.length; i++) {
-				layers[i].kill();
+			for (var j:int = 0; j < layers.length; j++) {
+				layers[j].kill();
 			}
 			super.kill();
 		}
