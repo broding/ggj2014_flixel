@@ -10,6 +10,7 @@ package
 	public class Level extends FlxObject
 	{	
 		[Embed(source = '../assets/blue.png')]private var blue:Class;
+		[Embed(source = '../assets/red.png')]private var red:Class;
 		[Embed(source = '../assets/TELEPORTER MAN Tiles.png')]private var tiles_img:Class;
 		[Embed(source = "../assets/levels/1/1.txt", mimeType = 'application/octet-stream')] private var ding1:Class;
 		[Embed(source = "../assets/levels/1/2.txt", mimeType = 'application/octet-stream')] private var ding2:Class;
@@ -31,7 +32,7 @@ package
 			
 			for (var i:int = 0; i < lvlData.layers.length; i++) {
 				layers.push(new FlxTilemap());
-				layers[i].loadMap(lvlData.layers[i], blue, GameState.tileSize, GameState.tileSize);
+				layers[i].loadMap(lvlData.layers[i], this.getLayerColor(i), GameState.tileSize, GameState.tileSize);
 				
 				for (var j:int = 0; j < layers[i].totalTiles; j++)
 				{
@@ -69,6 +70,24 @@ package
 			FlxG.state.add(switches);
 			
 			FlxG.state.add(layers[currentLayer]);
+			
+			width = layers[currentLayer].width;
+			height = layers[currentLayer].height;
+		}
+		
+		private function getLayerColor(index:uint):Class
+		{
+			switch(index)
+			{
+				case 0:
+					return blue;
+					break;
+				case 1:
+					return red;
+					break;
+			}
+			
+			return blue;
 		}
 		
 		private function getAutoTileValue(layerIndex:uint, tileIndex:uint):uint
