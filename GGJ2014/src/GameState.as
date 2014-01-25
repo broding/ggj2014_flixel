@@ -55,6 +55,7 @@ package
 		
 		private function ToggleWallbreaker(tileindex:int):void {
 			var exists:Boolean = false;
+			
 			//todo: kan alleen oppakken als in layer waarin geplaatst
 			for (var i:int = 0; i < _wallbreakers.length; i++) {
 				if (_wallbreakers.members[i].tileIndex == tileindex) {
@@ -62,8 +63,8 @@ package
 					for (var j:int = 0; j < _wallbreakers.members[i].breakLayers.length; j++) {
 						level.layers[_wallbreakers.members[i].breakLayers[j]].setTileByIndex(_wallbreakers.members[i].breakTileIndex[j], _wallbreakers.members[i].breakTileType[j]);
 					}
-					//_wallbreakers.remove(_wallbreakers.members[i]);
-					_wallbreakers.members[i].kill();
+					_wallbreakers.remove(_wallbreakers.members[i]);
+					//_wallbreakers.members[i].kill();
 					exists = true;
 				}
 			}

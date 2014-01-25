@@ -25,7 +25,6 @@ package
 			this.framePixels.draw(myShape);
 			
 			framePixels.applyFilter(framePixels, framePixels.rect, new Point(0,0), new GlowFilter(0xffffff, 1, 10, 10,3, 2));
-			
 		}
 		
 		override public function draw():void
