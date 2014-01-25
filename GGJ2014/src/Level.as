@@ -113,6 +113,7 @@ package
 			for (var l:int = 0; l < switches.length; l++) {
 				var obstruct:FlxSprite = new FlxSprite(switches.members[l].x, switches.members[l].y);
 				obstruct.loadGraphic(obstructed, false, false, 64, 64);
+				obstruct.alpha = 0.2;
 				FlxG.state.add(obstruct);
 			}
 			
