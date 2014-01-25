@@ -14,6 +14,8 @@ package
 		[Embed(source = '../assets/green.png')]private var green:Class;
 		[Embed(source = '../assets/TELEPORTER MAN Tiles.png')]private var tiles_img:Class;
 		
+		[Embed(source = '../assets/controls.png')]private var controls:Class;
+		
 		public var currentLayer:int = 0;
 		public var spawn:FlxPoint = new FlxPoint(0, 0);
 		public var layers:Array = new Array();
@@ -121,6 +123,12 @@ package
 			bg.y = height / 2 - FlxG.height / 2;
 			FlxG.state.add(_whiteBorder);
 			//FlxG.state.add(_zoomBorder);
+			
+			if(lvlData.id == 1)
+			{
+				var controlHelp:FlxSprite = new FlxSprite(1 * 64, 1 * 64, controls);
+				FlxG.state.add(controlHelp);
+			}
 		}
 		
 		private function getLayerColor(index:uint):Class
