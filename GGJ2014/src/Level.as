@@ -116,9 +116,6 @@ package
 			FlxG.camera.scroll.x = width / 2 - FlxG.width / 2;
 			FlxG.camera.scroll.y = height / 2 - FlxG.height / 2;
 			
-			FlxG.camera.scroll.x = width / 2 - FlxG.width / 2;
-			FlxG.camera.scroll.y = height / 2 - FlxG.height / 2;
-			
 			_rasterBackground.widthInTiles = layers[currentLayer].widthInTiles;
 			_rasterBackground.heightInTiles = layers[currentLayer].heightInTiles;
 			
