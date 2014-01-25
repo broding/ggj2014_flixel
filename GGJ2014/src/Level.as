@@ -16,6 +16,8 @@ package
 		[Embed(source = '../assets/red.png')]private var red:Class;
 		[Embed(source = '../assets/green.png')]private var green:Class;
 		
+		[Embed(source = "../assets/obstucted.png")] private var obstructed:Class;
+		
 		[Embed(source = '../assets/controls.png')]private var controls:Class;
 		[Embed(source = '../assets/spacebar.png')]private var spacebar:Class;
 		
@@ -106,6 +108,12 @@ package
 					if((layers[i] as FlxTilemap).getTileByIndex(k) != 0)
 						(layers[i] as FlxTilemap).setTileByIndex(k, getAutoTileValue(i, k));
 				}
+			}
+			
+			for (var l:int = 0; l < switches.length; l++) {
+				var obstruct:FlxSprite = new FlxSprite(switches.members[l].x, switches.members[l].y);
+				obstruct.loadGraphic(obstructed, false, false, 64, 64);
+				FlxG.state.add(obstruct);
 			}
 			
 			FlxG.flash();
