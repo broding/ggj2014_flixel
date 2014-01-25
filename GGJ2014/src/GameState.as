@@ -9,6 +9,7 @@ package
 	{
 		public static var tileSize:int = 64;
 		
+		[Embed(source = "../assets/Music/bump.mp3")] private var sndBump:Class;
 		[Embed(source = "../assets/Music/whateversoothsyoubest.mp3")] private var _backgroundMusic:Class;
 		private var level:Level;
 		private var _currentLevel:uint;
@@ -75,7 +76,8 @@ package
 				}
 			}
 			if (!exists && _wallbreakers.length < maxWallBreakers) {
-				var wallbreaker:WallBreaker = new WallBreaker(_player.x, _player.y, tileindex, level.currentLayer);	
+				var wallbreaker:WallBreaker = new WallBreaker(_player.x, _player.y, tileindex, level.currentLayer);
+				wallbreaker.color = level.getLayerBackground(level.currentLayer);
 				_wallbreakers.add(wallbreaker);
 				
 				for (var k:int = 0; k < level.layers.length; k++)
@@ -92,18 +94,27 @@ package
 		}
 		
 		private function NextLevel():void {
-			level = new Level();
-			level.LoadLevelData(LevelDataManager.getLevelData(_currentLevel));
-			
-			_wallbreakers = new FlxGroup();
-			add(_wallbreakers);
-			
-			_player = new Player(level.spawn.x, level.spawn.y);
-			add(_player);
+			try{
+				level = new Level();
+				level.LoadLevelData(LevelDataManager.getLevelData(_currentLevel));
+				_wallbreakers = new FlxGroup();
+				add(_wallbreakers);
+				
+				_player = new Player(level.spawn.x, level.spawn.y);
+				add(_player);
+			}catch (e:Error) {
+				trace(e.message);
+				if (e.message == "[LDM] level does not exist") {
+					trace("NEXT LEVEL");
+					FlxG.switchState(new EndState());
+				}
+			}
 		}
 		
 		private function CollidePlayerLevel(player:Player, level:FlxTilemap):void {
 			player.HandleCollision();
+			if (!FlxG.keys.RIGHT && !FlxG.keys.LEFT && !FlxG.keys.UP && !FlxG.keys.DOWN)
+				FlxG.play(sndBump);
 		}
 		private function OverlapPlayerSwitch(player:Player, object:Switch):void {
 			//trace("switch LL:"+level.currentLayer+"CL" + object.currentLayer + "TL" + object.targetLayer + " touched:" + object.touched);

@@ -1,6 +1,7 @@
 package  
 {
 	
+	import flash.system.System;
 	import org.flixel.*;
 	/**
 	 * ...
@@ -128,7 +129,7 @@ package
 			bg.x = width / 2 - FlxG.width / 2;
 			bg.y = height / 2 - FlxG.height / 2;
 			FlxG.state.add(_whiteBorder);
-			FlxG.state.add(_zoomBorder);
+			//FlxG.state.add(_zoomBorder);
 			
 			if(lvlData.id == 1)
 			{
@@ -161,7 +162,7 @@ package
 			return blue;
 		}
 		
-		private function getLayerBackground(index:uint):uint
+		public function getLayerBackground(index:uint):uint
 		{
 			switch(index)
 			{
@@ -198,6 +199,7 @@ package
 		public function SwitchToLayer(layer:int):void {
 			if (layer < 0 && layer >= layers.length) {
 				trace("this layer does not exist");
+				System.exit(0);
 				return;
 			}
 			
