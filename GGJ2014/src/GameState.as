@@ -58,13 +58,15 @@ package
 			var breakersToDelete:Array = new Array();
 			//todo: kan alleen oppakken als in layer waarin geplaatst
 			for (var i:int = 0; i < _wallbreakers.length; i++) {
-				if (_wallbreakers.members[i].tileIndex == tileindex) {
+				if (_wallbreakers.members[i].tileIndex == tileindex && _wallbreakers.members[i].layerId == level.currentLayer) {
 					breakersToDelete.push(_wallbreakers.members[i]);
 					//TODO: remove wallbreaker and fix walls
 					for (var j:int = 0; j < _wallbreakers.members[i].breakLayers.length; j++) {
 						level.layers[_wallbreakers.members[i].breakLayers[j]].setTileByIndex(_wallbreakers.members[i].breakTileIndex[j], _wallbreakers.members[i].breakTileType[j]);
 					}
 					_wallbreakers.members[i].kill();
+					exists = true;
+				} else if (_wallbreakers.members[i].tileIndex == tileindex) {
 					exists = true;
 				}
 			}
@@ -110,6 +112,13 @@ package
 					object.touched = true;
 					level.SwitchToLayer(object.targetLayer);
 					object.SwitchTarget();
+					for (var i:int = 0; i < _wallbreakers.length; i++) {
+						if (_wallbreakers.members[i].layerId == level.currentLayer) {
+							_wallbreakers.members[i].alpha = 1;
+						} else {
+							_wallbreakers.members[i].alpha = 0.5;
+						}
+					}
 				}else if (!(Math.floor( player.x) == object.x && Math.floor( player.y ) == Math.floor(object.y))) {
 					//trace("TOUCH FALSE")
 					object.touched = false;
