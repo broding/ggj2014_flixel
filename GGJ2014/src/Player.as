@@ -12,7 +12,7 @@ package
 	{
 		[Embed(source = "../assets/TELEPORTER MAN Tiles.png")] private var ImgPlayer:Class;
 		
-		private const _maxSpeed:int = 128;
+		private const _maxSpeed:int = 256;
 		private const _tileSize:int = GameState.tileSize;
 		private var _movementDirection:int = 0;// 0-idle 1-Left 2-Right 3-Up 4-Down
 		private var _moving:Boolean = false;
