@@ -35,9 +35,6 @@
       <path-element>E:\Bestanden\Open Projecten\GGJ Git\ggj2014_flixel\GGJ2014\src</path-element>
       <path-element>C:\Program Files\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
-    <library-path append="true">
-      <path-element>E:\Bestanden\Open Projecten\GGJ Git\ggj2014_flixel\GGJ2014\libs\greensock.swc</path-element>
-    </library-path>
   </compiler>
   <file-specs>
     <path-element>E:\Bestanden\Open Projecten\GGJ Git\ggj2014_flixel\GGJ2014\src\Main.as</path-element>

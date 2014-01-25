@@ -42,7 +42,7 @@ package
 		}
 		
 		private function OverlapPlayerSwitch(a:Player, b:Switch):void {
-			if (!b.touched) {
+			if (!b.touched && a.velocity.x == 0 && a.velocity.y == 0) {
 				b.touched = true;
 				tilemap.SwitchToLayer(1);
 			}
