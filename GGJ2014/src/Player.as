@@ -1,7 +1,9 @@
 package  
 {
+	import flash.display.Shape;
 	import flash.events.Event;
 	import flash.geom.Point;
+	import org.flixel.FlxGroup;
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxG;
 	/**
@@ -20,12 +22,26 @@ package
 		private var _lastIdlePosition:Point;
 		private var _timeDelay:Number = 0.012;
 		private var _timedelay:Number = 0;
+		private var shadowGroup:FlxGroup;
+		private var amountOfShadows:int = 20;
+		private var shadowDelay:Number = 0.050;
+		private var shadowTimer:Number = 0;
 		
 		public function Player(X:int, Y:int):void 
 		{
 			super(X, Y);
 			_lastIdlePosition = new Point(X, Y);
-			this.loadGraphic(ImgPlayer, false, false, 64, 64);
+			this.loadGraphic(ImgPlayer, false, false, _tileSize, _tileSize);
+			shadowGroup = new FlxGroup(amountOfShadows);
+			FlxG.state.add(shadowGroup);
+			
+			for (var i:int = 0; i < amountOfShadows; i++)
+			{
+				var shadow:PlayerShadow = new PlayerShadow(0, 0, this);
+				shadow.kill();
+				shadow.visible = false;
+				shadowGroup.add(shadow);
+			}
 		}
 		
 		override public function update():void
@@ -67,38 +83,56 @@ package
 						break;
 					case 1: //left
 						this.x -= this._maxSpeed * FlxG.elapsed;
-						if (_lastIdlePosition.x - 64 >= this.x)
+						if (_lastIdlePosition.x - _tileSize >= this.x)
 						{
-							this.x = _lastIdlePosition.x - 64;
+							this.x = _lastIdlePosition.x - _tileSize;
 							_movementDirection = 0;
 						}
+						
 						break;
 					case 2: //right
 						this.x += this._maxSpeed * FlxG.elapsed;
-						if (_lastIdlePosition.x + 64 <= this.x)
+						if (_lastIdlePosition.x + _tileSize <= this.x)
 						{
-							this.x = _lastIdlePosition.x + 64;
+							this.x = _lastIdlePosition.x + _tileSize;
 							_movementDirection = 0;
 						}
 						break;
 					case 3: //up
 						this.y -= this._maxSpeed * FlxG.elapsed;
-						if (_lastIdlePosition.y - 64 >= this.y)
+						if (_lastIdlePosition.y - _tileSize >= this.y)
 						{
-							this.y = _lastIdlePosition.y - 64;
+							this.y = _lastIdlePosition.y - _tileSize;
 							_movementDirection = 0;
 						}
 						break;
 					case 4: //down
 						this.y += this._maxSpeed * FlxG.elapsed;
-						if (_lastIdlePosition.y + 64 <= this.y)
+						if (_lastIdlePosition.y + _tileSize <= this.y)
 						{
-							this.y = _lastIdlePosition.y + 64;
+							this.y = _lastIdlePosition.y + _tileSize;
 							_movementDirection = 0;
 						}
 						break;
 				}
 				if (_timedelay >= _timeDelay) _movingDelayPassed = true;
+			}
+			
+			if (_movementDirection != 0)
+			{
+				shadowTimer += FlxG.elapsed;
+				if (shadowTimer >= shadowDelay)
+				{
+					if (shadowGroup.countDead() > 0)
+					{
+						var shadow:PlayerShadow = (shadowGroup.getFirstDead() as PlayerShadow);
+						shadow.resetShadow(this.x, this.y);
+					}
+					shadowTimer = 0;
+				}
+			}else
+			{
+				shadowTimer = 0;
 			}
 			
 			super.update();
