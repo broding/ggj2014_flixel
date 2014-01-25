@@ -30,12 +30,16 @@ package
 			_player = new Player(level.spawn.x, level.spawn.y);
 			add(_player);
 			
+			
+			FlxG.camera.scroll.x = level.width / 2 - FlxG.width / 2;
+			FlxG.camera.scroll.y = level.height / 2 - FlxG.height / 2;
+			
 			super.create();
 		}
 		
 		override public function update():void 
 		{
-			FlxG.collide(_player, level.layers[level.currentLayer]);
+			FlxG.collide(_player, level.layers[level.currentLayer], CollidePlayerLevel);
 			
 			FlxG.overlap(_player, level.switches, OverlapPlayerSwitch);
 			FlxG.overlap(_player, level.endPortal, OverlapPlayerPortal);
@@ -50,6 +54,9 @@ package
 			add(_player);
 		}
 		
+		private function CollidePlayerLevel(player:Player, level:FlxTilemap):void {
+			player.HandleCreation();
+		}
 		private function OverlapPlayerSwitch(player:Player, object:Switch):void {
 			if (!object.touched && player.x % 64 == 0 && player.y % 64 == 0) {
 				object.touched = true;

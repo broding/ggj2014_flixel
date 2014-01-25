@@ -10,13 +10,13 @@ package
 	 */
 	public class Player extends FlxSprite
 	{
-		[Embed(source = "../assets/TELEPORTER MAN Tiles.png")] private var ImgPlayer:Class;
+		[Embed(source="../assets/eyeball player.png")] private var ImgPlayer:Class;
 		
-		private const _maxSpeed:int = 128;
+		private const _maxSpeed:int = 256;
 		private const _tileSize:int = GameState.tileSize;
 		private var _movementDirection:int = 0;// 0-idle 1-Left 2-Right 3-Up 4-Down
 		private var _moving:Boolean = false;
-		private var _moveingDelayPassed:Boolean = true;
+		private var _movingDelayPassed:Boolean = true;
 		private var _lastIdlePosition:Point;
 		private var _timeDelay:Number = 0.012;
 		private var _timedelay:Number = 0;
@@ -26,38 +26,36 @@ package
 			super(X, Y);
 			_lastIdlePosition = new Point(X, Y);
 			this.loadGraphic(ImgPlayer, false, false, 64, 64);
-			addAnimation("normal", [1]);
-			play("normal");
 		}
 		
 		override public function update():void
 		{
-			if (!_moving && _moveingDelayPassed)
+			if (!_moving && _movingDelayPassed)
 			{
 				if (FlxG.keys.LEFT)
 				{
 					_movementDirection = 1;
 					_lastIdlePosition = new Point(this.x, this.y);
 					_moving = true;
-					_moveingDelayPassed = false;
+					_movingDelayPassed = false;
 				}else if (FlxG.keys.RIGHT)
 				{
 					_movementDirection = 2;
 					_lastIdlePosition = new Point(this.x, this.y);
 					_moving = true;
-					_moveingDelayPassed = false;
+					_movingDelayPassed = false;
 				}else if (FlxG.keys.UP)
 				{
 					_movementDirection = 3;
 					_lastIdlePosition = new Point(this.x, this.y);
 					_moving = true;
-					_moveingDelayPassed = false;
+					_movingDelayPassed = false;
 				}else if (FlxG.keys.DOWN)
 				{
 					_movementDirection = 4;
 					_lastIdlePosition = new Point(this.x, this.y);
 					_moving = true;
-					_moveingDelayPassed = false;
+					_movingDelayPassed = false;
 				}
 			}else
 			{
@@ -100,12 +98,19 @@ package
 						}
 						break;
 				}
-				if (_timedelay >= _timeDelay) _moveingDelayPassed = true;
+				if (_timedelay >= _timeDelay) _movingDelayPassed = true;
 			}
 			
 			super.update();
 		}
 		
+		public function HandleCreation():void {
+			x = _lastIdlePosition.x;
+			y = _lastIdlePosition.y;
+			_movementDirection = 0;
+			_moving = false;
+			_movingDelayPassed = true;
+		}
 	}
 
 }

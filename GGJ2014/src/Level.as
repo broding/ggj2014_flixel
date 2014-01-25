@@ -1,14 +1,16 @@
 package  
 {
+	
 	import org.flixel.*;
-	import LevelData;
 	/**
 	 * ...
 	 * @author Nerdy Boyz
 	 */
 	 
 	public class Level extends FlxObject
-	{
+	{	
+		[Embed(source = '../assets/blue.png')]private var blue:Class;
+		[Embed(source = '../assets/red.png')]private var red:Class;
 		[Embed(source = '../assets/TELEPORTER MAN Tiles.png')]private var tiles_img:Class;
 		[Embed(source = "../assets/levels/1/1.txt", mimeType = 'application/octet-stream')] private var ding1:Class;
 		[Embed(source = "../assets/levels/1/2.txt", mimeType = 'application/octet-stream')] private var ding2:Class;
@@ -30,7 +32,7 @@ package
 			
 			for (var i:int = 0; i < lvlData.layers.length; i++) {
 				layers.push(new FlxTilemap());
-				layers[i].loadMap(lvlData.layers[i], tiles_img, GameState.tileSize, GameState.tileSize);
+				layers[i].loadMap(lvlData.layers[i], this.getLayerColor(i), GameState.tileSize, GameState.tileSize);
 				
 				for (var j:int = 0; j < layers[i].totalTiles; j++)
 				{
@@ -54,11 +56,54 @@ package
 						var switch1:Switch = new Switch(xPos, yPos,lvlData.id,lvlData.id + 1);
 						switches.add(switch1);
 					}
+					
 				}
+				
+				for (var k:int = 0; k < layers[i].totalTiles; k++)
+				{
+					if((layers[i] as FlxTilemap).getTileByIndex(k) != 0)
+						(layers[i] as FlxTilemap).setTileByIndex(k, getAutoTileValue(i, k));
+				}
+				
+				
 			}
 			FlxG.state.add(switches);
 			
 			FlxG.state.add(layers[currentLayer]);
+			
+			width = layers[currentLayer].width;
+			height = layers[currentLayer].height;
+		}
+		
+		private function getLayerColor(index:uint):Class
+		{
+			switch(index)
+			{
+				case 0:
+					return blue;
+					break;
+				case 1:
+					return red;
+					break;
+			}
+			
+			return blue;
+		}
+		
+		private function getAutoTileValue(layerIndex:uint, tileIndex:uint):uint
+		{
+			var point:FlxPoint = new FlxPoint(tileIndex % layers[layerIndex].widthInTiles, Math.floor(tileIndex / layers[layerIndex].widthInTiles));
+			
+			var tilemap:FlxTilemap = layers[layerIndex];
+			
+			var autotile:uint = 0;
+			
+			if(tilemap.getTile(point.x, point.y - 1)) autotile += 1;
+			if(tilemap.getTile(point.x + 1, point.y)) autotile += 2;
+			if(tilemap.getTile(point.x, point.y + 1)) autotile += 4;
+			if(tilemap.getTile(point.x - 1, point.y)) autotile += 8;
+			
+			return autotile;
 		}
 		
 		public function SwitchToLayer(layer:int):void {
