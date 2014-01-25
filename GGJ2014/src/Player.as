@@ -10,7 +10,7 @@ package
 	 */
 	public class Player extends FlxSprite
 	{
-		[Embed(source = "../assets/TELEPORTER MAN Tiles.png")] private var ImgPlayer:Class;
+		[Embed(source="../assets/eyeball player.png")] private var ImgPlayer:Class;
 		
 		private const _maxSpeed:int = 256;
 		private const _tileSize:int = GameState.tileSize;
@@ -26,8 +26,6 @@ package
 			super(X, Y);
 			_lastIdlePosition = new Point(X, Y);
 			this.loadGraphic(ImgPlayer, false, false, 64, 64);
-			addAnimation("normal", [1]);
-			play("normal");
 		}
 		
 		override public function update():void
