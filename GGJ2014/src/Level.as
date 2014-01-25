@@ -46,6 +46,7 @@ package
 			
 			bg = new FlxSprite();
 			bg.loadGraphic(bgImage);
+			
 			FlxG.state.add(bg);
 			
 			for (var i:int = 0; i < lvlData.layers.length; i++) {
@@ -112,6 +113,9 @@ package
 			width = layers[currentLayer].width;
 			height = layers[currentLayer].height;
 			
+			FlxG.camera.scroll.x = width / 2 - FlxG.width / 2;
+			FlxG.camera.scroll.y = height / 2 - FlxG.height / 2;
+			
 			_rasterBackground.widthInTiles = layers[currentLayer].widthInTiles;
 			_rasterBackground.heightInTiles = layers[currentLayer].heightInTiles;
 			
@@ -124,7 +128,6 @@ package
 			FlxG.state.add(switches);
 			
 			FlxG.state.add(layers[currentLayer]);
-			
 			
 			bg.x = width / 2 - FlxG.width / 2;
 			bg.y = height / 2 - FlxG.height / 2;
