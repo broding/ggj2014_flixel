@@ -19,8 +19,11 @@ package
 		private var _timer:Number;
 		private var _totalTime:Number;
 		
-		private var _startAlpha:Number = 0;
-		private var _targetAlpha:Number = 0;
+		private var _startAlpha:Number;
+		private var _targetAlpha:Number;
+		
+		private var _alphaUpdateTimer:Number = 0;
+		private var _alphaUpdateTotalTime:Number = 0.03;
 		
 		public function VectorTilemap(tilemap:FlxTilemap, color:uint = 0xffffff, startAlpha:Number = 1, targetAlpha:Number = 0)
 		{
@@ -66,7 +69,13 @@ package
 				FlxG.state.remove(this);
 			}
 			
-			setAlpha(lerp(_startAlpha, _targetAlpha, _timer / _totalTime));
+			_alphaUpdateTimer += FlxG.elapsed;
+			
+			if(_alphaUpdateTotalTime < _alphaUpdateTimer)
+			{
+				_alphaUpdateTimer = 0;
+				setAlpha(lerp(_startAlpha, _targetAlpha, _timer / _totalTime));
+			}
 		}
 		
 		override public function draw():void

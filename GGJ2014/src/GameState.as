@@ -35,9 +35,6 @@ package
 			_player = new Player(level.spawn.x, level.spawn.y);
 			add(_player);
 			
-			FlxG.camera.scroll.x = level.width / 2 - FlxG.width / 2;
-			FlxG.camera.scroll.y = level.height / 2 - FlxG.height / 2;
-			
 			super.create();
 		}
 		
