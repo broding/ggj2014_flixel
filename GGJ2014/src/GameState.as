@@ -95,7 +95,7 @@ package
 		}
 		
 		private function CollidePlayerLevel(player:Player, level:FlxTilemap):void {
-			player.HandleCreation();
+			player.HandleCollision();
 		}
 		private function OverlapPlayerSwitch(player:Player, object:Switch):void {
 			//trace("switch LL:"+level.currentLayer+"CL" + object.currentLayer + "TL" + object.targetLayer + " touched:" + object.touched);
