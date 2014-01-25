@@ -46,9 +46,28 @@ package
 			FlxG.overlap(_player, level.switches, OverlapPlayerSwitch);
 			FlxG.overlap(_player, level.endPortal, OverlapPlayerPortal);
 			
-			if (FlxG.keys.A && !_player.moving) {
+			if (FlxG.keys.justPressed("SPACE") && !_player.moving) {
 				var tileindex:int = Math.floor(_player.x / 64) + (Math.floor(_player.y / 64) * level.layers[level.currentLayer].widthInTiles);
-				var wallbreaker:WallBreaker = new WallBreaker(_player.x, _player.y);
+				ToggleWallbreaker(tileindex);
+			}
+			super.update();
+		}
+		
+		private function ToggleWallbreaker(tileindex:int):void {
+			var exists:Boolean = false;
+			//todo: kan alleen oppakken als in layer waarin geplaatst
+			for (var i:int = 0; i < _wallbreakers.length; i++) {
+				if (_wallbreakers.members[i].tileIndex == tileindex) {
+					//TODO: remove wallbreaker and fix walls
+					for (var j:int = 0; j < _wallbreakers.members[i].breakLayers.length; j++) {
+						level.layers[_wallbreakers.members[i].breakLayers[j]].setTileByIndex(_wallbreakers.members[i].breakTileIndex[j], _wallbreakers.members[i].breakTileType[j]);
+					}
+					_wallbreakers.remove(_wallbreakers.members[i]);
+					exists = true;
+				}
+			}
+			if (!exists) {
+				var wallbreaker:WallBreaker = new WallBreaker(_player.x, _player.y, tileindex);	
 				_wallbreakers.add(wallbreaker);
 				
 				for (var i:int = 0; i < level.layers.length; i++)
@@ -60,7 +79,6 @@ package
 					}
 				}
 			}
-			super.update();
 		}
 		
 		private function NextLevel():void {

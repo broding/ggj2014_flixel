@@ -7,14 +7,16 @@ package
 	 */
 	public class WallBreaker extends FlxSprite
 	{
-		[Embed(source="../assets/eyeball player.png")] private var ImgPlayer:Class;
-		private var breakLayers:Array = new Array();
-		private var breakTileIndex:Array = new Array();
-		private var breakTileType:Array = new Array();
+		[Embed(source = "../assets/eyeball player.png")] private var ImgPlayer:Class;
+		public var breakLayers:Array = new Array();
+		public var breakTileIndex:Array = new Array();
+		public var breakTileType:Array = new Array();
+		public var tileIndex:int = 0;
 		
-		public function WallBreaker(xPos:int, yPos:int) 
+		public function WallBreaker(xPos:int, yPos:int, tileindex:int = 0) 
 		{
 			super(xPos, yPos);
+			tileIndex = tileindex;
 			this.loadGraphic(ImgPlayer, false, false, 64, 64);
 		}
 		

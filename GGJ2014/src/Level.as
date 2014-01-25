@@ -88,26 +88,24 @@ package
 					if((layers[i] as FlxTilemap).getTileByIndex(k) != 0)
 						(layers[i] as FlxTilemap).setTileByIndex(k, getAutoTileValue(i, k));
 				}
-				
-				
 			}
+		
+			width = layers[currentLayer].width;
+			height = layers[currentLayer].height;
 			
 			_rasterBackground.widthInTiles = layers[currentLayer].widthInTiles;
 			_rasterBackground.heightInTiles = layers[currentLayer].heightInTiles;
+			
+			_whiteBorder = new WhiteBorder(width, height);
 			
 			FlxG.state.add(_rasterBackground);
 			FlxG.state.add(switches);
 			
 			FlxG.state.add(layers[currentLayer]);
 			
-			width = layers[currentLayer].width;
-			height = layers[currentLayer].height;
 			
 			bg.x = width / 2 - FlxG.width / 2;
 			bg.y = height / 2 - FlxG.height / 2;
-			
-			_whiteBorder.width = width;
-			_whiteBorder.height = height;
 			FlxG.state.add(_whiteBorder);
 		}
 		
@@ -127,6 +125,24 @@ package
 			}
 			
 			return blue;
+		}
+		
+		private function getLayerBackground(index:uint):uint
+		{
+			switch(index)
+			{
+				case 0:
+					return 0xff000055
+					break;
+				case 1:
+					return 0xff550000;
+					break;
+				case 2:
+					return 0xff005500;
+					break;
+			}
+			
+			return 0xff000055;
 		}
 		
 		private function getAutoTileValue(layerIndex:uint, tileIndex:uint):uint
@@ -155,6 +171,8 @@ package
 			FlxG.state.remove(layers[currentLayer]);
 			currentLayer = layer;
 			FlxG.state.add(layers[currentLayer]);
+			
+			bg.makeGraphic(900, 700, this.getLayerBackground(currentLayer));
 			_rasterBackground.shine();
 		}
 		private function SyncSwitches():void {
