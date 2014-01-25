@@ -20,6 +20,9 @@ package
 		public var layers:Array = new Array();
 		public var switches:FlxGroup = new FlxGroup();
 		public var endPortal:FlxSprite;
+		
+		private var bg:FlxSprite;
+		
 		public function Level() 
 		{
 		}
@@ -29,6 +32,10 @@ package
 				trace("empty layer array!");
 				return;
 			}
+			
+			bg = new FlxSprite();
+			bg.makeGraphic(800, 600, 0xff000055);
+			FlxG.state.add(bg);
 			
 			for (var i:int = 0; i < lvlData.layers.length; i++) {
 				layers.push(new FlxTilemap());
@@ -67,12 +74,16 @@ package
 				
 				
 			}
+			
 			FlxG.state.add(switches);
 			
 			FlxG.state.add(layers[currentLayer]);
 			
 			width = layers[currentLayer].width;
 			height = layers[currentLayer].height;
+			
+			bg.x = width / 2 - FlxG.width / 2;
+			bg.y = height / 2 - FlxG.height / 2;
 		}
 		
 		private function getLayerColor(index:uint):Class
