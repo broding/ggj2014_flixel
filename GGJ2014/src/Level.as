@@ -34,6 +34,8 @@ package
 		
 		private var bg:FlxSprite;
 		
+		var spacebarHelp:FlxSprite;
+		
 		public function Level() 
 		{
 			_whiteBorder = new WhiteBorder(width, height, 0, 0);
@@ -169,7 +171,7 @@ package
 			
 			if(lvlData.id == 4)
 			{
-				var spacebarHelp:FlxSprite = new FlxSprite(3 * 64, 1 * 64, spacebar);
+				spacebarHelp = new FlxSprite(3 * 64, 1 * 64, spacebar);
 				FlxG.state.add(spacebarHelp);
 			}
 		}

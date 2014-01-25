@@ -40,6 +40,12 @@ package
 		
 		override public function update():void 
 		{
+			if (level.spacebarHelp != null && level.currentLayer == 2) {
+				level.spacebarHelp.visible = true;
+			} else if (level.spacebarHelp != null) {
+				level.spacebarHelp.visible = false;
+			}
+			
 			FlxG.collide(_player, level.layers[level.currentLayer], CollidePlayerLevel);
 			
 			for (var i:int = 0; i < level.worldBounds.length; i++) {
