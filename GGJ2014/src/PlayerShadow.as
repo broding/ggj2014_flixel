@@ -13,11 +13,11 @@ package
 	{
 		[Embed(source="../assets/player.png")] private var ImgPlayer:Class;
 		
-		private var _timeVisible:Number = 0.55; //time visible in seconds
+		private var _timeVisible:Number = 0.19; //time visible in seconds
 		private var _timePassed:Number = 0;
 		private var _parent:Player;
 		private var myShape:Shape;
-		private var _radius:Number = 10;
+		private var _radius:Number = 2;
 		
 		public function PlayerShadow(X:int, Y:int, Parent:Player) 
 		{

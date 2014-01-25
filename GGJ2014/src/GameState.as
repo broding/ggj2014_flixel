@@ -9,6 +9,7 @@ package
 	{
 		public static var tileSize:int = 64;
 		
+		[Embed(source = "../assets/Music/bump.mp3")] private var sndBump:Class;
 		[Embed(source = "../assets/Music/whateversoothsyoubest.mp3")] private var _backgroundMusic:Class;
 		private var level:Level;
 		private var _currentLevel:uint;
@@ -43,6 +44,10 @@ package
 		override public function update():void 
 		{
 			FlxG.collide(_player, level.layers[level.currentLayer], CollidePlayerLevel);
+			
+			for (var i:int = 0; i < level.worldBounds.length; i++) {
+				FlxG.collide(_player, level.worldBounds[i], CollidePlayerBounds);
+			}
 			
 			FlxG.overlap(_player, level.switches, OverlapPlayerSwitch);
 			FlxG.overlap(_player, level.endPortal, OverlapPlayerPortal);
@@ -112,6 +117,13 @@ package
 		
 		private function CollidePlayerLevel(player:Player, level:FlxTilemap):void {
 			player.HandleCollision();
+			if (!FlxG.keys.RIGHT && !FlxG.keys.LEFT && !FlxG.keys.UP && !FlxG.keys.DOWN)
+				FlxG.play(sndBump);
+		}
+		private function CollidePlayerBounds(player:Player, bounds:FlxSprite):void {
+			player.HandleCollision();
+			if (!FlxG.keys.RIGHT && !FlxG.keys.LEFT && !FlxG.keys.UP && !FlxG.keys.DOWN)
+				FlxG.play(sndBump);
 		}
 		private function OverlapPlayerSwitch(player:Player, object:Switch):void {
 			//trace("switch LL:"+level.currentLayer+"CL" + object.currentLayer + "TL" + object.targetLayer + " touched:" + object.touched);

@@ -17,12 +17,14 @@ package
 		[Embed(source = '../assets/green.png')]private var green:Class;
 		
 		[Embed(source = '../assets/controls.png')]private var controls:Class;
+		[Embed(source = '../assets/spacebar.png')]private var spacebar:Class;
 		
 		public var currentLayer:int = 0;
 		public var spawn:FlxPoint = new FlxPoint(0, 0);
 		public var layers:Array = new Array();
 		public var switches:FlxGroup = new FlxGroup();
 		public var endPortal:FlxSprite;
+		public var worldBounds:Array = new Array();
 		
 		private var _rasterBackground:RasterBackground;
 		private var _whiteBorder:WhiteBorder;
@@ -125,6 +127,24 @@ package
 			FlxG.state.add(layers[currentLayer]);
 			
 			
+			var worldTop:FlxSprite = new FlxSprite(-1, -1);
+			worldTop.makeGraphic(width + 2, 1);
+			worldTop.immovable = true;
+			worldBounds.push(worldTop);
+			var worldBot:FlxSprite = new FlxSprite(-1, height + 1);
+			worldBot.makeGraphic(width + 2, 1);
+			worldBot.immovable = true;
+			worldBounds.push(worldBot);
+			var worldLeft:FlxSprite = new FlxSprite(-1, -1);
+			worldLeft.makeGraphic(1, height + 2);
+			worldLeft.immovable = true;
+			worldBounds.push(worldLeft);
+			var worldRight:FlxSprite = new FlxSprite(width + 1, -1);
+			worldRight.makeGraphic(1, height + 2);
+			worldRight.immovable = true;
+			worldBounds.push(worldRight);
+			
+			
 			bg.x = width / 2 - FlxG.width / 2;
 			bg.y = height / 2 - FlxG.height / 2;
 			FlxG.state.add(_whiteBorder);
@@ -134,6 +154,12 @@ package
 			{
 				var controlHelp:FlxSprite = new FlxSprite(1 * 64, 1 * 64, controls);
 				FlxG.state.add(controlHelp);
+			}
+			
+			if(lvlData.id == 4)
+			{
+				var spacebarHelp:FlxSprite = new FlxSprite(3 * 64, 1 * 64, spacebar);
+				FlxG.state.add(spacebarHelp);
 			}
 		}
 		
@@ -203,13 +229,22 @@ package
 			//	_zoomBorder.setFadeIn();
 			}
 			FlxG.state.remove(layers[currentLayer]);
+			var oldLayer:int = currentLayer;
 			currentLayer = layer;
 			FlxG.state.add(layers[currentLayer]);
 			SwitchesVisability();
 			
 			bg.color = this.getLayerBackground(currentLayer);
 			_rasterBackground.shine();
+			
+			// show crazy tilinggggg
+			var oldTileHighlighting:VectorTilemap = new VectorTilemap(layers[oldLayer], this.getLayerBackground(oldLayer));
+			FlxG.state.add(oldTileHighlighting);
+			
+			var newTileHighlighting:VectorTilemap = new VectorTilemap(layers[currentLayer]);
+			FlxG.state.add(newTileHighlighting);
 		}
+		
 		private function SyncSwitches():void {
 			trace("[LEVEL] SYNCSWITCH+=========================");
 			for (var t:int = 0; t < switches.length; t++ ) {

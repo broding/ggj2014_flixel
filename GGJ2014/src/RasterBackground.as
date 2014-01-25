@@ -15,9 +15,14 @@ package
 		private var _alphaTimer:Number = 0;
 		private var _alphaMax:Number = 0.4;
 		
+		private var _drawMatrix:Matrix;
+		
 		public function RasterBackground()
 		{
 			_alpha = 0.2;
+			
+			
+			
 		}
 		
 		public function shine():void
@@ -54,8 +59,11 @@ package
 		
 		override public function draw():void
 		{
-			var matrix:Matrix = new Matrix();
-			matrix.translate(-FlxG.camera.scroll.x, -FlxG.camera.scroll.y);
+			if(!_drawMatrix)
+			{
+				_drawMatrix = new Matrix();
+				_drawMatrix.translate(-FlxG.camera.scroll.x, -FlxG.camera.scroll.y);
+			}
 			
 			var myShape:Shape = new Shape();
 			myShape.graphics.lineStyle(1, 0xffffff, _alpha);
@@ -72,7 +80,7 @@ package
 				myShape.graphics.lineTo(widthInTiles * GameState.tileSize, i * GameState.tileSize);
 			}
 			
-			FlxG.camera.buffer.draw(myShape, matrix);
+			FlxG.camera.buffer.draw(myShape, _drawMatrix);
 		}
 	}
 }
