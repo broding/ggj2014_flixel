@@ -46,9 +46,28 @@ package
 			FlxG.overlap(_player, level.switches, OverlapPlayerSwitch);
 			FlxG.overlap(_player, level.endPortal, OverlapPlayerPortal);
 			
-			if (FlxG.keys.A && !_player.moving) {
+			if (FlxG.keys.justPressed("SPACE") && !_player.moving) {
 				var tileindex:int = Math.floor(_player.x / 64) + (Math.floor(_player.y / 64) * level.layers[level.currentLayer].widthInTiles);
-				var wallbreaker:WallBreaker = new WallBreaker(_player.x, _player.y);
+				ToggleWallbreaker(tileindex);
+			}
+			super.update();
+		}
+		
+		private function ToggleWallbreaker(tileindex:int):void {
+			var exists:Boolean = false;
+			//todo: kan alleen oppakken als in layer waarin geplaatst
+			for (var i:int = 0; i < _wallbreakers.length; i++) {
+				if (_wallbreakers.members[i].tileIndex == tileindex) {
+					//TODO: remove wallbreaker and fix walls
+					for (var j:int = 0; j < _wallbreakers.members[i].breakLayers.length; j++) {
+						level.layers[_wallbreakers.members[i].breakLayers[j]].setTileByIndex(_wallbreakers.members[i].breakTileIndex[j], _wallbreakers.members[i].breakTileType[j]);
+					}
+					_wallbreakers.remove(_wallbreakers.members[i]);
+					exists = true;
+				}
+			}
+			if (!exists) {
+				var wallbreaker:WallBreaker = new WallBreaker(_player.x, _player.y, tileindex);	
 				_wallbreakers.add(wallbreaker);
 				
 				for (var i:int = 0; i < level.layers.length; i++)
@@ -60,7 +79,6 @@ package
 					}
 				}
 			}
-			super.update();
 		}
 		
 		private function NextLevel():void {
@@ -78,9 +96,19 @@ package
 			player.HandleCreation();
 		}
 		private function OverlapPlayerSwitch(player:Player, object:Switch):void {
-			if (!object.touched && player.x % 64 == 0 && player.y % 64 == 0) {
-				object.touched = true;
-				level.SwitchToLayer(object.targetLayer);
+			//trace("switch LL:"+level.currentLayer+"CL" + object.currentLayer + "TL" + object.targetLayer + " touched:" + object.touched);
+			//trace(player.x +", "+player.y)
+			//trace(Math.floor( player.x % 64) == 0 && Math.floor( player.y % 64) == 0);
+			if(level.currentLayer == object.currentLayer){
+				if (!object.touched && Math.floor( player.x) == object.x && Math.floor( player.y ) == Math.floor(object.y)) {
+					//trace("SWITCH LAYER")
+					level.SwitchToLayer(object.targetLayer);
+					//object.SwitchTarget();
+					object.touched = true;
+				}else if (!(Math.floor( player.x) == object.x && Math.floor( player.y ) == Math.floor(object.y))) {
+					//trace("TOUCH FALSE")
+					object.touched = false;
+				}
 			}
 		}
 		private function OverlapPlayerPortal(player:Player, object:EndPortal):void {
