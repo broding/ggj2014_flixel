@@ -10,10 +10,14 @@ package
 	public class Level extends FlxObject
 	{
 		[Embed(source = '../assets/TELEPORTER MAN Tiles.png')]private var tiles_img:Class;
-		private var layers:Array = new Array();
+		[Embed(source = "../assets/levels/1/1.txt", mimeType = 'application/octet-stream')] private var ding1:Class;
+		[Embed(source = "../assets/levels/1/2.txt", mimeType = 'application/octet-stream')] private var ding2:Class;
 		
-		public var currentLayer:FlxTilemap;
-		
+		public var currentLayer:int = 0;
+		public var spawn:FlxPoint = new FlxPoint(0, 0);
+		public var layers:Array = new Array();
+		public var switches:FlxGroup = new FlxGroup();
+		public var endPortal:FlxSprite;
 		public function Level() 
 		{
 		}
@@ -27,13 +31,34 @@ package
 			for (var i:int = 0; i < lvlData.layers.length; i++) {
 				layers.push(new FlxTilemap());
 				layers[i].loadMap(lvlData.layers[i], tiles_img, GameState.tileSize, GameState.tileSize);
+				
+				for (var j:int = 0; j < layers[i].totalTiles; j++)
+				{
+					var xPos:int = j % layers[i].widthInTiles * GameState.tileSize;
+					var yPos:int = (int)(j / layers[i].widthInTiles) * GameState.tileSize;
+					
+					var t:int = layers[i].getTileByIndex(j);
+					if (t == 2) {
+						layers[i].setTileByIndex(j, 0);
+						spawn = new FlxPoint(xPos, yPos);
+					}
+					if (t == 3) {
+						layers[i].setTileByIndex(j, 0);
+						if (endPortal == null) {
+							endPortal = new EndPortal(xPos, yPos, 1);
+							FlxG.state.add(endPortal);
+						}
+					}
+					if (t == 4) {
+						layers[i].setTileByIndex(j, 0);
+						var switch1:Switch = new Switch(xPos, yPos, 1);
+						switches.add(switch1);
+					}
+				}
 			}
-			currentLayer = layers[0];
-			FlxG.state.add(currentLayer);
-		}
-		
-		public function UnloadLevel():void {
+			FlxG.state.add(switches);
 			
+			FlxG.state.add(layers[currentLayer]);
 		}
 		
 		public function SwitchToLayer(layer:int):void {
@@ -41,11 +66,15 @@ package
 				trace("this layer does not exist");
 				return;
 			}
-			currentLayer = layers[layer];
+			FlxG.state.remove(layers[currentLayer]);
+			currentLayer = layer;
+			FlxG.state.add(layers[currentLayer]);
 		}
 		
 		override public function kill():void 
 		{
+			switches.clear();
+			endPortal.kill();
 			for (var i:int = 0; i < layers.length; i++) {
 				layers[i].kill();
 			}
