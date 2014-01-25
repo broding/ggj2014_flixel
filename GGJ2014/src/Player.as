@@ -115,7 +115,11 @@ package
 						}
 						break;
 				}
-				if (_timedelay >= _timeDelay) _movingDelayPassed = true;
+				if (_timedelay >= _timeDelay) {
+					if (_movementDirection == 0 && moving == false)
+						Score.stepsTaken++;
+					_movingDelayPassed = true;
+				}
 			}
 			
 			if (_movementDirection != 0)

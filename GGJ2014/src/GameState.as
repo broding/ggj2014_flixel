@@ -59,6 +59,9 @@ package
 				var tileindex:int = Math.floor(_player.x / 64) + (Math.floor(_player.y / 64) * level.layers[level.currentLayer].widthInTiles);
 				ToggleWallbreaker(tileindex);
 			}
+			
+			Score.time += FlxG.elapsed;
+			
 			super.update();
 		}
 		
@@ -152,6 +155,9 @@ package
 		}
 		private function OverlapPlayerPortal(player:Player, object:EndPortal):void {
 			if (player.x % 64 == 0 && player.y % 64 == 0) {
+				Score.AddStepsForLevel();
+				Score.AddTimeForLevel();
+				
 				_wallbreakers.clear();
 			
 				level.kill();
