@@ -53,6 +53,7 @@ package
 			if (player.x % 64 == 0 && player.y % 64 == 0) {
 				trace("D000NN33333");
 				tilemap.kill();
+				player.kill();
 			}
 		}
 	}

@@ -17,7 +17,7 @@ package
 		public var spawn:FlxPoint = new FlxPoint(0, 0);
 		public var layers:Array = new Array();
 		public var switches:FlxGroup = new FlxGroup();
-		public var endPortal:FlxSprite = new FlxSprite();
+		public var endPortal:FlxSprite;
 		public function Level() 
 		{
 		}
