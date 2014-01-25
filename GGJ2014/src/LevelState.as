@@ -30,6 +30,7 @@ package
 		
 		override public function create():void
 		{
+			FlxG.flash();
 			_currentLevel = 1;
 			
 			
