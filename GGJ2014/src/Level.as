@@ -78,12 +78,16 @@ package
 						
 						var switch1:Switch = new Switch(xPos, yPos, (i), (i) + nextlayer);
 						switches.add(switch1);
-						
 						for (var s:int = 0; s < switches.length; s++ ) {
 							if (switches.members[s].currentLayer == i + nextlayer) {
 								if (Math.floor(switches.members[s].x) == Math.floor(xPos) && Math.floor(switches.members[s].y) == Math.floor(yPos) ) {
 									switch1.touching = switches.members[s].touching;
 								}
+							}
+							if (switches.members[s].currentLayer == this.currentLayer) {
+								switches.members[s].visible = true;
+							}else {
+								switches.members[s].visible = false;
 							}
 						}
 					}
@@ -181,6 +185,7 @@ package
 			FlxG.state.remove(layers[currentLayer]);
 			currentLayer = layer;
 			FlxG.state.add(layers[currentLayer]);
+			SwitchesVisability();
 			
 			bg.makeGraphic(900, 700, this.getLayerBackground(currentLayer));
 			_rasterBackground.shine();
@@ -189,14 +194,23 @@ package
 			for (var t:int = 0; t < switches.members.length; t++ ) {
 				for (var s:int = 0; s < switches.members.length; s++ ) {
 					if (switches.members[s].currentLayer == switches.members[t].targetLayer) {		
-						trace("[LEVEL] same loc: "+(Math.floor(switches.members[s].x) == Math.floor(switches.members[t].x) && Math.floor(switches.members[s].y) == Math.floor(switches.members[t].y)));
-						trace("[LEVEL] same s[ "+Math.floor(switches.members[s].x)+", "+Math.floor(switches.members[s].y)+"]t["+ Math.floor(switches.members[t].x)+","+Math.floor(switches.members[t].y)+"]");
+						//trace("[LEVEL] same loc: "+(Math.floor(switches.members[s].x) == Math.floor(switches.members[t].x) && Math.floor(switches.members[s].y) == Math.floor(switches.members[t].y)));
+						//trace("[LEVEL] same s[ "+Math.floor(switches.members[s].x)+", "+Math.floor(switches.members[s].y)+"]t["+ Math.floor(switches.members[t].x)+","+Math.floor(switches.members[t].y)+"]");
 						if (Math.floor(switches.members[s].x) == Math.floor(switches.members[t].x) && Math.floor(switches.members[s].y) == Math.floor(switches.members[t].y) ) {
-							trace("[LEVEL] SYNC s/t["+switches.members[s].touched+","+switches.members[t].touched+"]");
+							//trace("[LEVEL] SYNC s/t["+switches.members[s].touched+","+switches.members[t].touched+"]");
 							switches.members[s].touched = switches.members[t].touched;
-							trace("[LEVEL]:"+switches.members[t].touched+"||"+switches.members[s].touched);
+							//trace("[LEVEL]:"+switches.members[t].touched+"||"+switches.members[s].touched);
 						}
 					}
+				}
+			}
+		}
+		private function SwitchesVisability():void {
+			for (var t:int = 0; t < switches.members.length; t++ ) {
+				if (switches.members[t].currentLayer == this.currentLayer) {
+					switches.members[t].visible = true;
+				}else {
+					switches.members[t].visible = false;
 				}
 			}
 		}

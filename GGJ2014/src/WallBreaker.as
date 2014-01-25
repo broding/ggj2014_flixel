@@ -7,7 +7,7 @@ package
 	 */
 	public class WallBreaker extends FlxSprite
 	{
-		[Embed(source = "../assets/eyeball player.png")] private var ImgPlayer:Class;
+		[Embed(source="../assets/wallbreaker.png")] private var ImgPlayer:Class;
 		public var breakLayers:Array = new Array();
 		public var breakTileIndex:Array = new Array();
 		public var breakTileType:Array = new Array();
