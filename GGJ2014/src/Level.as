@@ -274,10 +274,13 @@ package
 		}
 		override public function kill():void 
 		{
+			for (var i:int = 0; i < worldBounds.length; i++) {
+				worldBounds[i].kill();
+			}
 			switches.clear();
 			endPortal.kill();
-			for (var i:int = 0; i < layers.length; i++) {
-				layers[i].kill();
+			for (var j:int = 0; j < layers.length; j++) {
+				layers[j].kill();
 			}
 			super.kill();
 		}
