@@ -4,11 +4,13 @@ package
 
 	public class LevelState extends FlxState
 	{
+		/*
 		[Embed(source = "assets/fonts/fibo.ttf", fontName = "FibographyPersonalUse", embedAsCFF="false", mimeType="application/x-font")]
 		private var FontClass:Class;
 		
 		[Embed(source = "assets/fonts/AldotheApache.ttf", fontName = "AldotheApache", embedAsCFF="false", mimeType="application/x-font")]
 		private var FontClass2:Class;
+		*/
 		
 		private var _levelMap:FlxSprite;
 		private var _levelName:FlxText;
@@ -25,7 +27,7 @@ package
 			_levelMap.y = 100;
 			
 			_levelName = new FlxText(0, 0, 300, "What's this?");
-			_levelName.setFormat("AldotheApache");
+			//_levelName.setFormat("AldotheApache");
 			_levelName.size = 40;
 			_levelName.alignment = "center";
 			_levelName.x = FlxG.width / 2 - _levelName.width / 2;
@@ -61,7 +63,7 @@ package
 		
 		private function nextLevel():void
 		{
-			if(_currentLevel < LevelDataManager.levelList.length)
+			if(_currentLevel <= LevelDataManager.levelList.length)
 			{
 				loadLevel(LevelDataManager.getLevelData(++_currentLevel));
 			}
