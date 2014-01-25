@@ -12,8 +12,6 @@ package
 		[Embed(source = '../assets/blue.png')]private var blue:Class;
 		[Embed(source = '../assets/red.png')]private var red:Class;
 		[Embed(source = '../assets/TELEPORTER MAN Tiles.png')]private var tiles_img:Class;
-		[Embed(source = "../assets/levels/1/1.txt", mimeType = 'application/octet-stream')] private var ding1:Class;
-		[Embed(source = "../assets/levels/1/2.txt", mimeType = 'application/octet-stream')] private var ding2:Class;
 		
 		public var currentLayer:int = 0;
 		public var spawn:FlxPoint = new FlxPoint(0, 0);

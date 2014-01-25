@@ -42,6 +42,11 @@ package
 			
 			FlxG.overlap(_player, level.switches, OverlapPlayerSwitch);
 			FlxG.overlap(_player, level.endPortal, OverlapPlayerPortal);
+			
+			if (FlxG.keys.A && !_player.moving) {
+				var index:int = Math.floor(_player.x / 64) + (Math.floor(_player.y / 64) * level.layers[level.currentLayer].widthInTiles);
+				level.layers[level.currentLayer].setTileByIndex(index, 1);
+			}
 			super.update();
 		}
 		
