@@ -27,7 +27,7 @@ package
 		
 		public function Level() 
 		{
-			_whiteBorder = new WhiteBorder();
+			_whiteBorder = new WhiteBorder(width, height);
 			_rasterBackground = new RasterBackground();
 		}
 		
