@@ -138,7 +138,7 @@ package
 			super.update();
 		}
 		
-		public function HandleCreation():void {
+		public function HandleCollision():void {
 			x = _lastIdlePosition.x;
 			y = _lastIdlePosition.y;
 			_movementDirection = 0;

@@ -20,13 +20,15 @@ package
 		public var switches:FlxGroup = new FlxGroup();
 		public var endPortal:FlxSprite;
 		
+		private var _rasterBackground:RasterBackground;
 		private var _whiteBorder:WhiteBorder;
 		
 		private var bg:FlxSprite;
 		
 		public function Level() 
 		{
-			_whiteBorder = new WhiteBorder();
+			_whiteBorder = new WhiteBorder(width, height);
+			_rasterBackground = new RasterBackground();
 		}
 		
 		public function LoadLevelData(lvlData:LevelData):void {
@@ -60,11 +62,24 @@ package
 							FlxG.state.add(endPortal);
 						}
 					}
-					if (t == 4) {
+					if (t == 4 || t== 5) {
 						layers[i].setTileByIndex(j, 0);
-						var switch1:Switch = new Switch(xPos, yPos, 1);
+						var nextlayer:int = 1;
+						if (t == 5) {
+							nextlayer = -1;
+						}
+						var switch1:Switch = new Switch(xPos, yPos, (i), (i) + nextlayer);
 						switches.add(switch1);
+						
+						for (var s:int = 0; s < switches.members.length; s++ ) {
+							if (switches.members[s].currentLayer == i + nextlayer) {
+								if (Math.floor(switches.members[s].x) == Math.floor(xPos) && Math.floor(switches.members[s].y) == Math.floor(yPos) ) {
+									switch1.touching = switches.members[s].touching;
+								}
+							}
+						}
 					}
+					
 					
 				}
 				
@@ -73,22 +88,24 @@ package
 					if((layers[i] as FlxTilemap).getTileByIndex(k) != 0)
 						(layers[i] as FlxTilemap).setTileByIndex(k, getAutoTileValue(i, k));
 				}
-				
-				
 			}
+		
+			width = layers[currentLayer].width;
+			height = layers[currentLayer].height;
 			
+			_rasterBackground.widthInTiles = layers[currentLayer].widthInTiles;
+			_rasterBackground.heightInTiles = layers[currentLayer].heightInTiles;
+			
+			_whiteBorder = new WhiteBorder(width, height);
+			
+			FlxG.state.add(_rasterBackground);
 			FlxG.state.add(switches);
 			
 			FlxG.state.add(layers[currentLayer]);
 			
-			width = layers[currentLayer].width;
-			height = layers[currentLayer].height;
 			
 			bg.x = width / 2 - FlxG.width / 2;
 			bg.y = height / 2 - FlxG.height / 2;
-			
-			_whiteBorder.width = width;
-			_whiteBorder.height = height;
 			FlxG.state.add(_whiteBorder);
 		}
 		
@@ -108,6 +125,24 @@ package
 			}
 			
 			return blue;
+		}
+		
+		private function getLayerBackground(index:uint):uint
+		{
+			switch(index)
+			{
+				case 0:
+					return 0xff000055
+					break;
+				case 1:
+					return 0xff550000;
+					break;
+				case 2:
+					return 0xff005500;
+					break;
+			}
+			
+			return 0xff000055;
 		}
 		
 		private function getAutoTileValue(layerIndex:uint, tileIndex:uint):uint
@@ -131,11 +166,30 @@ package
 				trace("this layer does not exist");
 				return;
 			}
+			
+			SyncSwitches();
 			FlxG.state.remove(layers[currentLayer]);
 			currentLayer = layer;
 			FlxG.state.add(layers[currentLayer]);
+			
+			bg.makeGraphic(900, 700, this.getLayerBackground(currentLayer));
+			_rasterBackground.shine();
 		}
-		
+		private function SyncSwitches():void {
+			for (var t:int = 0; t < switches.members.length; t++ ) {
+				for (var s:int = 0; s < switches.members.length; s++ ) {
+					if (switches.members[s].currentLayer == switches.members[t].targetLayer) {		
+						trace("[LEVEL] same loc: "+(Math.floor(switches.members[s].x) == Math.floor(switches.members[t].x) && Math.floor(switches.members[s].y) == Math.floor(switches.members[t].y)));
+						trace("[LEVEL] same s[ "+Math.floor(switches.members[s].x)+", "+Math.floor(switches.members[s].y)+"]t["+ Math.floor(switches.members[t].x)+","+Math.floor(switches.members[t].y)+"]");
+						if (Math.floor(switches.members[s].x) == Math.floor(switches.members[t].x) && Math.floor(switches.members[s].y) == Math.floor(switches.members[t].y) ) {
+							trace("[LEVEL] SYNC s/t["+switches.members[s].touched+","+switches.members[t].touched+"]");
+							switches.members[s].touched = switches.members[t].touched;
+							trace("[LEVEL]:"+switches.members[t].touched+"||"+switches.members[s].touched);
+						}
+					}
+				}
+			}
+		}
 		override public function kill():void 
 		{
 			switches.clear();
