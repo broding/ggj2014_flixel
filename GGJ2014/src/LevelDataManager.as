@@ -12,7 +12,13 @@ package
 	{
 		private static var queue:LoaderMax = new LoaderMax( { name:"LevelLoader", onProgress: progressHandler, onComplete:completeHandler, onError:errorHandler } );;
 		private static var levelDataList:Array = new Array();
-		private static var levelList:Array = new Array();
+		private static var _levelList:Array = new Array();
+
+		public static function get levelList():Array
+		{
+			return _levelList;
+		}
+
 		private static var _callback:Function;
 		private var level_amount:int = 1;
 		public function LevelDataManager() 
@@ -21,7 +27,7 @@ package
 		}
 		public static function LoadLevelDataList(callback:Function):void {
 			_callback = callback;
-			levelList = ["1,1", "1,2" ];
+			_levelList = ["1,1", "1,2" ];
 			for ( var i:int = 0; i < levelList.length ; i++ ) {
 				AppendMap(levelList[i].split(",")[0], levelList[i].split(",")[1]);	
 			}
