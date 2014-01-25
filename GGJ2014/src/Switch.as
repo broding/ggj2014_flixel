@@ -25,8 +25,6 @@ package
 			targetLayer = targetlayer;
 			
 			this.loadGraphic(_image, false, false, 64, 64);
-			addAnimation("ding", [5], 0, false);
-			play("ding");
 			
 			switch(targetlayer) {
 				case 0:
