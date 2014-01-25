@@ -24,7 +24,6 @@ package
 		}
 		override public function create():void 
 		{
-			FlxG.visualDebug = true;
 			tilemap = new Level();
 			tilemap.LoadLevelData(LevelDataManager.getLevelData(_currentLevel));
 			
@@ -43,6 +42,14 @@ package
 			super.update();
 		}
 		
+		private function NextLevel() {
+			tilemap = new Level();
+			tilemap.LoadLevelData(LevelDataManager.getLevelData(_currentLevel));
+			
+			_player = new Player(tilemap.spawn.x, tilemap.spawn.y);
+			add(_player);
+		}
+		
 		private function OverlapPlayerSwitch(player:Player, object:Switch):void {
 			if (!object.touched && player.x % 64 == 0 && player.y % 64 == 0) {
 				object.touched = true;
@@ -54,6 +61,8 @@ package
 				trace("D000NN33333");
 				tilemap.kill();
 				player.kill();
+				_currentLevel++;
+				NextLevel();
 			}
 		}
 	}
