@@ -41,7 +41,7 @@ package
 		
 		override public function update():void
 		{
-			this.angle += 5;
+			//this.angle += 5;
 		}
 	}
 
