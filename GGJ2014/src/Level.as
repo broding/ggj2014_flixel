@@ -44,8 +44,10 @@ package
 					}
 					if (t == 3) {
 						layers[i].setTileByIndex(j, 0);
-						endPortal = new EndPortal(xPos, yPos, 1);
-						FlxG.state.add(endPortal);
+						if (endPortal == null) {
+							endPortal = new EndPortal(xPos, yPos, 1);
+							FlxG.state.add(endPortal);
+						}
 					}
 					if (t == 4) {
 						layers[i].setTileByIndex(j, 0);
