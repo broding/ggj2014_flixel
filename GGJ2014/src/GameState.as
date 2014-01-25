@@ -113,7 +113,6 @@ package
 					//trace("SWITCH LAYER")
 					object.touched = true;
 					level.SwitchToLayer(object.targetLayer);
-					object.SwitchTarget();
 					for (var i:int = 0; i < _wallbreakers.length; i++) {
 						if (_wallbreakers.members[i].layerId == level.currentLayer) {
 							_wallbreakers.members[i].alpha = 1;
