@@ -54,7 +54,7 @@ package
 					return levelDataList[i];
 				}
 			}
-			var tempdata:LevelData = new LevelData(id, "kees the pancake");
+			var tempdata:LevelData = new LevelData(id, "Level:"+id);
 			levelDataList.push(tempdata);
 			return tempdata;
 		}

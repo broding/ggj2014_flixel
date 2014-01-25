@@ -25,8 +25,6 @@ package
 			targetLayer = targetlayer;
 			
 			this.loadGraphic(_image, false, false, 64, 64);
-			addAnimation("ding", [5], 0, false);
-			play("ding");
 			
 			switch(targetlayer) {
 				case 0:
@@ -39,6 +37,11 @@ package
 					color = 0xff00ff00;
 					break;
 			}
+		}
+		
+		override public function update():void
+		{
+			this.angle += 5;
 		}
 	}
 
