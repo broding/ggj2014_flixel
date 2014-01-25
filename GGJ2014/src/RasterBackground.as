@@ -39,6 +39,7 @@ package
 				
 				if(_alphaTimer > _alphaMax)
 				{
+					_alphaTimer = 0;
 					_alpha = 0.2;
 					_shining = false;
 				}
