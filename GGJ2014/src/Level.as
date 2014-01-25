@@ -66,10 +66,10 @@ package
 					
 				}
 				
-				for (var j:int = 0; j < layers[i].totalTiles; j++)
+				for (var k:int = 0; k < layers[i].totalTiles; k++)
 				{
-					if((layers[i] as FlxTilemap).getTileByIndex(j) != 0)
-						(layers[i] as FlxTilemap).setTileByIndex(j, getAutoTileValue(i, j));
+					if((layers[i] as FlxTilemap).getTileByIndex(k) != 0)
+						(layers[i] as FlxTilemap).setTileByIndex(k, getAutoTileValue(i, k));
 				}
 				
 				
