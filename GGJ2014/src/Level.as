@@ -24,6 +24,7 @@ package
 		public var layers:Array = new Array();
 		public var switches:FlxGroup = new FlxGroup();
 		public var endPortal:FlxSprite;
+		public var worldBounds:Array = new Array();
 		
 		private var _rasterBackground:RasterBackground;
 		private var _whiteBorder:WhiteBorder;
@@ -124,6 +125,24 @@ package
 			FlxG.state.add(switches);
 			
 			FlxG.state.add(layers[currentLayer]);
+			
+			
+			var worldTop:FlxSprite = new FlxSprite(-1, -1);
+			worldTop.makeGraphic(width + 2, 1);
+			worldTop.immovable = true;
+			worldBounds.push(worldTop);
+			var worldBot:FlxSprite = new FlxSprite(-1, height + 1);
+			worldBot.makeGraphic(width + 2, 1);
+			worldBot.immovable = true;
+			worldBounds.push(worldBot);
+			var worldLeft:FlxSprite = new FlxSprite(-1, -1);
+			worldLeft.makeGraphic(1, height + 2);
+			worldLeft.immovable = true;
+			worldBounds.push(worldLeft);
+			var worldRight:FlxSprite = new FlxSprite(width + 1, -1);
+			worldRight.makeGraphic(1, height + 2);
+			worldRight.immovable = true;
+			worldBounds.push(worldRight);
 			
 			
 			bg.x = width / 2 - FlxG.width / 2;
