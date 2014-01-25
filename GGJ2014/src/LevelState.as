@@ -7,8 +7,8 @@ package
 		//[Embed(source = "assets/fonts/fibo.ttf", fontName = "FibographyPersonalUse", embedAsCFF="false", mimeType="application/x-font")]
 		//private var FontClass:Class;
 		
-		//[Embed(source = "assets/fonts/AldotheApache.ttf", fontName = "AldotheApache", embedAsCFF="false", mimeType="application/x-font")]
-		//private var FontClass2:Class;
+		[Embed(source = "../assets/fonts/AldotheApache.ttf", fontName = "AldotheApache", embedAsCFF="false", mimeType="application/x-font")]
+		private var FontClass2:Class;
 		
 		[Embed(source="../assets/miniblue.png")] private var blue:Class;
 		[Embed(source="../assets/minired.png")] private var red:Class;
@@ -34,7 +34,7 @@ package
 			
 			
 			_levelName = new FlxText(0, 0, 300, LevelDataManager.getLevelData(_currentLevel).name);
-			//_levelName.setFormat("AldotheApache", 40);
+			_levelName.setFormat("AldotheApache", 40);
 			_levelName.size = 40;
 			_levelName.alignment = "center";
 			_levelName.x = FlxG.width / 2 - _levelName.width / 2;
