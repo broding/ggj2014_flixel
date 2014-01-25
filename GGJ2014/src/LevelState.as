@@ -14,26 +14,26 @@ package
 		private var _levelName:FlxText;
 		
 		private var _currentLevel:uint;
+		private var _mapPreview:Level;
 		
 		public function LevelState()
 		{
+			
+		}
+		
+		override public function create():void
+		{
 			_currentLevel = 1;
 			
-			_levelMap = new FlxSprite();
-			_levelMap.makeGraphic(300, 300, 0xffff0000);
-			_levelMap.x = FlxG.width / 2 - _levelMap.width / 2;
-			_levelMap.y = 100;
+			_mapPreview = new Level();
+			_mapPreview.LoadLevelData(LevelDataManager.getLevelData(_currentLevel));
 			
-			_levelName = new FlxText(0, 0, 300, "What's this?");
-			//_levelName.setFormat("AldotheApache");
+			_levelName = new FlxText(0, 0, 300, LevelDataManager.getLevelData(_currentLevel).name);
 			_levelName.size = 40;
 			_levelName.alignment = "center";
 			_levelName.x = FlxG.width / 2 - _levelName.width / 2;
 			_levelName.y = 450;
 			
-			loadLevel(LevelDataManager.getLevelData(_currentLevel));
-			
-			add(_levelMap);
 			add(_levelName);
 		}
 		
@@ -61,18 +61,22 @@ package
 		
 		private function nextLevel():void
 		{
-			if(_currentLevel <= LevelDataManager.levelList.length)
+			_mapPreview = new Level();
+			if(_currentLevel >= LevelDataManager.levelDataListLength)
 			{
-				loadLevel(LevelDataManager.getLevelData(++_currentLevel));
+				_currentLevel = 0;
 			}
+			_mapPreview.LoadLevelData(LevelDataManager.getLevelData(++_currentLevel));
 		}
 		
 		private function previousLevel():void
 		{
+			_mapPreview = new Level();
 			if(_currentLevel <= 1)
 			{
-				loadLevel(LevelDataManager.getLevelData(++_currentLevel));
+				_currentLevel = LevelDataManager.levelDataListLength + 1;
 			}
+			_mapPreview.LoadLevelData(LevelDataManager.getLevelData(--_currentLevel));
 		}
 	}
 }
