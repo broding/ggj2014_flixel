@@ -93,14 +93,21 @@ package
 		}
 		
 		private function NextLevel():void {
-			level = new Level();
-			level.LoadLevelData(LevelDataManager.getLevelData(_currentLevel));
-			
-			_wallbreakers = new FlxGroup();
-			add(_wallbreakers);
-			
-			_player = new Player(level.spawn.x, level.spawn.y);
-			add(_player);
+			try{
+				level = new Level();
+				level.LoadLevelData(LevelDataManager.getLevelData(_currentLevel));
+				_wallbreakers = new FlxGroup();
+				add(_wallbreakers);
+				
+				_player = new Player(level.spawn.x, level.spawn.y);
+				add(_player);
+			}catch (e:Error) {
+				trace(e.message);
+				if (e.message == "[LDM] level does not exist") {
+					trace("NEXT LEVEL");
+					FlxG.switchState(new LevelState());
+				}
+			}
 		}
 		
 		private function CollidePlayerLevel(player:Player, level:FlxTilemap):void {
