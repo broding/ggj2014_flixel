@@ -104,6 +104,8 @@ package
 						(layers[i] as FlxTilemap).setTileByIndex(k, getAutoTileValue(i, k));
 				}
 			}
+			
+			FlxG.flash();
 		
 			width = layers[currentLayer].width;
 			height = layers[currentLayer].height;
@@ -113,6 +115,8 @@ package
 			
 			_whiteBorder = new WhiteBorder(width, height);
 			_zoomBorder = new ZoomBorder(width, height);
+			
+			bg.color = this.getLayerBackground(currentLayer);
 			
 			FlxG.state.add(_rasterBackground);
 			FlxG.state.add(switches);
