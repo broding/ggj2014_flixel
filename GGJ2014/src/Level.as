@@ -12,7 +12,8 @@ package
 		[Embed(source = '../assets/blue.png')]private var blue:Class;
 		[Embed(source = '../assets/red.png')]private var red:Class;
 		[Embed(source = '../assets/green.png')]private var green:Class;
-		[Embed(source = '../assets/TELEPORTER MAN Tiles.png')]private var tiles_img:Class;
+		
+		[Embed(source = '../assets/controls.png')]private var controls:Class;
 		
 		public var currentLayer:int = 0;
 		public var spawn:FlxPoint = new FlxPoint(0, 0);
@@ -121,6 +122,12 @@ package
 			bg.y = height / 2 - FlxG.height / 2;
 			FlxG.state.add(_whiteBorder);
 			FlxG.state.add(_zoomBorder);
+			
+			if(lvlData.id == 1)
+			{
+				var controlHelp:FlxSprite = new FlxSprite(1 * 64, 1 * 64, controls);
+				FlxG.state.add(controlHelp);
+			}
 		}
 		
 		private function getLayerColor(index:uint):Class
@@ -191,8 +198,8 @@ package
 			_rasterBackground.shine();
 		}
 		private function SyncSwitches():void {
-			for (var t:int = 0; t < switches.members.length; t++ ) {
-				for (var s:int = 0; s < switches.members.length; s++ ) {
+			for (var t:int = 0; t < switches.length; t++ ) {
+				for (var s:int = 0; s < switches.length; s++ ) {
 					if (switches.members[s].currentLayer == switches.members[t].targetLayer) {		
 						//trace("[LEVEL] same loc: "+(Math.floor(switches.members[s].x) == Math.floor(switches.members[t].x) && Math.floor(switches.members[s].y) == Math.floor(switches.members[t].y)));
 						//trace("[LEVEL] same s[ "+Math.floor(switches.members[s].x)+", "+Math.floor(switches.members[s].y)+"]t["+ Math.floor(switches.members[t].x)+","+Math.floor(switches.members[t].y)+"]");
@@ -206,7 +213,7 @@ package
 			}
 		}
 		private function SwitchesVisability():void {
-			for (var t:int = 0; t < switches.members.length; t++ ) {
+			for (var t:int = 0; t < switches.length; t++ ) {
 				if (switches.members[t].currentLayer == this.currentLayer) {
 					switches.members[t].visible = true;
 				}else {

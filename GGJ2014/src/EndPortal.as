@@ -7,7 +7,6 @@ package
 	 */
 	public class EndPortal extends FlxSprite
 	{
-		[Embed(source = "../assets/TELEPORTER MAN Tiles.png")] private var ImgPlayer:Class;
 		[Embed(source = "../assets/finish.png")] private var _image:Class;
 		public var touched:Boolean = false;
 		public var targetLayer:int = 0;

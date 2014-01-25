@@ -7,7 +7,6 @@ package
 	 */
 	public class Switch extends FlxSprite
 	{
-		[Embed(source = "../assets/TELEPORTER MAN Tiles.png")] private var player:Class;
 		[Embed(source = "../assets/switch.png")] private var _image:Class;
 		public var touched:Boolean = false;
 		public var targetLayer:int = 0;
@@ -26,8 +25,18 @@ package
 			targetLayer = targetlayer;
 			
 			this.loadGraphic(_image, false, false, 64, 64);
-			addAnimation("ding", [5], 0, false);
-			play("ding");
+			
+			switch(targetlayer) {
+				case 0:
+					color = 0xff0000ff;
+					break;
+				case 1:
+					color = 0xffff0000;
+					break;
+				case 2:
+					color = 0xff00ff00;
+					break;
+			}
 		}
 	}
 

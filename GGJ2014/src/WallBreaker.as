@@ -26,20 +26,6 @@ package
 			breakLayers.push(layer);
 			breakTileIndex.push(tileindex);
 			breakTileType.push(tiletype);
-			
-			RemoveDuplicates(breakLayers);
-			RemoveDuplicates(breakTileIndex);
-			RemoveDuplicates(breakTileType);
-		}
-		
-		private function RemoveDuplicates(list:Array):void {
-			var i:int = 0;
-			while(i < list.length) {
-				while(i < list.length+1 && list[i] == list[i+1]) {
-					list.splice(i, 1);
-				}
-				i++;
-			}
 		}
 	}
 
