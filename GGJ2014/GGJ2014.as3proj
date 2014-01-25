@@ -1,16 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<project version="2">
+<project>
   <!-- Output SWF options -->
   <output>
-    <movie outputType="Application" />
+    <movie disabled="False" />
     <movie input="" />
     <movie path="bin\GGJ2014.swf" />
     <movie fps="30" />
     <movie width="800" />
     <movie height="600" />
-    <movie version="10" />
-    <movie minorVersion="1" />
-    <movie platform="Flash Player" />
+    <movie version="11" />
     <movie background="#FFFFFF" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
@@ -20,15 +18,12 @@
   <!-- Build options -->
   <build>
     <option accessible="False" />
-    <option advancedTelemetry="False" />
     <option allowSourcePathOverlap="False" />
     <option benchmark="False" />
     <option es="False" />
-    <option inline="False" />
     <option locale="" />
     <option loadConfig="" />
     <option optimize="True" />
-    <option omitTraces="True" />
     <option showActionScriptWarnings="True" />
     <option showBindingWarnings="True" />
     <option showInvalidCSS="True" />
@@ -44,7 +39,7 @@
     <option staticLinkRSL="True" />
     <option additional="" />
     <option compilerConstants="" />
-    <option minorVersion="" />
+    <option customSDK="" />
   </build>
   <!-- SWC Include Libraries -->
   <includeLibraries>
@@ -76,7 +71,7 @@
   </compileTargets>
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>
-    <hidden path="obj" />
+    <!-- example: <hidden path="..." /> -->
   </hiddenPaths>
   <!-- Executed before build -->
   <preBuildCommand />
@@ -86,8 +81,5 @@
   <options>
     <option showHiddenPaths="False" />
     <option testMovie="Default" />
-    <option testMovieCommand="" />
   </options>
-  <!-- Plugin storage -->
-  <storage />
 </project>
