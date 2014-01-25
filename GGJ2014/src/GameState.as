@@ -59,11 +59,9 @@ package
 		private function ToggleWallbreaker(tileindex:int):void {
 			var exists:Boolean = false;
 			var breakersToDelete:Array = new Array();
-			//todo: kan alleen oppakken als in layer waarin geplaatst
 			for (var i:int = 0; i < _wallbreakers.length; i++) {
 				if (_wallbreakers.members[i].tileIndex == tileindex && _wallbreakers.members[i].layerId == level.currentLayer) {
 					breakersToDelete.push(_wallbreakers.members[i]);
-					//TODO: remove wallbreaker and fix walls
 					for (var j:int = 0; j < _wallbreakers.members[i].breakLayers.length; j++) {
 						level.layers[_wallbreakers.members[i].breakLayers[j]].setTileByIndex(_wallbreakers.members[i].breakTileIndex[j], _wallbreakers.members[i].breakTileType[j]);
 					}
@@ -80,7 +78,6 @@ package
 				for (var k:int = 0; k < level.layers.length; k++)
 				{
 					if (level.layers[k].getTileByIndex(tileindex) != 0) {
-						//trace("layer " + i + " at " + tileindex + " of type " + level.layers[i].getTileByIndex(tileindex));
 						wallbreaker.AddBreakPoint(k, tileindex, level.layers[k].getTileByIndex(tileindex));
 						level.layers[k].setTileByIndex(tileindex, 0);
 					}
