@@ -114,6 +114,7 @@ package
 		
 		private function submitComplete(e:Event):void
 		{
+			//*
 			var loader:URLLoader = URLLoader(e.target);
 
 			var data:Array = JSON.decode(loader.data);
