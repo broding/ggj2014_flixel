@@ -11,6 +11,9 @@ package
 	 
 	public class Level extends FlxObject
 	{	
+		[Embed(source = "../assets/fonts/AldotheApache.ttf", fontName = "AldotheApache", embedAsCFF = "false", mimeType = "application/x-font")]
+		private var FontClass2:Class;
+		
 		[Embed(source = '../assets/bg.png')]private var bgImage:Class;
 		
 		[Embed(source = '../assets/blue.png')]private var blue:Class;
@@ -37,7 +40,8 @@ package
 		
 		private var bg:FlxSprite;
 		
-		var spacebarHelp:FlxSprite;
+		public var spacebarHelp:FlxSprite;
+		public var hotkeyHelp:FlxText;
 		
 		public function Level() 
 		{
@@ -178,11 +182,18 @@ package
 				var controlHelp:FlxSprite = new FlxSprite(1 * 64, 1 * 64, controls);
 				FlxG.state.add(controlHelp);
 			}
-			
 			if(lvlData.id == 4)
 			{
 				spacebarHelp = new FlxSprite(3 * 64, 1 * 64, spacebar);
 				FlxG.state.add(spacebarHelp);
+			}
+			if(lvlData.id == 1)
+			{
+				hotkeyHelp = new FlxText(0, -150, width, "'R' for reset\n'Esc' for exit", true);
+				hotkeyHelp.setFormat("AldotheApache", 20);
+				hotkeyHelp.alignment = "center";
+				hotkeyHelp.alpha = 0.5;
+				FlxG.state.add(hotkeyHelp);
 			}
 		}
 		
