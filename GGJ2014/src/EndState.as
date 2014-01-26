@@ -20,7 +20,7 @@ package
 		private var _highscoreName:String = "";
 		private var _score:int = Score.score;
 		private var _highscorelist:Array;
-		private var _highscoreWindow:HighscoreWindow;
+		//private var _highscoreWindow:HighscoreWindow;
 		
 		private const WIDTH:int = 500;
 		private const HEIGHT:int = 550;
