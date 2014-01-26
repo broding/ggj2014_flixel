@@ -1,5 +1,6 @@
 package
 {
+	import flash.display.Shape;
 	import org.flixel.*;
 	
 	public class MenuState extends FlxState
@@ -15,12 +16,19 @@ package
 		private var splashscreen2:FlxSprite;
 		private var splashscreen3:FlxSprite;
 		private var splashscreen4:FlxSprite;
+		private var selectSquare:WhiteBorder;
 		
 		private var titlescreen:FlxSprite;
 		private var menutext:FlxText;
 		private var timer:Number =0;
 		private var startTime:Boolean = true;
 		private var moveblocks:Boolean = true;
+		private var controls_on:Boolean = false;
+		
+		private var selected:int = 0;
+		
+		private var goUp:Boolean = false;
+		private var goDown:Boolean = false;
 		
 		public function MenuState()
 		{
@@ -57,8 +65,8 @@ package
 			titlescreen.visible = false;
 			titlescreen.width = 100;
 			titlescreen.height = 100;
-			titlescreen.x =  (FlxG.width / 2) - (splashscreen2.width / 2);
-			titlescreen.y =  (FlxG.height / 2) - (splashscreen2.height / 2);
+			titlescreen.x = 0;// (FlxG.width / 2) - (splashscreen2.width / 2);
+			titlescreen.y = 0;// (FlxG.height / 2) - (splashscreen2.height / 2);
 			
 			splashscreen1.alpha = 0; 
 			splashscreen2.alpha = 0; 
@@ -70,6 +78,11 @@ package
 			menutext.y = 400;
 			add(menutext);
 			menutext.visible = false;
+			
+			selectSquare = new WhiteBorder(200, 35, (FlxG.width / 2) - (200 / 2), menutext.y);
+			selectSquare.visible = false;
+			add(selectSquare);
+			
 			super.create();
 		}
 		override public function update():void 
@@ -124,12 +137,36 @@ package
 					splashscreen1.kill(); splashscreen2.kill();splashscreen3.kill();splashscreen4.kill(); 
 					showTitle();
 				}
+				if (controls_on) {
+					if(selected!=1){
+						if (FlxG.keys.justPressed("DOWN")) {
+							selectSquare.y = (menutext.y + menutext.height - selectSquare.height) - 5;
+							selected = 1;
+						}
+					}
+					if(selected!=0){
+						if (FlxG.keys.justPressed("UP")) {
+							selectSquare.y = (menutext.y+3)
+							selected = 0;
+						}
+					}
+					if (FlxG.keys.justPressed("SPACE")) {
+							if (selected == 0) {
+								FlxG.switchState(new LevelState());
+							}else if (selected == 1) {
+								FlxG.switchState(new EndState());
+							}
+						}
+				}
 			}
+			
 			super.update();
 		}
 		public function showTitle():void {
 			menutext.visible = true;
 			titlescreen.visible = true;
+			controls_on = true;
+			selectSquare.visible = true;
 		}
 	}
 }
