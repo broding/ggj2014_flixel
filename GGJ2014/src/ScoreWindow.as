@@ -85,7 +85,6 @@ package
 			add(_particles);
 			add(_levelScoreText);
 			add(_totalScoreText);
-			add(_continueText);
 		}
 		
 		override public function update():void
@@ -110,6 +109,15 @@ package
 				
 				_totalScoreText.text = _totalScore.toString();
 				_levelScoreText.text = _levelScore.toString();
+				
+				if (FlxG.keys.justPressed("SPACE")) {
+					_totalScore += _levelScore;
+					_levelScore = 0;
+					FlxG.play(soundScore, 0.2);
+					
+					_totalScoreText.text = _totalScore.toString();
+					_levelScoreText.text = _levelScore.toString();
+				}
 			}
 			else if(!this._readyForCallback)
 			{
@@ -119,6 +127,7 @@ package
 				_levelScoreText.text = "0";
 				_readyForCallback = true;
 				
+				add(_continueText);
 			}
 			else if(this._readyForCallback)
 			{
