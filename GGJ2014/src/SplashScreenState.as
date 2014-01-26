@@ -23,7 +23,7 @@ package
 		private var timer:Number =0;
 		private var timer1:Number =0;
 		private var startTime:Boolean = true;
-		private var moveblocks:Boolean = true;
+		private var moveblocks:Boolean = false;
 		public function SplashScreenState() 
 		{
 			super();
@@ -88,12 +88,12 @@ package
 					splashscreen4.alpha = splashscreen3.alpha = splashscreen2.alpha;
 				}
 				if (splashscreen2.alpha >= 1) {
-					if (splashscreen2.x == ((FlxG.width / 2) - (splashscreen2.width / 2))) {
-						//timer1 += FlxG.elapsed;
-						//if(timer1 >=1.4){
+					if (splashscreen3.x == ((FlxG.width / 2) - (splashscreen2.width / 2))) {
+						timer1 += FlxG.elapsed;
+						if(timer1 >=0.3){
 							moveblocks = true;
 							timer1 = 0;
-						//}
+						}
 					}
 				}
 				splashscreen1.visible = false;
@@ -101,15 +101,15 @@ package
 				splashscreen3.visible = true;
 				splashscreen4.visible = true;
 				if ( moveblocks) {
-					splashscreen2.x+=2.5;
-					splashscreen4.x-=2.5;
+					splashscreen2.x+=3.5;
+					splashscreen4.x-=3.5;
 				}
 				if (splashscreen4.x <= ((FlxG.width / 2) - (splashscreen2.width / 2) - 210)) {
 					moveblocks = false;
 					timer+=FlxG.elapsed;
 					
 				}
-				if (timer >= 0.6) {
+				if (timer >= 0.5) {
 					if(splashscreen2.visible&&splashscreen2.alive){
 						FlxG.flash();
 					}
