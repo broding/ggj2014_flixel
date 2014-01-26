@@ -7,8 +7,7 @@ package
 	 */
 	public class EndState extends FlxState
 	{
-		
-		[Embed(source = "../assets/fonts/AldotheApache.ttf", fontName = "AldotheApache", embedAsCFF="false", mimeType="application/x-font")]
+		[Embed(source = "../assets/fonts/AldotheApache.ttf", fontName = "AldotheApache", embedAsCFF = "false", mimeType = "application/x-font")]
 		private var FontClass2:Class;
 		
 		private var headerText:FlxText;
@@ -44,9 +43,10 @@ package
 			endtext.setFormat("AldotheApache", 25);
 			endtext.alignment = "center";
 			endtext.x = (FlxG.width/2)-150;
-			endtext.y = otherText.y+otherText.height+300;
+			endtext.y = otherText.y+otherText.height+350;
 			
 			add(endtext);
+			
 			super.create();
 		}
 		override public function update():void 

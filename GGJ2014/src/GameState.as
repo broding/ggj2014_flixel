@@ -129,7 +129,7 @@ package
 			Score.ResetLevelScore();
 			_wallbreakers.clear();
 			level.kill();
-			player.kill();
+			_player.kill();
 		}
 		
 		private function CollidePlayerLevel(player:Player, level:FlxTilemap):void {
