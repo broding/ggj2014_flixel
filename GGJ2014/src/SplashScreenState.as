@@ -109,7 +109,7 @@ package
 					timer+=FlxG.elapsed;
 					
 				}
-				if (timer >= 0.5) {
+				if (timer >= 0.3) {
 					if(splashscreen2.visible&&splashscreen2.alive){
 						FlxG.flash();
 					}
