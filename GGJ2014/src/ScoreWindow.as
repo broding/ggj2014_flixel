@@ -32,7 +32,7 @@ package
 			_callback = callback;
 			
 			_levelScore = levelScore;
-			_totalScore = 310;
+			_totalScore = Score.score;
 			
 			_particles = new FlxGroup();
 			_particleTimer = 0;
@@ -111,6 +111,8 @@ package
 			}
 			else
 			{
+				Score.score += Score.GetLevelScore();
+				
 				_particles.clear();
 				_levelScoreText.text = "0";
 				if(FlxG.keys.justPressed("SPACE"))
