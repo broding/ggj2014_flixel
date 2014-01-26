@@ -20,7 +20,7 @@ package
 		[Embed(source = '../assets/red.png')]private var red:Class;
 		[Embed(source = '../assets/green.png')]private var green:Class;
 		
-		[Embed(source = "../assets/obstucted.png")] private var obstructed:Class;
+		[Embed(source = "../assets/obstucted_circle_new.png")] private var obstructed:Class;
 		
 		[Embed(source = '../assets/controls.png')]private var controls:Class;
 		[Embed(source = '../assets/spacebar.png')]private var spacebar:Class;

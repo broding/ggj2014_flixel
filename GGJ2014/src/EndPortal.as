@@ -7,7 +7,7 @@ package
 	 */
 	public class EndPortal extends FlxSprite
 	{
-		[Embed(source = "../assets/finish.png")] private var _image:Class;
+		[Embed(source = "../assets/finish_glow.png")] private var _image:Class;
 		public var touched:Boolean = false;
 		public var targetLayer:int = 0;
 		
