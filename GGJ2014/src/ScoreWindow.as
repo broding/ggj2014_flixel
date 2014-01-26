@@ -27,6 +27,8 @@ package
 		
 		private var _callback:Function;
 		
+		private var _readyForCallback:Boolean = false;
+		
 		public function ScoreWindow(levelScore:int, callback:Function)
 		{
 			_callback = callback;
@@ -109,12 +111,17 @@ package
 				_totalScoreText.text = _totalScore.toString();
 				_levelScoreText.text = _levelScore.toString();
 			}
-			else
+			else if(!this._readyForCallback)
 			{
 				Score.score += Score.GetLevelScore();
 				
 				_particles.clear();
 				_levelScoreText.text = "0";
+				_readyForCallback = true;
+				
+			}
+			else if(this._readyForCallback)
+			{
 				if(FlxG.keys.justPressed("SPACE"))
 					_callback();
 			}
