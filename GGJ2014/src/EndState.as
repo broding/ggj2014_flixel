@@ -1,5 +1,10 @@
 package  
 {
+	import flash.events.Event;
+	import flash.events.MouseEvent;
+	import flash.net.*;
+	import com.adobe.serialization.json.*;
+
 	import org.flixel.*;
 	/**
 	 * ...
@@ -11,15 +16,24 @@ package
 		private var FontClass2:Class;
 		
 		private var headerText:FlxText;
+		private var website:String = /*"http://localhost/GGJ2014/highscores.php";//*/ "http://oege.ie.hva.nl/~mater09/GGJ2014/highscores.php";
+		
+		private var _highscoreName:String = "name";
+		private var _score:int = 0;
+		
 		private var otherText:FlxText;
 		private var endtext:FlxText;
 		private var beginTime:Number;
 		private var scrollspeed:Number = 0.7;
 		private var pauzeTime:Number = 3;
+		private var _highscorelist:Array;
 		public function EndState() 
 		{
+			_highscorelist = new Array();
+			
 			super();
 		}
+		
 		override public function create():void 
 		{
 			beginTime = FlxG.elapsed;
@@ -48,7 +62,10 @@ package
 			add(endtext);
 			
 			super.create();
+			
+			submit();
 		}
+		
 		override public function update():void 
 		{
 			beginTime += FlxG.elapsed;
@@ -65,6 +82,38 @@ package
 			
 			super.update();
 		}
-	}
+		
+		private function submit(/*e:MouseEvent*/):void
+		{
+			var myRequest:URLRequest = new URLRequest(website);
+			myRequest.method = URLRequestMethod.POST;
+			
+			var variables:URLVariables = new URLVariables();
+			variables.name = _highscoreName;
+			variables.score = _score;
+			myRequest.data = variables;
+			
+			var loader:URLLoader = new URLLoader();
+			loader.dataFormat = URLLoaderDataFormat.TEXT;
+			loader.addEventListener(Event.COMPLETE, submitComplete);
+			loader.load(myRequest);
+		}
+		
+		private function submitComplete(e:Event):void
+		{
+			var loader:URLLoader = URLLoader(e.target);
+			trace("completeHandler: " + loader.data);
 
+			var data:Array = JSON.decode(loader.data);
+			
+			var size:int = data[0].length;
+			
+			for (var i:int = 0; i < size; i++)
+			{
+				_highscorelist.push(new HighscorePlayer(data[0][i], data[1][i], (data[2][i] as Date)));
+			}
+			
+			trace("Nr 1: " + _highscorelist[0].name);
+		}
+	}
 }
