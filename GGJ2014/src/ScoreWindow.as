@@ -27,12 +27,14 @@ package
 		
 		private var _callback:Function;
 		
+		private var _readyForCallback:Boolean = false;
+		
 		public function ScoreWindow(levelScore:int, callback:Function)
 		{
 			_callback = callback;
 			
 			_levelScore = levelScore;
-			_totalScore = 310;
+			_totalScore = Score.score;
 			
 			_particles = new FlxGroup();
 			_particleTimer = 0;
@@ -109,10 +111,17 @@ package
 				_totalScoreText.text = _totalScore.toString();
 				_levelScoreText.text = _levelScore.toString();
 			}
-			else
+			else if(!this._readyForCallback)
 			{
-				_particles.clear();
+				Score.score += Score.GetLevelScore();
 				
+				_particles.clear();
+				_levelScoreText.text = "0";
+				_readyForCallback = true;
+				
+			}
+			else if(this._readyForCallback)
+			{
 				if(FlxG.keys.justPressed("SPACE"))
 					_callback();
 			}
