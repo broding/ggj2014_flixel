@@ -81,7 +81,7 @@ package
 				if (FlxG.keys.justReleased("ESCAPE")) {
 					resetLevelItems();
 					Score.score = 0;
-					FlxG.switchState(new LevelState());
+					FlxG.switchState(new MenuState());
 				}
 			}
 			
@@ -160,7 +160,7 @@ package
 				trace(e.message);
 				if (e.message == "[LDM] level does not exist") {
 					trace("NEXT LEVEL");
-					FlxG.switchState(new EndState());
+					FlxG.switchState(new SubmitState());
 				}
 			}
 		}

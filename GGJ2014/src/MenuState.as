@@ -71,7 +71,7 @@ package
 					}else if (selected == 1) {
 						FlxG.switchState(new CreditState());
 					}else if (selected == 2) {
-						FlxG.switchState(new EndState());
+								FlxG.switchState(new HighscoreState());
 					}
 				}
 			}
