@@ -6,6 +6,8 @@ package
 	
 	public class ScoreWindow extends FlxGroup
 	{
+		[Embed(source = "../assets/Music/pointCount.mp3")] private var soundScore:Class;
+		
 		private const WIDTH:int = 400;
 		private const HEIGHT:int = 300;
 		
@@ -102,6 +104,7 @@ package
 				
 				_levelScore -= 5;
 				_totalScore += 5;
+				FlxG.play(soundScore, 0.2);
 				
 				_totalScoreText.text = _totalScore.toString();
 				_levelScoreText.text = _levelScore.toString();

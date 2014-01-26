@@ -9,6 +9,7 @@ package
 	{
 		public static var tileSize:int = 64;
 		
+		[Embed(source = "../assets/Music/switchDimen.mp3")] private var soundSwitch:Class;
 		[Embed(source = "../assets/Music/bump.mp3")] private var sndBump:Class;
 		[Embed(source = "../assets/Music/whateversoothsyoubest.mp3")] private var _backgroundMusic:Class;
 		private var level:Level;
@@ -19,6 +20,7 @@ package
 		private var _wallbreakers:FlxGroup = new FlxGroup();
 		
 		private var _scoreWindow:ScoreWindow;
+		private var _wallbreakerCount:WallBreakerCount;
 		
 		public function GameState(selectedLevel:uint) 
 		{
@@ -30,13 +32,18 @@ package
 		
 		override public function create():void 
 		{	
+			
 			level = new Level();
 			level.LoadLevelData(LevelDataManager.getLevelData(_currentLevel));
+			
 			
 			add(_wallbreakers);
 			
 			_player = new Player(level.spawn.x, level.spawn.y);
 			add(_player);
+			
+			_wallbreakerCount = new WallBreakerCount();
+			add(_wallbreakerCount);
 			
 			super.create();
 		}
@@ -144,22 +151,27 @@ package
 		private function CollidePlayerLevel(player:Player, level:FlxTilemap):void {
 			player.HandleCollision();
 			if (!FlxG.keys.RIGHT && !FlxG.keys.LEFT && !FlxG.keys.UP && !FlxG.keys.DOWN)
-				FlxG.play(sndBump);
+				FlxG.play(sndBump, 0.5);
 		}
 		private function CollidePlayerBounds(player:Player, bounds:FlxSprite):void {
 			player.HandleCollision();
 			if (!FlxG.keys.RIGHT && !FlxG.keys.LEFT && !FlxG.keys.UP && !FlxG.keys.DOWN)
-				FlxG.play(sndBump);
+				FlxG.play(sndBump, 0.5);
 		}
 		private function OverlapPlayerSwitch(player:Player, object:Switch):void {
 			//trace("switch LL:"+level.currentLayer+"CL" + object.currentLayer + "TL" + object.targetLayer + " touched:" + object.touched);
 			//trace(player.x +", "+player.y)
 			//trace(Math.floor( player.x) == object.x && Math.floor( player.y ) == Math.floor(object.y));
 			if(level.currentLayer == object.currentLayer){
+				
+				
 				if (!object.touched && Math.floor( player.x) == object.x && Math.floor( player.y ) == Math.floor(object.y)) {
 					//trace("SWITCH LAYER")
 					object.touched = true;
 					level.SwitchToLayer(object.targetLayer);
+					
+					FlxG.play(soundSwitch, 0.9);
+					
 					for (var i:int = 0; i < _wallbreakers.length; i++) {
 						if (_wallbreakers.members[i].layerId == level.currentLayer) {
 							_wallbreakers.members[i].alpha = 1;
