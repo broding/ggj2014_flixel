@@ -2,6 +2,7 @@ package
 {
 	
 	import flash.system.System;
+	
 	import org.flixel.*;
 	/**
 	 * ...
@@ -10,6 +11,9 @@ package
 	 
 	public class Level extends FlxObject
 	{	
+		[Embed(source = "../assets/fonts/AldotheApache.ttf", fontName = "AldotheApache", embedAsCFF = "false", mimeType = "application/x-font")]
+		private var FontClass2:Class;
+		
 		[Embed(source = '../assets/bg.png')]private var bgImage:Class;
 		
 		[Embed(source = '../assets/blue.png')]private var blue:Class;
@@ -32,9 +36,12 @@ package
 		private var _whiteBorder:WhiteBorder;
 		private var _zoomBorder:ZoomBorder;
 		
+		private var _wallbreakerCount:WallBreakerCount;
+		
 		private var bg:FlxSprite;
 		
-		var spacebarHelp:FlxSprite;
+		public var spacebarHelp:FlxSprite;
+		public var hotkeyHelp:FlxText;
 		
 		public function Level() 
 		{
@@ -43,6 +50,11 @@ package
 			_rasterBackground = new RasterBackground();
 		}
 		
+		public function get wallbreakerCount():WallBreakerCount
+		{
+			return _wallbreakerCount;
+		}
+
 		public function LoadLevelData(lvlData:LevelData):void {
 			if (lvlData.layers.length <= 0) {
 				trace("empty layer array!");
@@ -157,6 +169,8 @@ package
 			worldRight.immovable = true;
 			worldBounds.push(worldRight);
 			
+			_wallbreakerCount = new WallBreakerCount();
+			FlxG.state.add(_wallbreakerCount);
 			
 			bg.x = width / 2 - FlxG.width / 2;
 			bg.y = height / 2 - FlxG.height / 2;
@@ -168,11 +182,18 @@ package
 				var controlHelp:FlxSprite = new FlxSprite(1 * 64, 1 * 64, controls);
 				FlxG.state.add(controlHelp);
 			}
-			
 			if(lvlData.id == 4)
 			{
 				spacebarHelp = new FlxSprite(3 * 64, 1 * 64, spacebar);
 				FlxG.state.add(spacebarHelp);
+			}
+			if(lvlData.id == 1)
+			{
+				hotkeyHelp = new FlxText(0, -150, width, "'R' for reset\n'Esc' for exit", true);
+				hotkeyHelp.setFormat("AldotheApache", 20);
+				hotkeyHelp.alignment = "center";
+				hotkeyHelp.alpha = 0.5;
+				FlxG.state.add(hotkeyHelp);
 			}
 		}
 		
