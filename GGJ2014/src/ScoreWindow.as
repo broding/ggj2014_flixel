@@ -6,6 +6,8 @@ package
 	
 	public class ScoreWindow extends FlxGroup
 	{
+		[Embed(source = "../assets/Music/pointCount.mp3")] private var soundScore:Class;
+		
 		private const WIDTH:int = 400;
 		private const HEIGHT:int = 300;
 		
@@ -23,8 +25,12 @@ package
 		private var _levelScore:int;
 		private var _totalScore:int;
 		
-		public function ScoreWindow(levelScore:int)
+		private var _callback:Function;
+		
+		public function ScoreWindow(levelScore:int, callback:Function)
 		{
+			_callback = callback;
+			
 			_levelScore = levelScore;
 			_totalScore = 310;
 			
@@ -96,8 +102,9 @@ package
 					_particleTimer = 0;
 				}
 				
-				_levelScore--;
-				_totalScore++;
+				_levelScore -= 5;
+				_totalScore += 5;
+				FlxG.play(soundScore, 0.2);
 				
 				_totalScoreText.text = _totalScore.toString();
 				_levelScoreText.text = _levelScore.toString();
@@ -105,6 +112,9 @@ package
 			else
 			{
 				_particles.clear();
+				
+				if(FlxG.keys.justPressed("SPACE"))
+					_callback();
 			}
 			
 		}
