@@ -73,6 +73,7 @@ package
 			}
 			if (FlxG.keys.justReleased("ESCAPE")) {
 				resetLevelItems();
+				Score.score = 0;
 				FlxG.switchState(new LevelState());
 			}
 			
