@@ -1,6 +1,6 @@
 package  
 {
-	import org.flixel.FlxState;
+	import org.flixel.*;
 	/**
 	 * ...
 	 * @author Nerdy Boyz
@@ -51,7 +51,6 @@ package
 			
 			super.create();
 			
-			submit();
 		}
 		
 		override public function update():void 

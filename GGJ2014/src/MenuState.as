@@ -71,7 +71,7 @@ package
 			splashscreen1.alpha = 0; 
 			splashscreen2.alpha = 0; 
 			
-			menutext = new FlxText(0, 0, 300, "PLAY\n\nCredits");
+			menutext = new FlxText(0, 0, 300, "PLAY\nCredits\nHighscore");
 			menutext.setFormat("AldotheApache", 30);
 			menutext.alignment = "center";
 			menutext.x = (FlxG.width/2)-150;
@@ -138,22 +138,24 @@ package
 					showTitle();
 				}
 				if (controls_on) {
-					if(selected!=1){
+					if(selected!=2){
 						if (FlxG.keys.justPressed("DOWN")) {
-							selectSquare.y = (menutext.y + menutext.height - selectSquare.height) - 5;
-							selected = 1;
+							selectSquare.y += selectSquare.height+3;
+							selected++;
 						}
 					}
 					if(selected!=0){
 						if (FlxG.keys.justPressed("UP")) {
-							selectSquare.y = (menutext.y+3)
-							selected = 0;
+							selectSquare.y -= selectSquare.height+3;
+							selected --;
 						}
 					}
 					if (FlxG.keys.justPressed("SPACE")) {
 							if (selected == 0) {
 								FlxG.switchState(new LevelState());
 							}else if (selected == 1) {
+								FlxG.switchState(new CreditState());
+							}else if (selected == 2) {
 								FlxG.switchState(new HighscoreState());
 							}
 						}

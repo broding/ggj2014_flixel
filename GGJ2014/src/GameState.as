@@ -8,9 +8,14 @@ package
 	public class GameState extends FlxState
 	{
 		public static var tileSize:int = 64;
+		public var playerColliding:Boolean = false;
 		
 		[Embed(source = "../assets/Music/switchDimen.mp3")] private var soundSwitch:Class;
 		[Embed(source = "../assets/Music/bump.mp3")] private var sndBump:Class;
+		[Embed(source = "../assets/Music/pickUp.mp3")] private var sndpickUp:Class;
+		[Embed(source = "../assets/Music/place.mp3")] private var sndDrop:Class;
+		[Embed(source = "../assets/Music/nextLvl.mp3")] private var sndNext:Class;
+		
 		[Embed(source = "../assets/Music/whateversoothsyoubest.mp3")] private var _backgroundMusic:Class;
 		private var level:Level;
 		private var _currentLevel:uint;
@@ -44,7 +49,8 @@ package
 		}
 		
 		override public function update():void
-		{
+		{	
+		
 			level.wallbreakerCount.updateAmount(this.maxWallBreakers - this._wallbreakers.length);
 			
 			if (level.spacebarHelp != null && level.currentLayer == 2) {
@@ -94,6 +100,7 @@ package
 						level.layers[_wallbreakers.members[i].breakLayers[j]].setTileByIndex(_wallbreakers.members[i].breakTileIndex[j], _wallbreakers.members[i].breakTileType[j]);
 					}
 					_wallbreakers.members[i].kill();
+					FlxG.play(sndpickUp, 0.5);
 					exists = true;
 				} else if (_wallbreakers.members[i].tileIndex == tileindex) {
 					exists = true;
@@ -108,6 +115,7 @@ package
 				var wallbreaker:WallBreaker = new WallBreaker(_player.x, _player.y, tileindex, level.currentLayer);
 				wallbreaker.color = level.getLayerBackgroundBrighter(level.currentLayer);
 				_wallbreakers.add(wallbreaker);
+				FlxG.play(sndDrop, 0.5);
 				
 				for (var k:int = 0; k < level.layers.length; k++)
 				{
@@ -179,7 +187,7 @@ package
 					object.touched = true;
 					level.SwitchToLayer(object.targetLayer);
 					
-					FlxG.play(soundSwitch, 0.9);
+					FlxG.play(soundSwitch, 0.7);
 					
 					for (var i:int = 0; i < _wallbreakers.length; i++) {
 						if (_wallbreakers.members[i].layerId == level.currentLayer) {
@@ -207,7 +215,7 @@ package
 			if (player.x % 64 == 0 && player.y % 64 == 0 && _scoreWindow == null) {
 				Score.AddStepsForLevel();
 				Score.AddTimeForLevel();
-			
+				FlxG.play(sndNext, 0.5);
 				this.showScoreWindow();
 			}
 		}
