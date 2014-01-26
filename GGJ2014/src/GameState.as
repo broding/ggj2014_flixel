@@ -62,19 +62,21 @@ package
 			FlxG.overlap(_player, level.switches, OverlapPlayerSwitch);
 			FlxG.overlap(_player, level.endPortal, OverlapPlayerPortal);
 			
-			if (FlxG.keys.justPressed("SPACE") && !_player.moving) {
-				var tileindex:int = Math.floor(_player.x / 64) + (Math.floor(_player.y / 64) * level.layers[level.currentLayer].widthInTiles);
-				ToggleWallbreaker(tileindex);
-			}
-			
-			if (FlxG.keys.justReleased("R")) {
-				resetLevelItems();
-				NextLevel();
-			}
-			if (FlxG.keys.justReleased("ESCAPE")) {
-				resetLevelItems();
-				Score.score = 0;
-				FlxG.switchState(new LevelState());
+			if (_player.canMove) {
+				if (FlxG.keys.justPressed("SPACE") && !_player.moving) {
+					var tileindex:int = Math.floor(_player.x / 64) + (Math.floor(_player.y / 64) * level.layers[level.currentLayer].widthInTiles);
+					ToggleWallbreaker(tileindex);
+				}
+				
+				if (FlxG.keys.justReleased("R")) {
+					resetLevelItems();
+					NextLevel();
+				}
+				if (FlxG.keys.justReleased("ESCAPE")) {
+					resetLevelItems();
+					Score.score = 0;
+					FlxG.switchState(new LevelState());
+				}
 			}
 			
 			Score.time += FlxG.elapsed;
@@ -122,6 +124,7 @@ package
 		
 		private function showScoreWindow():void
 		{
+			_player.canMove = false;
 			_scoreWindow = new ScoreWindow(Score.GetLevelScore(), function():void
 			{
 				remove(_scoreWindow);

@@ -27,6 +27,8 @@ package
 		private var shadowDelay:Number = 0.02;
 		private var shadowTimer:Number = 0;
 		
+		public var canMove:Boolean = true;
+		
 		public function Player(X:int, Y:int):void 
 		{
 			super(X, Y);
@@ -46,6 +48,9 @@ package
 		
 		override public function update():void
 		{
+			if (!canMove) {
+				return;
+			}
 			if (!moving && _movingDelayPassed)
 			{
 				if (FlxG.keys.LEFT)
