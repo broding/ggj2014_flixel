@@ -32,11 +32,11 @@ package
 			add(headerText);
 			
 			otherText = new FlxText(0, 0, 300, 	"---------------Team---------------\n\nNerdy Boyz\n\n" +
-												"------------Programmers-----------\n\n Bas Roding\nSteven Gunneweg\nHugo Mater\n Stijn Groothuis\n\n" +
+												"------------Programmers-----------\n\nBas Roding\nSteven Gunneweg\nHugo Mater\n Stijn Groothuis\n\n" +
 												"--------------Artist--------------\n\nDennis van Etten\n\n" +
-												"-----------Sound Design------------\n\nKyrill Dingelstad\nDennis Reep\n\n" +
-												"-----------Level Design------------\n\nDennis van Etten\n\n" +
-												"----------Gameplay Design----------\n\nDennis van Etten\nSteven Gunneweg\nBas Roding\nHugo Mater\nKyrill Dingelstad\nStijn Groothuis\n");
+												"-----------Sound Design-----------\n\nKyrill Dingelstad\nDennis Reep\n\n" +
+												"-----------Level Design-----------\n\nDennis van Etten\n\n" +
+												"----------Gameplay Design---------\n\nDennis van Etten\nSteven Gunneweg\nBas Roding\nHugo Mater\nKyrill Dingelstad\nStijn Groothuis\n");
 			otherText.setFormat("AldotheApache", 20);
 			otherText.alignment = "center";
 			otherText.x = (FlxG.width/2)-150;
