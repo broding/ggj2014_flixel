@@ -12,7 +12,7 @@ package
 		{
 			super(0);
 			
-			_y = FlxG.height / 2 + y / 2 + 22;
+			_y = FlxG.height / 2 + y / 2 + 7;
 			
 			_breakerSprite = new WallBreaker(FlxG.width / 2 - 16 - 35, _y - 10, 0, 0);
 			_breakerSprite.scrollFactor.make(0,0);
