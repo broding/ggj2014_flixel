@@ -43,6 +43,8 @@ package
 			
 			_checker = new ConnectionChecker();
 			
+			Score.score = 0;
+			
 			add(_text);
 			add(_input);
 		}

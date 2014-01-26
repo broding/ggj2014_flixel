@@ -8,8 +8,11 @@ package
 		//private var FontClass:Class;
 		
 		
+		[Embed(source='../assets/Music/menuMove.mp3')]private var selectsnd:Class;
 		[Embed(source = "../assets/fonts/AldotheApache.ttf", fontName = "AldotheApache", embedAsCFF="false", mimeType="application/x-font")]
 		private var FontClass2:Class;
+		
+		[Embed(source='../assets/arrow.png')] private var arrow:Class;
 		
 		[Embed(source="../assets/miniblue.png")] private var blue:Class;
 		[Embed(source="../assets/minired.png")] private var red:Class;
@@ -23,6 +26,9 @@ package
 		private var _mapPreviews:FlxGroup;
 		private var _whiteBorders:FlxGroup;
 		private var _zoomBorder:ZoomBorder;
+		
+		private var leftArrow:FlxSprite;
+		private var rightArrow:FlxSprite;
 		
 		public function LevelState()
 		{
@@ -47,16 +53,32 @@ package
 			setTileMapPreview();
 			
 			add(_levelName);
+			
+			leftArrow = new FlxSprite(0, 0, arrow);
+			leftArrow.x = _levelName.x -leftArrow.width-50;
+			leftArrow.scale.x = -1;
+			add(leftArrow);
+			
+			
+			rightArrow = new FlxSprite(0, 0, arrow);
+			rightArrow.x = _levelName.x +_levelName.width + 50;
+			leftArrow.y = rightArrow.y = (_levelName.y+(_levelName.height/2)) -(leftArrow.height / 2);
+			add(rightArrow);
 		}
 		
 		override public function update():void
 		{
+			/*rightArrow.visible = !(_currentLevel == LevelDataManager.levelDataListLength);
+			leftArrow.visible = !(_currentLevel == 1);*/
+			
 			if(FlxG.keys.justPressed("LEFT"))
 			{
+				FlxG.play(selectsnd,1);
 				previousLevel();
 			}
 			else if(FlxG.keys.justPressed("RIGHT"))
 			{
+				FlxG.play(selectsnd,1);
 				nextLevel();
 			}
 			
