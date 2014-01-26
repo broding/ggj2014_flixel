@@ -40,7 +40,7 @@ package
 			titlescreen.y = 0;// (FlxG.height / 2) - (splashscreen2.height / 2);
 			
 			
-			menutext = new FlxText(0, 0, 300, "PLAY\nCredits\nHighscore");
+			menutext = new FlxText(0, 0, 300, "PLAY\nHighscore\nCredits");
 			menutext.setFormat("AldotheApache", 30);
 			menutext.alignment = "center";
 			menutext.x = (FlxG.width/2)-150;
@@ -59,14 +59,14 @@ package
 			if (controls_on) {
 				if(selected!=2){
 					if (FlxG.keys.justPressed("DOWN")) {
-						FlxG.play(selectsnd, 0.5);
+						FlxG.play(selectsnd,1);
 						selectSquare.y += selectSquare.height+3;
 						selected++;
 					}
 				}
 				if(selected!=0){
 					if (FlxG.keys.justPressed("UP")) {
-						FlxG.play(selectsnd, 0.5);
+						FlxG.play(selectsnd,1);
 						selectSquare.y -= selectSquare.height+3;
 						selected --;
 					}
@@ -75,9 +75,9 @@ package
 					if (selected == 0) {
 						FlxG.switchState(new LevelState());
 					}else if (selected == 1) {
-						FlxG.switchState(new CreditState());
+						FlxG.switchState(new HighscoreState());
 					}else if (selected == 2) {
-								FlxG.switchState(new HighscoreState());
+								FlxG.switchState(new CreditState());
 					}
 				}
 			}
