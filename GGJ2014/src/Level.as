@@ -2,6 +2,7 @@ package
 {
 	
 	import flash.system.System;
+	
 	import org.flixel.*;
 	/**
 	 * ...
@@ -32,6 +33,8 @@ package
 		private var _whiteBorder:WhiteBorder;
 		private var _zoomBorder:ZoomBorder;
 		
+		private var _wallbreakerCount:WallBreakerCount;
+		
 		private var bg:FlxSprite;
 		
 		var spacebarHelp:FlxSprite;
@@ -43,6 +46,11 @@ package
 			_rasterBackground = new RasterBackground();
 		}
 		
+		public function get wallbreakerCount():WallBreakerCount
+		{
+			return _wallbreakerCount;
+		}
+
 		public function LoadLevelData(lvlData:LevelData):void {
 			if (lvlData.layers.length <= 0) {
 				trace("empty layer array!");
@@ -157,6 +165,8 @@ package
 			worldRight.immovable = true;
 			worldBounds.push(worldRight);
 			
+			_wallbreakerCount = new WallBreakerCount();
+			FlxG.state.add(_wallbreakerCount);
 			
 			bg.x = width / 2 - FlxG.width / 2;
 			bg.y = height / 2 - FlxG.height / 2;

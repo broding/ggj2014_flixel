@@ -20,7 +20,6 @@ package
 		private var _wallbreakers:FlxGroup = new FlxGroup();
 		
 		private var _scoreWindow:ScoreWindow;
-		private var _wallbreakerCount:WallBreakerCount;
 		
 		public function GameState(selectedLevel:uint) 
 		{
@@ -32,7 +31,6 @@ package
 		
 		override public function create():void 
 		{	
-			
 			level = new Level();
 			level.LoadLevelData(LevelDataManager.getLevelData(_currentLevel));
 			
@@ -42,14 +40,13 @@ package
 			_player = new Player(level.spawn.x, level.spawn.y);
 			add(_player);
 			
-			_wallbreakerCount = new WallBreakerCount();
-			add(_wallbreakerCount);
-			
 			super.create();
 		}
 		
 		override public function update():void
 		{
+			level.wallbreakerCount.updateAmount(this.maxWallBreakers - this._wallbreakers.length);
+			
 			if (level.spacebarHelp != null && level.currentLayer == 2) {
 				level.spacebarHelp.visible = true;
 			} else if (level.spacebarHelp != null) {
@@ -68,6 +65,15 @@ package
 			if (FlxG.keys.justPressed("SPACE") && !_player.moving) {
 				var tileindex:int = Math.floor(_player.x / 64) + (Math.floor(_player.y / 64) * level.layers[level.currentLayer].widthInTiles);
 				ToggleWallbreaker(tileindex);
+			}
+			
+			if (FlxG.keys.justReleased("R")) {
+				resetLevelItems();
+				NextLevel();
+			}
+			if (FlxG.keys.justReleased("ESCAPE")) {
+				resetLevelItems();
+				FlxG.switchState(new LevelState());
 			}
 			
 			Score.time += FlxG.elapsed;
@@ -115,13 +121,12 @@ package
 		
 		private function showScoreWindow():void
 		{
-			_scoreWindow = new ScoreWindow(400, function():void
+			_scoreWindow = new ScoreWindow(Score.GetLevelScore(), function():void
 			{
 				remove(_scoreWindow);
 				_scoreWindow = null;
 				
-				level.kill();
-				_player.kill();
+				resetLevelItems();
 				
 				_currentLevel++;
 				NextLevel();
@@ -185,12 +190,19 @@ package
 				}
 			}
 		}
+		
+		private function resetLevelItems():void
+		{
+			Score.ResetLevelScore();
+			_wallbreakers.clear();
+			level.kill();
+			_player.kill();
+		}
+		
 		private function OverlapPlayerPortal(player:Player, object:EndPortal):void {
 			if (player.x % 64 == 0 && player.y % 64 == 0 && _scoreWindow == null) {
 				Score.AddStepsForLevel();
 				Score.AddTimeForLevel();
-				
-				_wallbreakers.clear();
 			
 				this.showScoreWindow();
 			}
