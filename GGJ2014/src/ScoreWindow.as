@@ -110,6 +110,15 @@ package
 				
 				_totalScoreText.text = _totalScore.toString();
 				_levelScoreText.text = _levelScore.toString();
+				
+				if (FlxG.keys.justPressed("SPACE")) {
+					_totalScore += _levelScore;
+					_levelScore = 0;
+					FlxG.play(soundScore, 0.2);
+					
+					_totalScoreText.text = _totalScore.toString();
+					_levelScoreText.text = _levelScore.toString();
+				}
 			}
 			else if(!this._readyForCallback)
 			{
