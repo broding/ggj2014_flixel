@@ -5,6 +5,7 @@ package
 	
 	public class MenuState extends FlxState
 	{
+		[Embed(source='../assets/Music/walk.mp3')]private var selectsnd:Class;
 		[Embed(source = "../assets/fonts/AldotheApache.ttf", fontName = "AldotheApache", embedAsCFF = "false", mimeType = "application/x-font")]
 		private var FontClass2:Class;
 		[Embed(source='../assets/logo.png')]private var img5:Class;
@@ -55,12 +56,14 @@ package
 			if (controls_on) {
 				if(selected!=2){
 					if (FlxG.keys.justPressed("DOWN")) {
+						FlxG.play(selectsnd, 0.5);
 						selectSquare.y += selectSquare.height+3;
 						selected++;
 					}
 				}
 				if(selected!=0){
 					if (FlxG.keys.justPressed("UP")) {
+						FlxG.play(selectsnd, 0.5);
 						selectSquare.y -= selectSquare.height+3;
 						selected --;
 					}
