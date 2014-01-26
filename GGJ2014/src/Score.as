@@ -31,6 +31,10 @@ package
 			stepsTaken = 0;
 			time = 0;
 		}
+		
+		public static function GetLevelScore():uint {
+			return 1000 - stepsPerLevel[stepsPerLevel.length - 1] - timePerLevel[timePerLevel.length - 1];
+		}
 	}
 
 }

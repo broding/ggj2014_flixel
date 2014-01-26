@@ -110,7 +110,7 @@ package
 		
 		private function showScoreWindow():void
 		{
-			_scoreWindow = new ScoreWindow(400, function():void
+			_scoreWindow = new ScoreWindow(Score.GetLevelScore(), function():void
 			{
 				remove(_scoreWindow);
 				_scoreWindow = null;
