@@ -8,9 +8,9 @@ package
 	{
 		private var _name:String;
 		private var _score:int;
-		private var _date:Date;
+		private var _date:String;
 		
-		public function HighscorePlayer(name:String, score:int, date:Date) 
+		public function HighscorePlayer(name:String, score:int, date:String) 
 		{
 			this._name = name;
 			this._score = score;
@@ -27,7 +27,7 @@ package
 			return _score;
 		}
 		
-		public function get date():Date 
+		public function get date():String 
 		{
 			return _date;
 		}

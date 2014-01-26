@@ -86,9 +86,8 @@ package
 					Score.score = 0;
 					FlxG.switchState(new MenuState());
 				}
+				Score.time += FlxG.elapsed;
 			}
-			
-			Score.time += FlxG.elapsed;
 			
 			super.update();
 		}
