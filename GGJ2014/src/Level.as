@@ -2,6 +2,7 @@ package
 {
 	
 	import flash.system.System;
+	
 	import org.flixel.*;
 	/**
 	 * ...
@@ -31,6 +32,8 @@ package
 		private var _rasterBackground:RasterBackground;
 		private var _whiteBorder:WhiteBorder;
 		private var _zoomBorder:ZoomBorder;
+		
+		private var _wallbreakerCount:WallBreakerCount;
 		
 		private var bg:FlxSprite;
 		
@@ -157,6 +160,8 @@ package
 			worldRight.immovable = true;
 			worldBounds.push(worldRight);
 			
+			_wallbreakerCount = new WallBreakerCount();
+			FlxG.state.add(_wallbreakerCount);
 			
 			bg.x = width / 2 - FlxG.width / 2;
 			bg.y = height / 2 - FlxG.height / 2;

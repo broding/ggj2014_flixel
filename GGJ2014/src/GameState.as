@@ -20,7 +20,6 @@ package
 		private var _wallbreakers:FlxGroup = new FlxGroup();
 		
 		private var _scoreWindow:ScoreWindow;
-		private var _wallbreakerCount:WallBreakerCount;
 		
 		public function GameState(selectedLevel:uint) 
 		{
@@ -32,7 +31,6 @@ package
 		
 		override public function create():void 
 		{	
-			
 			level = new Level();
 			level.LoadLevelData(LevelDataManager.getLevelData(_currentLevel));
 			
@@ -41,9 +39,6 @@ package
 			
 			_player = new Player(level.spawn.x, level.spawn.y);
 			add(_player);
-			
-			_wallbreakerCount = new WallBreakerCount();
-			add(_wallbreakerCount);
 			
 			super.create();
 		}
