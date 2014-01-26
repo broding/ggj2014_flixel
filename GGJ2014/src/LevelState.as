@@ -7,6 +7,7 @@ package
 		//[Embed(source = "assets/fonts/fibo.ttf", fontName = "FibographyPersonalUse", embedAsCFF="false", mimeType="application/x-font")]
 		//private var FontClass:Class;
 		
+		[Embed(source = "../assets/Music/MenuSongFinished.mp3")] private var _backgroundMusic:Class;
 		[Embed(source = "../assets/fonts/AldotheApache.ttf", fontName = "AldotheApache", embedAsCFF="false", mimeType="application/x-font")]
 		private var FontClass2:Class;
 		
@@ -25,7 +26,7 @@ package
 		
 		public function LevelState()
 		{
-			
+			FlxG.playMusic(_backgroundMusic, 0.5);
 		}
 		
 		override public function create():void
