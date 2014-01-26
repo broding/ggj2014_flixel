@@ -24,6 +24,7 @@ package
 		private var _nameText:FlxText;
 		private var _scoreText:FlxText;
 		private var _dateText:FlxText;
+		private var _endtext:FlxText;
 		
 		public function HighscoreState() 
 		{
@@ -65,6 +66,13 @@ package
 			_dateText.x = FlxG.width - (FlxG.width / 5);
 			_dateText.setFormat("AldotheApache", 19, 0xffffff);
 			
+			_endtext = new FlxText(0, 0, 300, "Press SPACE to return to menu");
+			_endtext.setFormat("AldotheApache", 25);
+			_endtext.alignment = "center";
+			_endtext.x = (FlxG.width/2)-150;
+			_endtext.y = 520;
+			
+			
 			var placeString:String = "Place: \n\n";
 			var nameString:String = "Name: \n\n";
 			var scoreString:String = "Score: \n\n";
@@ -87,6 +95,7 @@ package
 			add(_scoreText);
 			add(_dateText);
 			add(_text);
+			add(_endtext);
 		}
 		
 		override public function update():void
