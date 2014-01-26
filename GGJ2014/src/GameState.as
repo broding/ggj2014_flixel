@@ -152,7 +152,7 @@ package
 				trace(e.message);
 				if (e.message == "[LDM] level does not exist") {
 					trace("NEXT LEVEL");
-					FlxG.switchState(new EndState());
+					FlxG.switchState(new HighscoreState());
 				}
 			}
 		}

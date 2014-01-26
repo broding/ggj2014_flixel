@@ -154,7 +154,7 @@ package
 							if (selected == 0) {
 								FlxG.switchState(new LevelState());
 							}else if (selected == 1) {
-								FlxG.switchState(new EndState());
+								FlxG.switchState(new HighscoreState());
 							}
 						}
 				}
