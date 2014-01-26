@@ -9,12 +9,14 @@ package
 		[Embed(source = '../assets/Inverted_Splashscreen.png')]private var img1:Class;
 		[Embed(source = '../assets/miniblue.png')]private var img2:Class;
 		[Embed(source = '../assets/minigreen.png')]private var img3:Class;
-		[Embed(source='../assets/minired.png')]private var img4:Class;
+		[Embed(source = '../assets/minired.png')]private var img4:Class;
+		[Embed(source='../assets/logo.png')]private var img5:Class;
 		private var splashscreen1:FlxSprite;
 		private var splashscreen2:FlxSprite;
 		private var splashscreen3:FlxSprite;
 		private var splashscreen4:FlxSprite;
 		
+		private var titlescreen:FlxSprite;
 		private var menutext:FlxText;
 		private var timer:Number =0;
 		private var startTime:Boolean = true;
@@ -50,6 +52,13 @@ package
 			splashscreen2.x = (FlxG.width / 2) - (splashscreen2.width / 2);
 			splashscreen2.y = (FlxG.height / 2) - (splashscreen2.height / 2);
 			
+			titlescreen = new FlxSprite(0, 0, img5);
+			add(titlescreen);
+			titlescreen.visible = false;
+			titlescreen.width = 100;
+			titlescreen.height = 100;
+			titlescreen.x =  (FlxG.width / 2) - (splashscreen2.width / 2);
+			titlescreen.y =  (FlxG.height / 2) - (splashscreen2.height / 2);
 			
 			splashscreen1.alpha = 0; 
 			splashscreen2.alpha = 0; 
@@ -120,6 +129,7 @@ package
 		}
 		public function showTitle():void {
 			menutext.visible = true;
+			titlescreen.visible = true;
 		}
 	}
 }

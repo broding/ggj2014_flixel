@@ -104,7 +104,7 @@ package
 			}
 			if (!exists && _wallbreakers.length < maxWallBreakers) {
 				var wallbreaker:WallBreaker = new WallBreaker(_player.x, _player.y, tileindex, level.currentLayer);
-				wallbreaker.color = level.getLayerBackground(level.currentLayer);
+				wallbreaker.color = level.getLayerBackgroundBrighter(level.currentLayer);
 				_wallbreakers.add(wallbreaker);
 				
 				for (var k:int = 0; k < level.layers.length; k++)
