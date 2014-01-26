@@ -7,11 +7,13 @@ package
 	{
 		[Embed(source = "../assets/fonts/AldotheApache.ttf", fontName = "AldotheApache", embedAsCFF = "false", mimeType = "application/x-font")]
 		private var FontClass2:Class;
+		[Embed(source = "../assets/Music/MenuSongFinished.mp3")] private var _backgroundMusic:Class;
 		[Embed(source = '../assets/Inverted_Splashscreen.png')]private var img1:Class;
 		[Embed(source = '../assets/miniblue.png')]private var img2:Class;
 		[Embed(source = '../assets/minigreen.png')]private var img3:Class;
 		[Embed(source = '../assets/minired.png')]private var img4:Class;
-		[Embed(source='../assets/logo.png')]private var img5:Class;
+		[Embed(source = '../assets/logo.png')]private var img5:Class;
+		
 		private var splashscreen1:FlxSprite;
 		private var splashscreen2:FlxSprite;
 		private var splashscreen3:FlxSprite;
@@ -32,6 +34,7 @@ package
 		
 		public function MenuState()
 		{
+			FlxG.playMusic(_backgroundMusic, 0.5);
 			super();
 		}
 		override public function create():void 

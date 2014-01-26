@@ -15,6 +15,8 @@ package
 		[Embed(source = "../assets/Music/pickUp.mp3")] private var sndpickUp:Class;
 		[Embed(source = "../assets/Music/place.mp3")] private var sndDrop:Class;
 		[Embed(source = "../assets/Music/nextLvl.mp3")] private var sndNext:Class;
+		[Embed(source = "../assets/Music/placeWrong.mp3")] private var sndPlaceWrong:Class;
+		
 		
 		[Embed(source = "../assets/Music/whateversoothsyoubest.mp3")] private var _backgroundMusic:Class;
 		private var level:Level;
@@ -106,17 +108,24 @@ package
 					exists = true;
 				}
 			}
+			var onSwitch:Boolean = false;
 			for (var m:int = 0; m < level.switches.length; m++) {
 				if (level.switches.members[m].x == _player.x && level.switches.members[m].y == _player.y) {
 					exists = true;
+					onSwitch = true;
 				}
+			}
+			
+			if (onSwitch) {
+				FlxG.play(sndPlaceWrong, 0.3);
 			}
 			if (!exists && _wallbreakers.length < maxWallBreakers) {
 				var wallbreaker:WallBreaker = new WallBreaker(_player.x, _player.y, tileindex, level.currentLayer);
 				wallbreaker.color = level.getLayerBackgroundBrighter(level.currentLayer);
 				_wallbreakers.add(wallbreaker);
-				FlxG.play(sndDrop, 0.5);
 				
+				FlxG.play(sndDrop, 0.7);
+							
 				for (var k:int = 0; k < level.layers.length; k++)
 				{
 					if (level.layers[k].getTileByIndex(tileindex) != 0) {
