@@ -5,7 +5,7 @@ package
 	
 	public class MenuState extends FlxState
 	{
-		[Embed(source='../assets/Music/walk.mp3')]private var selectsnd:Class;
+		[Embed(source='../assets/Music/menuMove.mp3')]private var selectsnd:Class;
 		[Embed(source = "../assets/fonts/AldotheApache.ttf", fontName = "AldotheApache", embedAsCFF = "false", mimeType = "application/x-font")]
 		private var FontClass2:Class;
 		[Embed(source = "../assets/Music/MenuSongFinished.mp3")] private var _backgroundMusic:Class;
