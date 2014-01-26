@@ -33,7 +33,9 @@ package
 		}
 		
 		public static function GetLevelScore():uint {
-			return 1000 - stepsPerLevel[stepsPerLevel.length - 1] - timePerLevel[timePerLevel.length - 1];
+			var result:int = stepsPerLevel[stepsPerLevel.length - 1] - timePerLevel[timePerLevel.length - 1];
+			if (result < 0) result = 0;
+			return 200 - result;
 		}
 	}
 

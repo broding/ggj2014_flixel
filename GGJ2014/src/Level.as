@@ -169,8 +169,11 @@ package
 			worldRight.immovable = true;
 			worldBounds.push(worldRight);
 			
-			_wallbreakerCount = new WallBreakerCount();
-			FlxG.state.add(_wallbreakerCount);
+			if(lvlData.id >= 4)
+			{
+				_wallbreakerCount = new WallBreakerCount(height + 30);
+				FlxG.state.add(_wallbreakerCount);
+			}
 			
 			bg.x = width / 2 - FlxG.width / 2;
 			bg.y = height / 2 - FlxG.height / 2;
@@ -227,6 +230,23 @@ package
 					break;
 				case 2:
 					return 0x00ff00;
+					break;
+			}
+			
+			return 0x0000ff;
+		}
+		public function getLayerBackgroundBrighter(index:uint):uint
+		{
+			switch(index)
+			{
+				case 0:
+					return 0x14A4FF;
+					break;
+				case 1:
+					return 0xFF3503;
+					break;
+				case 2:
+					return 0x9BFF06;
 					break;
 			}
 			

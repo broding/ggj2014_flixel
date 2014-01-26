@@ -8,9 +8,16 @@ package
 	public class GameState extends FlxState
 	{
 		public static var tileSize:int = 64;
+		public var playerColliding:Boolean = false;
 		
 		[Embed(source = "../assets/Music/switchDimen.mp3")] private var soundSwitch:Class;
 		[Embed(source = "../assets/Music/bump.mp3")] private var sndBump:Class;
+		[Embed(source = "../assets/Music/pickUp.mp3")] private var sndpickUp:Class;
+		[Embed(source = "../assets/Music/place.mp3")] private var sndDrop:Class;
+		[Embed(source = "../assets/Music/nextLvl.mp3")] private var sndNext:Class;
+		[Embed(source = "../assets/Music/placeWrong.mp3")] private var sndPlaceWrong:Class;
+		
+		
 		[Embed(source = "../assets/Music/whateversoothsyoubest.mp3")] private var _backgroundMusic:Class;
 		private var level:Level;
 		private var _currentLevel:uint;
@@ -44,8 +51,10 @@ package
 		}
 		
 		override public function update():void
-		{
-			level.wallbreakerCount.updateAmount(this.maxWallBreakers - this._wallbreakers.length);
+		{	
+		
+			if(level.wallbreakerCount != null)
+				level.wallbreakerCount.updateAmount(this.maxWallBreakers - this._wallbreakers.length);
 			
 			if (level.spacebarHelp != null && level.currentLayer == 2) {
 				level.spacebarHelp.visible = true;
@@ -75,7 +84,7 @@ package
 				if (FlxG.keys.justReleased("ESCAPE")) {
 					resetLevelItems();
 					Score.score = 0;
-					FlxG.switchState(new LevelState());
+					FlxG.switchState(new MenuState());
 				}
 			}
 			
@@ -94,21 +103,30 @@ package
 						level.layers[_wallbreakers.members[i].breakLayers[j]].setTileByIndex(_wallbreakers.members[i].breakTileIndex[j], _wallbreakers.members[i].breakTileType[j]);
 					}
 					_wallbreakers.members[i].kill();
+					FlxG.play(sndpickUp, 0.5);
 					exists = true;
 				} else if (_wallbreakers.members[i].tileIndex == tileindex) {
 					exists = true;
 				}
 			}
+			var onSwitch:Boolean = false;
 			for (var m:int = 0; m < level.switches.length; m++) {
 				if (level.switches.members[m].x == _player.x && level.switches.members[m].y == _player.y) {
 					exists = true;
+					onSwitch = true;
 				}
+			}
+			
+			if (onSwitch) {
+				FlxG.play(sndPlaceWrong, 0.3);
 			}
 			if (!exists && _wallbreakers.length < maxWallBreakers) {
 				var wallbreaker:WallBreaker = new WallBreaker(_player.x, _player.y, tileindex, level.currentLayer);
-				wallbreaker.color = level.getLayerBackground(level.currentLayer);
+				wallbreaker.color = level.getLayerBackgroundBrighter(level.currentLayer);
 				_wallbreakers.add(wallbreaker);
 				
+				FlxG.play(sndDrop, 0.7);
+							
 				for (var k:int = 0; k < level.layers.length; k++)
 				{
 					if (level.layers[k].getTileByIndex(tileindex) != 0) {
@@ -152,7 +170,7 @@ package
 				trace(e.message);
 				if (e.message == "[LDM] level does not exist") {
 					trace("NEXT LEVEL");
-					FlxG.switchState(new EndState());
+					FlxG.switchState(new SubmitState());
 				}
 			}
 		}
@@ -179,7 +197,7 @@ package
 					object.touched = true;
 					level.SwitchToLayer(object.targetLayer);
 					
-					FlxG.play(soundSwitch, 0.9);
+					FlxG.play(soundSwitch, 0.7);
 					
 					for (var i:int = 0; i < _wallbreakers.length; i++) {
 						if (_wallbreakers.members[i].layerId == level.currentLayer) {
@@ -207,7 +225,7 @@ package
 			if (player.x % 64 == 0 && player.y % 64 == 0 && _scoreWindow == null) {
 				Score.AddStepsForLevel();
 				Score.AddTimeForLevel();
-			
+				FlxG.play(sndNext, 0.5);
 				this.showScoreWindow();
 			}
 		}

@@ -7,6 +7,7 @@ package
 		//[Embed(source = "assets/fonts/fibo.ttf", fontName = "FibographyPersonalUse", embedAsCFF="false", mimeType="application/x-font")]
 		//private var FontClass:Class;
 		
+		
 		[Embed(source = "../assets/fonts/AldotheApache.ttf", fontName = "AldotheApache", embedAsCFF="false", mimeType="application/x-font")]
 		private var FontClass2:Class;
 		
@@ -62,6 +63,10 @@ package
 			if(FlxG.keys.justPressed("SPACE"))
 			{
 				FlxG.switchState(new GameState(_currentLevel));
+			}
+			
+			if (FlxG.keys.justPressed("ESCAPE")) {
+				FlxG.switchState(new MenuState());
 			}
 		}
 		
