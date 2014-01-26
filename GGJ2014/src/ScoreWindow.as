@@ -85,7 +85,6 @@ package
 			add(_particles);
 			add(_levelScoreText);
 			add(_totalScoreText);
-			add(_continueText);
 		}
 		
 		override public function update():void
@@ -128,6 +127,7 @@ package
 				_levelScoreText.text = "0";
 				_readyForCallback = true;
 				
+				add(_continueText);
 			}
 			else if(this._readyForCallback)
 			{
