@@ -48,6 +48,7 @@ package
 		
 		private function submitComplete(e:Event):void
 		{
+			//*
 			var loader:URLLoader = URLLoader(e.target);
 
 			var data:Array = JSON.decode(loader.data);
@@ -59,6 +60,7 @@ package
 			{
 				_highscorelist.push(new HighscorePlayer(data[0][i], data[1][i], (data[2][i] as Date)));
 			}
+			//*/
 		}
 	}
 }
