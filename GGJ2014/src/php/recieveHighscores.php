@@ -8,7 +8,7 @@ if(mysqli_connect_errno())
 {
 	die("Failed to connect to MySQL: " .$link->error);
 }
-$query = $link->prepare("SELECT name, score, date FROM highscores ORDER BY score DESC LIMIT 50");
+$query = $link->prepare("SELECT name, score, date FROM highscores ORDER BY score DESC LIMIT 20");
 	if($query->execute()) {
 		$query -> bind_result($name, $score, $date);
 		$highscorelist = array();
