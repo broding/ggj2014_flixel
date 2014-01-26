@@ -64,6 +64,10 @@ package
 			{
 				FlxG.switchState(new GameState(_currentLevel));
 			}
+			
+			if (FlxG.keys.justPressed("ESCAPE")) {
+				FlxG.switchState(new MenuState());
+			}
 		}
 		
 		private function loadLevel(data:LevelData):void
