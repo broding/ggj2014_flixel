@@ -44,27 +44,27 @@ package
 			
 			_placeText = new FlxText(0, 0, 60, "");
 			_placeText.scrollFactor.make(0, 0);
-			_placeText.y = 55;
+			_placeText.y = 50;
 			_placeText.x = (FlxG.width / 10);
-			_placeText.setFormat("AldotheApache", 19, 0xffffff);
+			_placeText.setFormat("AldotheApache", 17, 0xffffff);
 			
 			_nameText = new FlxText(0, 0, 200, "");
 			_nameText.scrollFactor.make(0, 0);
-			_nameText.y = 55;
+			_nameText.y = 50;
 			_nameText.x = (FlxG.width / 5);
-			_nameText.setFormat("AldotheApache", 19, 0xffffff);
+			_nameText.setFormat("AldotheApache", 17, 0xffffff);
 			
 			_scoreText = new FlxText(0, 0, 150, "");
 			_scoreText.scrollFactor.make(0, 0);
-			_scoreText.y = 55;
+			_scoreText.y = 50;
 			_scoreText.x = (FlxG.width / 5) * 3;
-			_scoreText.setFormat("AldotheApache", 19, 0xffffff);
+			_scoreText.setFormat("AldotheApache", 17, 0xffffff);
 			
 			_dateText = new FlxText(0, 0, 200, "");
 			_dateText.scrollFactor.make(0, 0);
-			_dateText.y = 55;
+			_dateText.y = 50;
 			_dateText.x = FlxG.width - (FlxG.width / 5);
-			_dateText.setFormat("AldotheApache", 19, 0xffffff);
+			_dateText.setFormat("AldotheApache", 17, 0xffffff);
 			
 			_endtext = new FlxText(0, 0, 300, "Press SPACE to return to menu");
 			_endtext.setFormat("AldotheApache", 25);
