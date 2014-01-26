@@ -1,5 +1,8 @@
 package
 {
+	import flash.events.Event;
+	import flash.net.*;
+	import com.adobe.serialization.json.*;
 	import flash.text.TextField;
 	import flash.text.TextFieldType;
 	
@@ -7,6 +10,10 @@ package
 	
 	public class SubmitState extends FlxState
 	{
+		private var website:String = /*"http://localhost/GGJ2014/highscores.php";//*/ "http://oege.ie.hva.nl/~mater09/GGJ2014/highscores.php";
+		private var _score:int = Score.score;
+		private var _highscorelist:Array;
+		
 		private var _text:FlxText;
 		private var _input:FlxInputText;
 		
@@ -42,9 +49,29 @@ package
 			
 			if(FlxG.keys.justPressed("ENTER"))
 			{
-				// var _input.getText() ofzoiets meegeven!!!
-				FlxG.switchState(new EndState());
+				submit();
 			}
+		}
+		
+		private function submit():void
+		{
+			var myRequest:URLRequest = new URLRequest(website);
+			myRequest.method = URLRequestMethod.POST;
+			
+			var variables:URLVariables = new URLVariables();
+			variables.name = _input.text;
+			variables.score = _score;
+			myRequest.data = variables;
+			
+			var loader:URLLoader = new URLLoader();
+			loader.dataFormat = URLLoaderDataFormat.TEXT;
+			loader.addEventListener(Event.COMPLETE, submitComplete);
+			loader.load(myRequest);
+		}
+		
+		private function submitComplete(e:Event):void
+		{
+			FlxG.switchState(new HighscoreState());
 		}
 	}
 }
