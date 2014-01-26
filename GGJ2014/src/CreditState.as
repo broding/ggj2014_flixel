@@ -59,12 +59,12 @@ package
 			if(beginTime>=pauzeTime){
 				otherText.y-=scrollspeed;
 				headerText.y -= scrollspeed;
-				if(endtext.y >=(500-(endtext.height/2))){
+				if(endtext.y >=((FlxG.height/2)-(endtext.height/2))){
 					endtext.y -= scrollspeed;
 				}
 			}
 			if (FlxG.keys.justPressed("SPACE")) {
-				FlxG.switchState(new LevelState());
+				FlxG.switchState(new MenuState());
 			}
 			
 			super.update();
