@@ -16,7 +16,7 @@ package
 		[Embed(source = "../assets/fonts/AldotheApache.ttf", fontName = "AldotheApache", embedAsCFF = "false", mimeType = "application/x-font")]
 		private var FontClass2:Class;
 		
-		private var website:String = /*"http://localhost/GGJ2014/highscores.php";//*/ "http://oege.ie.hva.nl/~mater09/GGJ2014/recieveHighscores.php";
+		private var website:String = /*"http://localhost/GGJ2014/highscores.php";//*/ "http://oege.ie.hva.nl/~mater09/GGJ2014/recieveHighscores.php?rand="+Math.random() * 1000;
 		private var _highscorelist:Array;
 		
 		private var _text:FlxText;
@@ -114,13 +114,12 @@ package
 		
 		private function submitComplete(e:Event):void
 		{
-			//*
+			_highscorelist = new Array();
 			var loader:URLLoader = URLLoader(e.target);
 
 			var data:Array = JSON.decode(loader.data);
 			
 			var size:int = data[0].length;
-			
 			for (var i:int = 0; i < size; i++)
 			{
 				_highscorelist.push(new HighscorePlayer(data[0][i], data[1][i], (data[2][i] as String)));
