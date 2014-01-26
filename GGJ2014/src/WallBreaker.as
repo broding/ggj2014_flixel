@@ -8,7 +8,7 @@ package
 	public class WallBreaker extends FlxSprite
 	{
 		[Embed(source="../assets/wallbreaker.png")] private var ImgOverlay:Class;
-		[Embed(source="../assets/wallbreaker_animated.png")] private var ImgPlayer:Class;
+		[Embed(source="../assets/wallbreaker_lightning.png")] private var ImgPlayer:Class;
 		public var breakLayers:Array = new Array();
 		public var breakTileIndex:Array = new Array();
 		public var breakTileType:Array = new Array();
@@ -21,11 +21,11 @@ package
 			tileIndex = tileindex;
 			layerId = layerid;
 			this.loadGraphic(ImgPlayer, true, false, 64, 64);
-			addAnimation("idle", [0, 1, 2, 3], 20);
+			addAnimation("idle", [0, 1, 2, 3,4,5,6,7,8], 10);
 			play("idle");
 			
 			overlay = new FlxSprite(this.x, this.y, ImgOverlay);
-			overlay.visible = true;
+			overlay.visible = false;
 		}
 		
 		public function AddBreakPoint(layer:int, tileindex:int, tiletype:int):void {
@@ -48,12 +48,16 @@ package
 		override public function update():void 
 		{
 			super.update();
-			overlay.update();
+			if(overlay.visible){
+				overlay.update();
+			}
 		}
 		override public function draw():void 
 		{
 			super.draw();
-			overlay.draw();
+			if(overlay.visible){
+				overlay.draw();
+			}
 		}
 	}
 
