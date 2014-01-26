@@ -63,7 +63,7 @@ package
 					endtext.y -= scrollspeed;
 				}
 			}
-			if (FlxG.keys.justPressed("SPACE")) {
+			if (FlxG.keys.justPressed("SPACE")||FlxG.keys.justPressed("ESCAPE")) {
 				FlxG.switchState(new MenuState());
 			}
 			
