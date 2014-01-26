@@ -1,6 +1,6 @@
 package
 {
-	import flash.events.Event;
+	import flash.events.*;
 	import flash.net.*;
 	import com.adobe.serialization.json.*;
 	import flash.text.TextField;
@@ -16,6 +16,8 @@ package
 		
 		private var _text:FlxText;
 		private var _input:FlxInputText;
+		
+		private var _checker:ConnectionChecker;
 		
 		public function SubmitState()
 		{
@@ -39,6 +41,8 @@ package
 			_input.text = "";
 			_input.hasFocus = true;
 			
+			_checker = new ConnectionChecker();
+			
 			add(_text);
 			add(_input);
 		}
@@ -51,6 +55,19 @@ package
 			{
 				submit();
 			}
+			
+			if (FlxG.keys.justPressed("ESCAPE"))
+				FlxG.switchState(new MenuState());
+		}
+		
+		private function checker_success(event:Event):void
+		{
+			submit();
+		}
+
+		private function checker_error(event:Event):void
+		{
+			FlxG.switchState(new MenuState());
 		}
 		
 		private function submit():void
@@ -66,7 +83,24 @@ package
 			var loader:URLLoader = new URLLoader();
 			loader.dataFormat = URLLoaderDataFormat.TEXT;
 			loader.addEventListener(Event.COMPLETE, submitComplete);
-			loader.load(myRequest);
+			loader.addEventListener(IOErrorEvent.IO_ERROR, onError)
+			loader.addEventListener(AsyncErrorEvent.ASYNC_ERROR, onError);
+			loader.addEventListener(SecurityErrorEvent.SECURITY_ERROR, onError);
+			loader.addEventListener(IOErrorEvent.IO_ERROR, onError);
+			
+			try
+            {
+				loader.load(myRequest);
+            }
+            catch ( e:Error )
+            {
+                onError(null);
+            }
+		}
+		
+		private function onError(e:Event):void
+		{
+			FlxG.switchState(new MenuState());
 		}
 		
 		private function submitComplete(e:Event):void

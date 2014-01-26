@@ -29,7 +29,7 @@ $query = $link->prepare("INSERT INTO highscores(name, score) VALUES (?, ?)");
 		die("Request failed");
 	}
 
-$query = $link->prepare("SELECT name, score, date FROM highscores ORDER BY score DESC LIMIT 50");
+$query = $link->prepare("SELECT name, score, date FROM highscores ORDER BY score DESC LIMIT 20");
 	if($query->execute()) {
 		$query -> bind_result($name, $score, $date);
 		$highscorelist = array();
