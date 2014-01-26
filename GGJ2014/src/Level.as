@@ -232,6 +232,23 @@ package
 			
 			return 0x0000ff;
 		}
+		public function getLayerBackgroundBrighter(index:uint):uint
+		{
+			switch(index)
+			{
+				case 0:
+					return 0x14A4FF;
+					break;
+				case 1:
+					return 0xFF3503;
+					break;
+				case 2:
+					return 0x9BFF06;
+					break;
+			}
+			
+			return 0x0000ff;
+		}
 		
 		private function getAutoTileValue(layerIndex:uint, tileIndex:uint):uint
 		{
