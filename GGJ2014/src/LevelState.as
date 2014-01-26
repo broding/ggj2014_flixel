@@ -24,6 +24,9 @@ package
 		private var _whiteBorders:FlxGroup;
 		private var _zoomBorder:ZoomBorder;
 		
+		private var leftArrow:FlxSprite;
+		private var rightArrow:FlxSprite;
+		
 		public function LevelState()
 		{
 			
@@ -47,6 +50,17 @@ package
 			setTileMapPreview();
 			
 			add(_levelName);
+			
+			leftArrow = new FlxSprite(0, 0, blue);
+			leftArrow.x = _levelName.x -leftArrow.width-50;
+			add(leftArrow);
+			
+			
+			rightArrow = new FlxSprite(0, 0, red);
+			rightArrow.x = _levelName.x +_levelName.width + 50;
+			rightArrow.scale.x = -1;
+			leftArrow.y = rightArrow.y = (_levelName.y+(_levelName.height/2)) -(leftArrow.height / 2);
+			add(rightArrow);
 		}
 		
 		override public function update():void
