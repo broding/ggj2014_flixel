@@ -45,8 +45,7 @@ package
 		
 		override public function update():void
 		{
-			level.wallbreakerCount.updateAmount(this.maxWallBreakers);
-			trace(this.maxWallBreakers);
+			level.wallbreakerCount.updateAmount(this.maxWallBreakers - this._wallbreakers.length);
 			
 			if (level.spacebarHelp != null && level.currentLayer == 2) {
 				level.spacebarHelp.visible = true;
