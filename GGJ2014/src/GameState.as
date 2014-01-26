@@ -18,6 +18,8 @@ package
 		private var _player:Player;
 		private var _wallbreakers:FlxGroup = new FlxGroup();
 		
+		private var _scoreWindow:ScoreWindow;
+		
 		public function GameState(selectedLevel:uint) 
 		{
 			super();
@@ -25,6 +27,7 @@ package
 			_currentLevel = selectedLevel;
 			FlxG.playMusic(_backgroundMusic, 1);
 		}
+		
 		override public function create():void 
 		{	
 			level = new Level();
@@ -38,7 +41,7 @@ package
 			super.create();
 		}
 		
-		override public function update():void 
+		override public function update():void
 		{
 			if (level.spacebarHelp != null && level.currentLayer == 2) {
 				level.spacebarHelp.visible = true;
@@ -103,6 +106,23 @@ package
 			}
 		}
 		
+		private function showScoreWindow():void
+		{
+			_scoreWindow = new ScoreWindow(400, function():void
+			{
+				remove(_scoreWindow);
+				_scoreWindow = null;
+				
+				level.kill();
+				_player.kill();
+				
+				_currentLevel++;
+				NextLevel();
+			});
+			
+			add(_scoreWindow);
+		}
+		
 		private function NextLevel():void {
 			try{
 				level = new Level();
@@ -154,16 +174,13 @@ package
 			}
 		}
 		private function OverlapPlayerPortal(player:Player, object:EndPortal):void {
-			if (player.x % 64 == 0 && player.y % 64 == 0) {
+			if (player.x % 64 == 0 && player.y % 64 == 0 && _scoreWindow == null) {
 				Score.AddStepsForLevel();
 				Score.AddTimeForLevel();
 				
 				_wallbreakers.clear();
 			
-				level.kill();
-				player.kill();
-				_currentLevel++;
-				NextLevel();
+				this.showScoreWindow();
 			}
 		}
 	}

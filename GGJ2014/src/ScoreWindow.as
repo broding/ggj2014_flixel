@@ -23,8 +23,12 @@ package
 		private var _levelScore:int;
 		private var _totalScore:int;
 		
-		public function ScoreWindow(levelScore:int)
+		private var _callback:Function;
+		
+		public function ScoreWindow(levelScore:int, callback:Function)
 		{
+			_callback = callback;
+			
 			_levelScore = levelScore;
 			_totalScore = 310;
 			
@@ -96,8 +100,8 @@ package
 					_particleTimer = 0;
 				}
 				
-				_levelScore--;
-				_totalScore++;
+				_levelScore -= 5;
+				_totalScore += 5;
 				
 				_totalScoreText.text = _totalScore.toString();
 				_levelScoreText.text = _levelScore.toString();
@@ -105,6 +109,9 @@ package
 			else
 			{
 				_particles.clear();
+				
+				if(FlxG.keys.justPressed("SPACE"))
+					_callback();
 			}
 			
 		}
