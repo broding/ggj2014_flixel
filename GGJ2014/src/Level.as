@@ -46,6 +46,11 @@ package
 			_rasterBackground = new RasterBackground();
 		}
 		
+		public function get wallbreakerCount():WallBreakerCount
+		{
+			return _wallbreakerCount;
+		}
+
 		public function LoadLevelData(lvlData:LevelData):void {
 			if (lvlData.layers.length <= 0) {
 				trace("empty layer array!");

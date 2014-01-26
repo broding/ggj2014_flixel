@@ -45,6 +45,9 @@ package
 		
 		override public function update():void
 		{
+			level.wallbreakerCount.updateAmount(this.maxWallBreakers);
+			trace(this.maxWallBreakers);
+			
 			if (level.spacebarHelp != null && level.currentLayer == 2) {
 				level.spacebarHelp.visible = true;
 			} else if (level.spacebarHelp != null) {
@@ -63,6 +66,11 @@ package
 			if (FlxG.keys.justPressed("SPACE") && !_player.moving) {
 				var tileindex:int = Math.floor(_player.x / 64) + (Math.floor(_player.y / 64) * level.layers[level.currentLayer].widthInTiles);
 				ToggleWallbreaker(tileindex);
+			}
+			
+			if (FlxG.keys.justReleased("R")) {
+				resetLevelItems();
+				NextLevel();
 			}
 			
 			Score.time += FlxG.elapsed;
@@ -115,14 +123,18 @@ package
 				remove(_scoreWindow);
 				_scoreWindow = null;
 				
-				level.kill();
-				_player.kill();
+				resetLevelItems();
 				
 				_currentLevel++;
 				NextLevel();
 			});
 			
 			add(_scoreWindow);
+		}
+		
+		private function resetLevel():void
+		{
+			
 		}
 		
 		private function NextLevel():void {
@@ -180,12 +192,19 @@ package
 				}
 			}
 		}
+		
+		private function resetLevelItems():void
+		{
+			Score.ResetLevelScore();
+			_wallbreakers.clear();
+			level.kill();
+			_player.kill();
+		}
+		
 		private function OverlapPlayerPortal(player:Player, object:EndPortal):void {
 			if (player.x % 64 == 0 && player.y % 64 == 0 && _scoreWindow == null) {
 				Score.AddStepsForLevel();
 				Score.AddTimeForLevel();
-				
-				_wallbreakers.clear();
 			
 				this.showScoreWindow();
 			}

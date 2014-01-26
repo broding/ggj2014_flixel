@@ -26,5 +26,10 @@ package
 			add(_text);
 			add(_breakerSprite);
 		}
+		
+		public function updateAmount(amount:uint):void
+		{
+			_text.text = "              x " + amount;
+		}
 	}
 }
