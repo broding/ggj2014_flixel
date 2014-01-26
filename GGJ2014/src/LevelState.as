@@ -93,7 +93,7 @@ package
 			{
 				_mapPreviews.add(new FlxTilemap());
 				_mapPreviews.members[i].loadMap(LevelDataManager.getLevelData(_currentLevel).layers[i],this.getLayerColor(i), 16, 16);
-				_mapPreviews.members[i].x = (FlxG.width / 3) - (_mapPreviews.members[i].widthInTiles / 2) * 16 + (i * (_mapPreviews.members[i].width + 20));
+				_mapPreviews.members[i].x = (FlxG.width / 2) + ((i * _mapPreviews.members[i].widthInTiles * 16) + (i * 20)) - (((LevelDataManager.getLevelData(_currentLevel).layers.length / 2) * _mapPreviews.members[i].widthInTiles * 16) + (((LevelDataManager.getLevelData(_currentLevel).layers.length - 1) / 2) * 20));
 				_mapPreviews.members[i].y = (FlxG.height / 2) - (_mapPreviews.members[i].heightInTiles / 2) * 16;
 				
 				_whiteBorders.add(new WhiteBorder(_mapPreviews.members[i].width, _mapPreviews.members[i].height, _mapPreviews.members[i].x, _mapPreviews.members[i].y));
