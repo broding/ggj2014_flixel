@@ -14,6 +14,8 @@ package
 		private var _score:int = Score.score;
 		private var _highscorelist:Array;
 		
+		private var _scoreText:FlxText;
+		
 		private var _text:FlxText;
 		private var _input:FlxInputText;
 		
@@ -32,6 +34,12 @@ package
 			_text.setFormat("AldotheApache", 40, 0xffffff);
 			_text.alignment = "center";
 			
+			_scoreText = new FlxText(0, 0, 300, "Your score: " + Score.score);
+			_scoreText.setFormat("AldotheApache", 40);
+			_scoreText.alignment = "center";
+			_scoreText.x = (FlxG.width/2) - _scoreText.width / 2;
+			_scoreText.y = 50;
+			
 			_input = new FlxInputText(0, 300, "", FlxG.width);
 			_input.alignment = "center";
 			_input.size = 30;
@@ -39,6 +47,7 @@ package
 			_input.text = "";
 			_input.hasFocus = true;
 			
+			add(_scoreText);
 			add(_text);
 			add(_input);
 		}
