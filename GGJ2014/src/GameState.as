@@ -71,6 +71,10 @@ package
 				resetLevelItems();
 				NextLevel();
 			}
+			if (FlxG.keys.justReleased("ESCAPE")) {
+				resetLevelItems();
+				FlxG.switchState(new LevelState());
+			}
 			
 			Score.time += FlxG.elapsed;
 			
@@ -129,11 +133,6 @@ package
 			});
 			
 			add(_scoreWindow);
-		}
-		
-		private function resetLevel():void
-		{
-			
 		}
 		
 		private function NextLevel():void {
