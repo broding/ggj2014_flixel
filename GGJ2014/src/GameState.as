@@ -31,6 +31,7 @@ package
 		public function GameState(selectedLevel:uint) 
 		{
 			super();
+			Score.score = 0;
 			
 			_currentLevel = selectedLevel;
 			FlxG.playMusic(_backgroundMusic, 1);
